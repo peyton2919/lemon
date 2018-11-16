@@ -1,0 +1,11 @@
+/* 设置 iframe 滚动条 开始 */
+.init-iframe-box {
+    /* 父容器设置宽度, 并超出部分不显示 */
+    overflow: hidden;
+}
+.init-iframe-box > .iframe-child {
+    /* 子容器比父容器的宽度多 17 px, 经测正好是滚动条的默认宽度 */
+    height: 100%;
+    overflow-y: scroll;
+}
+/* 设置 iframe 滚动条 结束  */

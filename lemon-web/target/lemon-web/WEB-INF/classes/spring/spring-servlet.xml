@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--启动包扫描的功能 [controller层]-->
+    <context:component-scan base-package="cn.peyton.spring.**.controller"/>
+
+    <!--  上下文注解能使用  -->
+    <context:annotation-config/>
+    <mvc:default-servlet-handler/>
+    <!--启动注解驱动的Spring mvc 功能-->
+    <mvc:annotation-driven/>
+
+    <!-- 配置 http 监听  -->
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/**save.json"/>
+            <mvc:mapping path="/**/**update.json"/>
+            <mvc:mapping path="/**/**change.json"/>
+            <bean class="cn.peyton.spring.interceptor.TokenInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="cn.peyton.spring.interceptor.HttpInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <!--  静态资源访问  -->
+    <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
+    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <!--  配置ztree 静态访问  -->
+    <mvc:resources location="/ztree/" mapping="/ztree/**"/>
+    <mvc:resources location="/kindeditor/" mapping="/kindeditor/**"/>
+    <mvc:resources location="/img/" mapping="/img/**"/>
+    <mvc:resources location="/skin/" mapping="/skin/**"/>
+    <!--  测试数据 发布时删除 -->
+    <mvc:resources mapping="/demo/**" location="/demo/"/>
+
+
+    <!-- 定义好RequestMapping的注解 找到对应的接口 -->
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>-->
+
+    <!--  定义全局异常处理  -->
+    <bean class="cn.peyton.spring.exception.SpringExceptionResolver"/>
+
+    <!--  定义全局上下文  设置懒加载  -->
+    <bean class="cn.peyton.spring.common.ApplicationContextHelper" lazy-init="false"/>
+
+    <!--  MVC 请求返回的格式 [pdf 、 json格式 、 下载 等]  视图熏染 -->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+
+    <!--  定义 Json 数据返回格式
+        这里的jsonView 定义在cn.peyton.spring.exception包下的SpringExceptionResolver类中
+        -->
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+
+    <!--  JSP 定义 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="10485760000"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+</beans>

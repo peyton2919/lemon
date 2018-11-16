@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="lemon-web:war">
+    <output-path>$PROJECT_DIR$/lemon-web/target</output-path>
+    <root id="archive" name="lemon-web.war">
+      <element id="artifact" artifact-name="lemon-web:war exploded" />
+    </root>
+  </artifact>
+</component>

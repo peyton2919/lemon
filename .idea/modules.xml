@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/lemon-mall/lemon-mall.iml" filepath="$PROJECT_DIR$/lemon-mall/lemon-mall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-mall/lemon-mall-common/lemon-mall-common.iml" filepath="$PROJECT_DIR$/lemon-mall/lemon-mall-common/lemon-mall-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-mall/lemon-mall-dao/lemon-mall-dao.iml" filepath="$PROJECT_DIR$/lemon-mall/lemon-mall-dao/lemon-mall-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-mall/lemon-mall-pojo/lemon-mall-pojo.iml" filepath="$PROJECT_DIR$/lemon-mall/lemon-mall-pojo/lemon-mall-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-mall/lemon-mall-service/lemon-mall-service.iml" filepath="$PROJECT_DIR$/lemon-mall/lemon-mall-service/lemon-mall-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-parent/lemon-parent.iml" filepath="$PROJECT_DIR$/lemon-parent/lemon-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-permission/lemon-permission.iml" filepath="$PROJECT_DIR$/lemon-permission/lemon-permission.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-permission/lemon-permission-common/lemon-permission-common.iml" filepath="$PROJECT_DIR$/lemon-permission/lemon-permission-common/lemon-permission-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-permission/lemon-permission-dao/lemon-permission-dao.iml" filepath="$PROJECT_DIR$/lemon-permission/lemon-permission-dao/lemon-permission-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-permission/lemon-permission-pojo/lemon-permission-pojo.iml" filepath="$PROJECT_DIR$/lemon-permission/lemon-permission-pojo/lemon-permission-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-permission/lemon-permission-service/lemon-permission-service.iml" filepath="$PROJECT_DIR$/lemon-permission/lemon-permission-service/lemon-permission-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-shared/lemon-shared.iml" filepath="$PROJECT_DIR$/lemon-shared/lemon-shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-tool/lemon-tool.iml" filepath="$PROJECT_DIR$/lemon-tool/lemon-tool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-user/lemon-user.iml" filepath="$PROJECT_DIR$/lemon-user/lemon-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-user/lemon-user-common/lemon-user-common.iml" filepath="$PROJECT_DIR$/lemon-user/lemon-user-common/lemon-user-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-user/lemon-user-dao/lemon-user-dao.iml" filepath="$PROJECT_DIR$/lemon-user/lemon-user-dao/lemon-user-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-user/lemon-user-pojo/lemon-user-pojo.iml" filepath="$PROJECT_DIR$/lemon-user/lemon-user-pojo/lemon-user-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-user/lemon-user-service/lemon-user-service.iml" filepath="$PROJECT_DIR$/lemon-user/lemon-user-service/lemon-user-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lemon-web/lemon-web.iml" filepath="$PROJECT_DIR$/lemon-web/lemon-web.iml" />
+    </modules>
+  </component>
+</project>

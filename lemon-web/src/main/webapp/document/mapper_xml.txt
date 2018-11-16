@@ -1,0 +1,67 @@
+<select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List"/>
+    FROM tb_freight_type
+    ORDER BY id DESC
+    limit #{page.offset},#{page.pageSize}
+</select>
+
+<select id="count" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM tb_freight_type
+</select>
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+<select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+    select DISTINCT
+    <include refid="Base_Column_List"/>
+    FROM tb_freight_type
+    WHERE 1 = 1
+    <if test="keyword != null and keyword != ''">
+        AND (
+        frt_name LIKE concat('%',#{keyword},'%')
+        OR frt_tel LIKE concat('%',#{keyword},'%')
+        OR frt_phone LIKE concat('%',#{keyword},'%')
+        OR frt_fax LIKE concat('%',#{keyword},'%')
+        OR frt_qq LIKE concat('%',#{keyword},'%')
+        OR frt_email LIKE concat('%',#{keyword},'%')
+        OR frt_add LIKE concat('%',#{keyword},'%')
+        OR frt_explain LIKE concat('%',#{keyword},'%'))
+    </if>
+    ORDER BY id DESC
+    limit #{page.offset},#{page.pageSize}
+</select>
+
+<select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+    SELECT DISTINCT COUNT(1)
+    FROM tb_freight_type
+    WHERE 1 = 1
+    <if test="keyword != null and keyword != ''">
+        AND (
+        frt_name LIKE concat('%',#{keyword},'%')
+        OR frt_tel LIKE concat('%',#{keyword},'%')
+        OR frt_phone LIKE concat('%',#{keyword},'%')
+        OR frt_fax LIKE concat('%',#{keyword},'%')
+        OR frt_qq LIKE concat('%',#{keyword},'%')
+        OR frt_email LIKE concat('%',#{keyword},'%')
+        OR frt_add LIKE concat('%',#{keyword},'%')
+        OR frt_explain LIKE concat('%',#{keyword},'%'))
+    </if>
+</select>
+
+////////////////////////////////////////////////////////////////////////////////////////////
+<select id="countByName" parameterType="map" resultType="java.lang.Integer">
+    SELECT COUNT(1)
+    FROM tb_freight_type
+    WHERE frt_name = #{name}
+    <if test="id != null">
+        AND id != #{id}
+    </if>
+</select>
+
+<select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT id,col_name
+        FROM tb_color_info
+        ORDER BY id DESC
+    </select>

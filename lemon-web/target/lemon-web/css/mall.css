@@ -1,0 +1,49 @@
+*{margin: 0;padding: 0;text-decoration: none;list-style-type: none;font-family: Times New Roman;}
+img{border:none;}
+a{border:none;text-decoration: none;color:#000;}
+.border{border:1px solid red;}
+.center{margin: 0 auto;}
+.w{width: 1280px;margin: 0 auto;}
+.fl{float: left;}
+.fr{float: right;}
+.clear{clear:both;}
+.mt20{margin-top: 20px;}
+.mt10{margin-top: 10px;}
+.ml20{margin-left: 20px;}
+.ml40{margin-left: 40px;}
+.mr40{margin-right: 40px;}
+.mb20{margin-bottom: 20px;}
+.border2{border:2px solid #ff6700;}
+.ft20{font-size: 20px;}
+.ftbc{color: #ff6700;font-weight: bold;}
+.pr{padding-right: 40px;}
+
+.h3{font-size: 22px;font-weight: bold;}
+
+/*header*/
+header{width: 100%;height: 40px;background: #333;min-width: 1280px;}
+header .top{width: 1280px;height: 40px;line-height: 40px;}
+header .top .left ul li{float: left;font-size: 12px;color: #ccc;}
+header .top .left ul li a{display:block;padding:0 8px;font-size: 12px;font-family: Times New Roman;color: #b0b0b0;}
+header .top .left ul li a:hover{color:#fff;}
+header .top .right ul li{float: left;font-size: 12px;color: #ccc;}
+header .top .right ul li a{display:block;padding:0 8px;font-size: 12px;font-family: Times New Roman;color: #b0b0b0;}
+header .top .right ul li a:hover{color:#fff;}
+header .top .right .cart a{color:#fff;}
+header .top .right .cart{margin:0 20px;background: #424242;width: 120px;text-align: center;font-size: 12px;cursor:pointer;background: #ff6700;color: #fff;}
+header .top .right .cart:hover{color:#000;background: #666;}
+
+/*banner-top*/
+.banner-top {width: 1280px;height: 100px;}
+.banner-top .logo{background: url('/img/sys/logo_top.png') no-repeat center center;width: 100px;height: 100px;}
+.banner-top .ad_top{width: 180px;height: 66px;background: no-repeat center center;}
+.banner-top .nav ul li{float: left;height: 100px;line-height: 100px;}
+.banner-top .nav ul li a{display:inline-block;color: #000;font-size: 16px;padding: 0 10px;}
+.banner-top .nav ul li a:hover{color: rgb(255,103,0); }
+.banner-top .search{width: 302px;height: 100px;line-height: 100px;}
+.banner-top .search .text{width: 238px;height:37px;line-height: 37px;font-size: 12px;margin-top: 25px;border:1px solid #ccc;}
+.banner-top .search .text:hover{border-color: #ff6700;}
+.banner-top .search .text .shuru{border: none;width: 238px;height: 37px;padding-right: 1px;}
+.banner-top .search .submit{width: 58px;height:38px;line-height: 38px;text-align:center;font-size: 12px;margin-top: 25px;border:1px solid #ccc;}
+.banner-top .search .submit .sousuo{letter-spacing:3px;text-align:center;width: 58px;height:38px;border: none;background: none;cursor:pointer;}
+.banner-top .search .submit:hover{border-color: #ff6700;color:#ff6700;}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="lemon-mall-common" />
+        <module name="lemon-mall-dao" />
+        <module name="lemon-mall-pojo" />
+        <module name="lemon-mall-service" />
+        <module name="lemon-permission-common" />
+        <module name="lemon-permission-dao" />
+        <module name="lemon-permission-pojo" />
+        <module name="lemon-permission-service" />
+        <module name="lemon-shared" />
+        <module name="lemon-tool" />
+        <module name="lemon-user-common" />
+        <module name="lemon-user-dao" />
+        <module name="lemon-user-pojo" />
+        <module name="lemon-user-service" />
+        <module name="lemon-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="lemon-mall" target="1.8" />
+      <module name="lemon-mall-common" target="1.8" />
+      <module name="lemon-mall-dao" target="1.8" />
+      <module name="lemon-mall-pojo" target="1.8" />
+      <module name="lemon-mall-service" target="1.8" />
+      <module name="lemon-parent" target="1.8" />
+      <module name="lemon-permission" target="1.8" />
+      <module name="lemon-permission-common" target="1.8" />
+      <module name="lemon-permission-dao" target="1.8" />
+      <module name="lemon-permission-pojo" target="1.8" />
+      <module name="lemon-permission-service" target="1.8" />
+      <module name="lemon-shared" target="1.8" />
+      <module name="lemon-tool" target="1.8" />
+      <module name="lemon-user" target="1.8" />
+      <module name="lemon-user-common" target="1.8" />
+      <module name="lemon-user-dao" target="1.8" />
+      <module name="lemon-user-pojo" target="1.8" />
+      <module name="lemon-user-service" target="1.8" />
+      <module name="lemon-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-encoding UTF8" />
+  </component>
+</project>

@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" 
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0" 
+			xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd">
+
+	<description>自定义 标签</description>
+  	<display-name>自定义 标签</display-name>
+  	<tlib-version>2.0</tlib-version>
+  	<short-name>p</short-name>
+  	<uri>http://peyton.cn/tags/springmvc</uri>
+
+  	<!--  把peyton.tld文件放在WEB-INF 目录下  -->
+
+  	<tag>
+		<description><![CDATA[数据绑定]]></description>
+		<name>bind</name>
+		<tag-class>cn.peyton.spring.tags.Bind</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[properties配置文件中的key,没找到就返回 ""]]></description>
+			<name>key</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[数据源 properties配置所在位置,默认2个位置 "/conf/i18n.properties","/i18n.properties" ]]></description>
+			<name>data</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  	</tag>
+
+
+	<tag>
+		<description>text 时间格式化 标签</description>
+		<name>dateFormat</name>
+		<tag-class>cn.peyton.spring.tags.DateFormat</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[时间text标签名称]]></description>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[是否需要 tr_td 格式 默认为true 表示需要]]></description>
+			<name>isDisplayTrTd</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[时间text标签id]]></description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[时间值,转换异常不输出]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[时间text标签提示信息]]></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[时间text标签class样式]]></description>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输出时间格式样式 yyyy-MM-dd 为默认样式]]></description>
+			<name>format</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[时间text 样式]]></description>
+			<name>cssStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输出控件样式: label(标签) 与  input(文本框) 这二种样式;默认input]]></description>
+			<name>outStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[左边提示标签]]></description>
+			<name>label</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[ 提示标签 所在位置 有左边与右边 ,默认标签在左left与right]]></description>
+			<name>labelPosition</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[ 是否可读true、false 或 readonly]]></description>
+			<name>readonly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[ 点击事件]]></description>
+			<name>onclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>false</dynamic-attributes>
+	</tag>
+
+
+  	<tag>
+		<description><![CDATA[label标签<br>
+			如果要用到替换值,就必需用到三个值,<br>
+			设type="typestringChange";factorize="0"或"1";changeStyle="相应的值";<br>
+			其它的值按相应的要求赋值<br>
+			<替换值==>调用方式><br>
+			<p:label value="${inventory.inveSum }" type="stringChange" displayTitle="true"  <br>
+						changeStyle="replaceMultiple" factorize="0" <br>
+					  	inputSign=",;_" outputSign=",;:" map="${colorMaps}" cssClasses="wrap" /><br>
+			这是inventory.inveSum是对象里的属性值;<br>	
+			type、changeStyle、factorize、map这四个值是必需的,尽量要赋值;<br>
+			inputSign、outputSign输入样式与输出样式,有相应的默认值,可以看相关属性注解;<br>
+			其它属性就是一般的标签属性,根据需求赋值;<br>  	
+					]]></description>
+		<name>label</name>
+		<tag-class>cn.peyton.spring.tags.Label</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[规定元素唯一 id]]></description>
+			<name>identify</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[规定元素唯一 名称]]></description>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要显示的值(这里所用一般都是从数据库里得来的)]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[用于 左边 提示的标签]]></description>
+			<name>label</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		
+  		<attribute>
+			<description><![CDATA[样式可以是个集合,这里最多只能存放2个,多出的不做处理 ;
+						<br>以','分隔开样式 如'xxx,xxx';
+	 					<br>逗号前半部表示:label 部分css;逗号后半部表示：value部分css;
+	 					<br>如果没有','就默认 label标签与value标签用同一个css;]]></description>
+			<name>cssClasses</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[要显示的长度 默认长度6个字符(只有在string才有用)]]></description>
+			<name>displayLength</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[是否显示提示 true 与 false , 默认为false;]]></description>
+			<name>displayTitle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[类型有四种：null 、string、stringChange、float与date默认为string 
+	 						 其中如选择了stringChange必需要注意以下五点：
+	 						1)、 必需要和factorize与map 配合使用(factorize优先使用);
+	 						2)、map格式为key_value形式: 1_红色,2_黑色,...等;
+	 						3)、value格式 为:1_111,2_222,...等;
+	 						4)、最后要输出的结果转换成:红色:111,黑色:222,...等]]></description>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[分解位只能给两值0与1，不是这两个值 就不做处理;<br>
+								这个值只能在type='stringChange'时才有用;<br>
+	 							这里所定的是分解到最后成为两位的数组;<br>
+	 							数组格式如：Object[]{1_name1,2_name2...};<br>
+	 							如果是0就提取的是1,2..要显示，是1就提取name1,name2...要显示;]]></description>
+			<name>factorize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输入符号(只做两次处理,默认为","和"_")  <br>
+	 						只在type="stringChange"并且changeStyle="replaceSingle、replaceMultiple、outsideMultiple"有用;<br>
+	 						要与outputSign相对应,否则就设置为默认","和"_"<br>]]></description>
+			<name>inputSign</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输入符号(只做两次处理,默认为","和"_")  <br>
+	 						只在type="stringChange"并且changeStyle="replaceSingle、replaceMultiple、outsideMultiple"有用;<br>
+	 						要与inputSign相对应,否则就设置为默认","和"_"<br>]]></description>
+			<name>outputSign</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[改变显示样式(与stringChange和factorize配合使用);<br><br>
+	 				 这里有五个值:gainSingle、gainMultiple、replaceSingle、replaceMultiple、outsideSingle、outsideMultiple,默认为gainSingle;<br>
+	 				 gainSingle、gainMultiple这两个map对象可以为空,后面几个必需用到map对象<br><br>
+	 				1、当值为gainSingle时表示获取单个值,直接在value中获取,当前下标为factorize值的要显示值(用到factorize,map可以为空);<br>
+	 			 		格式为:value="1_test",map为空;factorize=0时,显示"1";factorize=1,显示"test";<br><br>
+	 			 		
+	 				2、当值为gainMultiple时表示获取多个值,直接在value中获取,当前下标为factorize值的要显示值(用到factorize,map可以为空);<br>
+	 			 		格式为:value="1_test,2_test2..",map为空;factorize=0时,显示"1,2..";factorize=1,显示"test,test2..";<br><br>
+	 			 		
+	 				3、当值为replaceSingle时表示要替换单个值,必需要在map中获取值,当前下标为factorize值(要配合map),然后显示出来(用到factorize和map);<br>
+	 			 		格式为:value="1_test",map不能空;显示为通过key方法取值;<br>
+	 			 		factorize=0时,显示"获取后的值_test";factorize=1时,显示"1_获取后的值";<br><br>
+	 			 		
+	 				4、当值为replaceMultiple时表示要替多个值,必需要在map中获取值,换当前下标为factorize值(要配合map),然后显示出来(用到factorize和map);<br>
+	 			 		格式为:value="1_test,2_test2..",map不能空;显示为通过key方法取值;<br>
+	 			 		factorize=0时,显示"获取后的值_test,获取后的值_test..";factorize=1时,显示"1_获取后的值,2_获取后的值..";<br><br>
+	 			 		
+	 				5、当值为outsideSingle时表示value的值是单个值,要用map中的值替换,然后显示出来(用到map,factorize可以为空);<br>
+	 			 		格式为:value="1",map不能空;显示为通过key方法取值;显示"获取后的值";<br><br>
+	 			 		
+	 				6、当值为outsideMultiple时表示value的值多个值,要用map中的值替换,然后显示出来(用到map,factorize可以为空);<br>
+	 					格式为:value="1,2..",map不能空;显示为通过key方法取值;显示"获取后的值,获取后的值.."<br>]]></description>
+			<name>changeStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[格式化样式 ,这只对float(可以表示金额)与date(表示时间 )起作用;
+	 						float:输出的样式可以 0.00表示格式两位小数位,$0.00表示多加$符号;
+	 						date:输出样式可以 yyyy-MM-dd;]]></description>
+			<name>formatStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要展示的对象集合 ;<br>
+	 						map格式为key_value形式:1_红色,2_黑色,...等; 表示 数字为对象的id,中文为对象里的名称<br>
+	 						必需配合value使用;value 格式 为:1_111,2_222,...等;这是所指的1表示mapObject里的key,这里的111代表一个数;<br>
+	 						用来转换,格式为：红色:111,黑色:222,...等]]></description>
+			<name>map</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[value 的点击事件]]></description>
+			<name>onclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  	</tag>
+  	
+  		
+  	<tag>
+		<description>text 标签</description>
+		<name>text</name>
+		<tag-class>cn.peyton.spring.tags.Text</tag-class>
+		<body-content>JSP</body-content>
+
+		<attribute>
+			<description><![CDATA[规定元素唯一 名称]]></description>
+			<name>name</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要显示的值(这里所用一般都是从数据库里得来的)]]></description>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[用于 左边 提示的标签]]></description>
+			<name>label</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[文本框样式;]]></description>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[label样式;]]></description>
+			<name>labelClasses</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[方本框 最大输入]]></description>
+			<name>maxlength</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[类型有四种：null 、string、stringChange、float与date默认为string 
+	 						 其中如选择了stringChange必需要注意以下五点：
+	 						1)、 必需要和factorize与map 配合使用(factorize优先);
+	 						2)、map格式为key_value形式: 1_红色,2_黑色,...等;
+	 						3)、value格式 为:1_111,2_222,...等;
+	 						4)、最后要输出的结果转换成:红色:111,黑色:222,...等]]></description>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  		<attribute>
+			<description><![CDATA[分解位只能给两值0与1，小于0默认为0;<br>
+								这个值只能在type='stringChange'时才有用;<br>
+	 							这里所定的是分解到最后成为两位的数组;<br>
+	 							数组格式如：Object[]{1_name1,2_name2...};<br>
+	 							如果是0就提取的是1,2..要显示，是1就提取name1,name2...要显示;]]></description>
+			<name>factorize</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[格式化样式 ,这只对float(可以表示金额)与date(表示时间 )起作用;
+	 						float:输出的样式可以 0.00表示格式两位小数位,$0.00表示多加$符号;
+	 						date:输出样式可以 yyyy-MM-dd;]]></description>
+			<name>formatStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输入符号(只做两次处理,默认为","和"_")  <br>
+	 						只在type="stringChange"并且changeStyle="replaceSingle、replaceMultiple、outsideMultiple"有用;<br>
+	 						要与outputSign相对应,否则就设置为默认","和"_"<br>]]></description>
+			<name>inputSign</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[输入符号(只做两次处理,默认为","和"_")  <br>
+	 						只在type="stringChange"并且changeStyle="replaceSingle、replaceMultiple、outsideMultiple"有用;<br>
+	 						要与inputSign相对应,否则就设置为默认","和"_"<br>]]></description>
+			<name>outputSign</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[1、改变样式(与stringChange和factorize配合使用);<br>
+	 				2、 这里有五个值:gainSingle、gainMultiple、replaceSingle、replaceMultiple、outsideSingle、outsideMultiple,默认为gainSingle;<br>
+	 				3、当值为gainSingle时表示获取单个,当前下标为factorize值的要显示值(用到factorize,map可以为空);<br>
+	 			 		格式为:value="1_test",map为空;factorize=0时,显示"1";factorize=1,显示"test";<br>
+	 				4、当值为gainMultiple时表示获取多个,当前下标为factorize值的要显示值(用到factorize,map可以为空);<br>
+	 			 		格式为:value="1_test,2_test2..",map为空;factorize=0时,显示"1,2..";factorize=1,显示"test,test2..";<br>
+	 				5、当值为replaceSingle时表示要替换单个,当前下标为factorize值(要配合map),然后显示出来(用到factorize和map);<br>
+	 			 		格式为:value="1_test",map不能空;显示为通过key方法取值;<br>
+	 			 		factorize=0时,显示"获取后的值_test";factorize=1时,显示"1_获取后的值";<br>
+	 				6、当值为replaceMultiple时表示要替多个,换当前下标为factorize值(要配合map),然后显示出来(用到factorize和map);<br>
+	 			 		格式为:value="1_test,2_test2..",map不能空;显示为通过key方法取值;<br>
+	 			 		factorize=0时,显示"获取后的值_test,获取后的值_test..";factorize=1时,显示"1_获取后的值,2_获取后的值..";<br>
+	 				7、当值为outsideSingle时表示value的值是单个要用map中的值替换,然后显示出来(用到map,factorize可以为空);<br>
+	 			 		格式为:value="1",map不能空;显示为通过key方法取值;显示"获取后的值";<br>
+	 				8、当值为outsideMultiple时表示value的值多个要用map中的值替换,然后显示出来(用到map,factorize可以为空);<br>
+	 					格式为:value="1,2..",map不能空;显示为通过key方法取值;显示"获取后的值,获取后的值.."<br>]]></description>
+			<name>changeStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要展示的对象集合 ;<br>
+	 						map格式为key_value形式:1_红色,2_黑色,...等; 表示 数字为对象的id,中文为对象里的名称<br>
+	 						必需配合value使用;value 格式 为:1_111,2_222,...等;这是所指的1表示mapObject里的key,这里的111代表一个数;<br>
+	 						用来转换,格式为：红色:111,黑色:222,...等]]></description>
+			<name>map</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 提示]]></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 可读状态(true与false) 默认为false;]]></description>
+			<name>readonly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 的点击事件]]></description>
+			<name>onclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 的点击事件]]></description>
+			<name>ondblclick</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onchange</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onfocus</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onkeydown</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onkeyup</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onkeypress</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onblur</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onselect</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onmousedown</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onmousemove</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onmouseout</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onmouseover</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[文本框 事件]]></description>
+			<name>onmouseup</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+  	</tag>
+  	
+  	
+	<tag>
+		<description>分页 标签</description>
+		<name>page</name>
+		<tag-class>cn.peyton.spring.tags.Pagination</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description><![CDATA[当前页数,这是必需的]]></description>
+			<name>currentPage</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[总条数,在数据库查到的总行数,这是必需的]]></description>
+			<name>totalRows</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[参数值集合,多个用','分开]]></description>
+			<name>paramValues</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[参数名集合,多个用','分开]]></description>
+			<name>paramProperties</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[每页显示数,默认12,小于0也为默认值]]></description>
+			<name>pageRecorders</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[跳转参数名称跟在？后面的参数如：aaa.action?value 标签默认名称currentPage]]></description>
+			<name>jumpName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description><![CDATA[要跳转的action 地址与action功能相同,名称后面要加.action,这是必需的]]></description>
+			<name>href</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>false</dynamic-attributes>
+	</tag>
+  
+  	
+</taglib>
