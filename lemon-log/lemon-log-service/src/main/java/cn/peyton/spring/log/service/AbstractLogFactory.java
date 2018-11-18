@@ -47,6 +47,9 @@ public abstract class AbstractLogFactory<T>{
      */
     public abstract void initObjectValue(SysLogWithBLOBs sysLog,T before,T after);
 
+
+
+
     /**
      * <h4>保存 日志</h4>
      * @param sysLog SysLogWithBLOBs 对象
