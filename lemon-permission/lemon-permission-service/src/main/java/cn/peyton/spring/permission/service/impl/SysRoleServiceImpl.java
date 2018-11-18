@@ -130,6 +130,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(userIdList)) {
             return Lists.newArrayList();
         }
+        if ()
         return sysUserMapper.getByIdList(userIdList);
     }
 
