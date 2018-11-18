@@ -240,6 +240,7 @@ public class TextTemplateUtil {
             }else {
                 fieldResult = fieldName;
             }
+
             if (null != prefixParam){
                 int len = fieldName.indexOf(prefixParam);
                 if (len > -1) {
@@ -252,10 +253,13 @@ public class TextTemplateUtil {
                 fieldParam = fieldName;
             }
             sb.append("\t\t");
+            String upperCaseField = ConvertUtil.convertFirst(fieldResult);
             if (exist) {
-                sb.append(_ron + ".set" + ConvertUtil.convertFirst(fieldResult) + "(" + fieldParam + ");\r\n");
+                sb.append(_ron + ".set" + upperCaseField + "(" + fieldParam + ");\r\n");
             }else {
-                sb.append("this.set" + ConvertUtil.convertFirst(fieldResult) + "(" + fieldParam + ");\r\n");
+                sb.append("this.set" + upperCaseField + "(");
+                sb.append(_ron + ".get" + ConvertUtil.convertFirst(fieldParam) + "()");
+                sb.append(");\r\n");
             }
         }
     }
