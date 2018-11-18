@@ -17,6 +17,7 @@
         <module>../lemon-web</module>
         <module>../lemon-tool</module>
         <module>../lemon-shared</module>
+        <module>../lemon-log</module>
     </modules>
 
     <properties>
