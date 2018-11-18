@@ -13,6 +13,15 @@
     <packaging>jar</packaging>
     <name>权限实体模块</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.peyton.spring</groupId>
+            <artifactId>lemon-shared</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>

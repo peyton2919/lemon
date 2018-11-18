@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.permission.dao.SysCategoryMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.permission.entity.SysCategory">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="parent_id" property="parentId" jdbcType="INTEGER"/>
+		<result column="cate_name" property="cateName" jdbcType="VARCHAR"/>
+		<result column="cate_url" property="cateUrl" jdbcType="VARCHAR"/>
+		<result column="cate_before_style" property="cateBeforeStyle" jdbcType="VARCHAR"/>
+		<result column="cate_after_style" property="cateAfterStyle" jdbcType="VARCHAR"/>
+		<result column="cate_seq" property="cateSeq" jdbcType="INTEGER"/>
+		<result column="cate_status" property="cateStatus" jdbcType="INTEGER"/>
+		<result column="cate_type" property="cateType" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,parent_id,cate_name,cate_url,cate_before_style,cate_after_style,cate_seq,cate_status,cate_type
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.permission.entity.SysCategory" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_category(id,parent_id,cate_name,cate_url,cate_before_style,cate_after_style,cate_seq,cate_status,cate_type)
+		values (#{id},#{parentId},#{cateName},#{cateUrl},#{cateBeforeStyle},#{cateAfterStyle},#{cateSeq},#{cateStatus},#{cateType})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.permission.entity.SysCategory" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_category
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="cateName != null">
+				cate_name,
+			</if>
+			<if test="cateUrl != null">
+				cate_url,
+			</if>
+			<if test="cateBeforeStyle != null">
+				cate_before_style,
+			</if>
+			<if test="cateAfterStyle != null">
+				cate_after_style,
+			</if>
+			<if test="cateSeq != null">
+				cate_seq,
+			</if>
+			<if test="cateStatus != null">
+				cate_status,
+			</if>
+			<if test="cateType != null">
+				cate_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="parentId != null">
+				#{parentId},
+			</if>
+			<if test="cateName != null">
+				#{cateName},
+			</if>
+			<if test="cateUrl != null">
+				#{cateUrl},
+			</if>
+			<if test="cateBeforeStyle != null">
+				#{cateBeforeStyle},
+			</if>
+			<if test="cateAfterStyle != null">
+				#{cateAfterStyle},
+			</if>
+			<if test="cateSeq != null">
+				#{cateSeq},
+			</if>
+			<if test="cateStatus != null">
+				#{cateStatus},
+			</if>
+			<if test="cateType != null">
+				#{cateType},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_category
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.permission.entity.SysCategory">
+		update sys_category
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>
+			<if test="cateName != null">
+				cate_name = #{cateName},
+			</if>
+			<if test="cateUrl != null">
+				cate_url = #{cateUrl},
+			</if>
+			<if test="cateBeforeStyle != null">
+				cate_before_style = #{cateBeforeStyle},
+			</if>
+			<if test="cateAfterStyle != null">
+				cate_after_style = #{cateAfterStyle},
+			</if>
+			<if test="cateSeq != null">
+				cate_seq = #{cateSeq},
+			</if>
+			<if test="cateStatus != null">
+				cate_status = #{cateStatus},
+			</if>
+			<if test="cateType != null">
+				cate_type = #{cateType},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.permission.entity.SysCategory">
+		update sys_category
+		set 
+			parent_id = #{parentId},
+			cate_name = #{cateName},
+			cate_url = #{cateUrl},
+			cate_before_style = #{cateBeforeStyle},
+			cate_after_style = #{cateAfterStyle},
+			cate_seq = #{cateSeq},
+			cate_status = #{cateStatus},
+			cate_type = #{cateType}
+		where id = #{id}
+	</update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from sys_category
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <update id="updateChildStatus" parameterType="map">
+        update sys_category
+		set
+		  cate_status = #{status}
+		where parent_id = #{id}
+    </update>
+
+    <select id="selectByType" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_category
+        WHERE cate_status = 1
+        AND cate_type = #{type}
+        order by cate_seq asc
+    </select>
+
+    <select id="selectByParentId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+          id,cate_name,parent_id
+        FROM sys_category
+        WHERE 1=1
+        <if test="parentId > -1">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="isSelect">
+            AND cate_status = 1
+        </if>
+        <if test="!isSelect">
+            and cate_status != 2
+        </if>
+    </select>
+
+    <select id="selectByTypeAndAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_category
+        WHERE cate_status = 1
+        AND cate_type = #{type}
+        order by id desc
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_category
+        WHERE cate_status != 2
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectSearchByLikeName" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_category
+        WHERE cate_status != 2
+        <if test="type != null">
+            AND cate_type = #{type}
+        </if>
+        <if test="name != null and name != ''">
+          AND cate_name LIKE concat('%',#{name},'%')
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countSearchByLikeName" resultType="int" parameterType="map">
+        SELECT COUNT(1)
+        FROM sys_category
+        WHERE cate_status != 2
+        <if test="type != null">
+            AND cate_type = #{type}
+        </if>
+        <if test="name != null and name != ''">
+            AND cate_name LIKE concat('%',#{name},'%')
+        </if>
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+        update sys_category
+		set
+		  cate_status = #{status}
+		where
+		  id = #{id}
+    </update>
+
+    <select id="countChild" parameterType="int" resultType="int">
+        SELECT COUNT(1)
+        FROM sys_category
+        WHERE cate_status != 2
+        AND parent_id = #{id}
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_category
+        WHERE cate_status = 1
+        AND cate_name = #{name}
+        and cate_type = #{type}
+        <if test="parentId != null">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="id != null">
+           AND id != #{id}
+        </if>
+    </select>
+
+    <select id="countByType" resultType="java.lang.Integer" parameterType="int">
+         SELECT COUNT(1)
+        FROM sys_category
+        WHERE cate_status = 1
+        AND cate_type = #{type}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" parameterType="int">
+         SELECT COUNT(1)
+        FROM sys_category
+        WHERE cate_status != 2
+    </select>
+
+</mapper>
