@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.usergroup.dao.SysEmployeeMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.usergroup.entity.SysEmployee">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="emp_name" property="empName" jdbcType="VARCHAR"/>
+		<result column="emp_login_name" property="empLoginName" jdbcType="VARCHAR"/>
+		<result column="emp_pwd" property="empPwd" jdbcType="VARCHAR"/>
+		<result column="emp_tel" property="empTel" jdbcType="VARCHAR"/>
+		<result column="emp_phone" property="empPhone" jdbcType="VARCHAR"/>
+		<result column="emp_add" property="empAdd" jdbcType="VARCHAR"/>
+		<result column="emp_qq" property="empQq" jdbcType="VARCHAR"/>
+		<result column="emp_fax" property="empFax" jdbcType="VARCHAR"/>
+		<result column="emp_email" property="empEmail" jdbcType="VARCHAR"/>
+		<result column="emp_birth" property="empBirth" jdbcType="TIMESTAMP"/>
+		<result column="emp_identity" property="empIdentity" jdbcType="VARCHAR"/>
+		<result column="emp_loc" property="empLoc" jdbcType="INTEGER"/>
+		<result column="emp_status" property="empStatus" jdbcType="INTEGER"/>
+		<result column="dept_id" property="deptId" jdbcType="INTEGER"/>
+		<result column="post_id" property="postId" jdbcType="INTEGER"/>
+		<result column="emp_created" property="empCreated" jdbcType="TIMESTAMP"/>
+		<result column="emp_updated" property="empUpdated" jdbcType="TIMESTAMP"/>
+		<result column="emp_encrypt" property="empEncrypt" jdbcType="VARCHAR"/>
+		<result column="emp_last_ip" property="empLastIp" jdbcType="VARCHAR"/>
+		<result column="emp_explain" property="empExplain" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,emp_name,emp_login_name,emp_pwd,emp_tel,emp_phone,emp_add,emp_qq,emp_fax,
+		emp_email,emp_birth,emp_identity,emp_loc,emp_status,dept_id,post_id,emp_created,
+		emp_updated,emp_encrypt,emp_last_ip,emp_explain
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.usergroup.entity.SysEmployee" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_employee(
+		    id,emp_name,emp_login_name,emp_pwd,emp_tel,emp_phone,emp_add,emp_qq,emp_fax,emp_email,emp_birth,
+		    emp_identity,emp_loc,emp_status,dept_id,post_id,emp_created,emp_updated,emp_encrypt,emp_last_ip,emp_explain)
+		values (
+		    #{id},#{empName},#{empLoginName},#{empPwd},#{empTel},#{empPhone},#{empAdd},#{empQq},#{empFax},#{empEmail},#{empBirth},
+		    #{empIdentity},#{empLoc},#{empStatus},#{deptId},#{postId},#{empCreated},#{empUpdated},#{empEncrypt},#{empLastIp},#{empExplain})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.usergroup.entity.SysEmployee" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_employee
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="empName != null">
+				emp_name,
+			</if>
+			<if test="empLoginName != null">
+				emp_login_name,
+			</if>
+			<if test="empPwd != null">
+				emp_pwd,
+			</if>
+			<if test="empTel != null">
+				emp_tel,
+			</if>
+			<if test="empPhone != null">
+				emp_phone,
+			</if>
+			<if test="empAdd != null">
+				emp_add,
+			</if>
+			<if test="empQq != null">
+				emp_qq,
+			</if>
+			<if test="empFax != null">
+				emp_fax,
+			</if>
+			<if test="empEmail != null">
+				emp_email,
+			</if>
+			<if test="empBirth != null">
+				emp_birth,
+			</if>
+			<if test="empIdentity != null">
+				emp_identity,
+			</if>
+			<if test="empLoc != null">
+				emp_loc,
+			</if>
+			<if test="empStatus != null">
+				emp_status,
+			</if>
+			<if test="deptId != null">
+				dept_id,
+			</if>
+			<if test="postId != null">
+				post_id,
+			</if>
+			<if test="empCreated != null">
+				emp_created,
+			</if>
+			<if test="empUpdated != null">
+				emp_updated,
+			</if>
+			<if test="empEncrypt != null">
+				emp_encrypt,
+			</if>
+			<if test="empLastIp != null">
+				emp_last_ip,
+			</if>
+			<if test="empExplain != null">
+				emp_explain,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="empName != null">
+				#{empName},
+			</if>
+			<if test="empLoginName != null">
+				#{empLoginName},
+			</if>
+			<if test="empPwd != null">
+				#{empPwd},
+			</if>
+			<if test="empTel != null">
+				#{empTel},
+			</if>
+			<if test="empPhone != null">
+				#{empPhone},
+			</if>
+			<if test="empAdd != null">
+				#{empAdd},
+			</if>
+			<if test="empQq != null">
+				#{empQq},
+			</if>
+			<if test="empFax != null">
+				#{empFax},
+			</if>
+			<if test="empEmail != null">
+				#{empEmail},
+			</if>
+			<if test="empBirth != null">
+				#{empBirth},
+			</if>
+			<if test="empIdentity != null">
+				#{empIdentity},
+			</if>
+			<if test="empLoc != null">
+				#{empLoc},
+			</if>
+			<if test="empStatus != null">
+				#{empStatus},
+			</if>
+			<if test="deptId != null">
+				#{deptId},
+			</if>
+			<if test="postId != null">
+				#{postId},
+			</if>
+			<if test="empCreated != null">
+				#{empCreated},
+			</if>
+			<if test="empUpdated != null">
+				#{empUpdated},
+			</if>
+			<if test="empEncrypt != null">
+				#{empEncrypt},
+			</if>
+			<if test="empLastIp != null">
+				#{empLastIp},
+			</if>
+			<if test="empExplain != null">
+				#{empExplain},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from sys_employee
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.usergroup.entity.SysEmployee">
+		update sys_employee
+		<set>
+			<if test="empName != null">
+				emp_name = #{empName},
+			</if>
+			<if test="empLoginName != null">
+				emp_login_name = #{empLoginName},
+			</if>
+			<if test="empPwd != null">
+				emp_pwd = #{empPwd},
+			</if>
+			<if test="empTel != null">
+				emp_tel = #{empTel},
+			</if>
+			<if test="empPhone != null">
+				emp_phone = #{empPhone},
+			</if>
+			<if test="empAdd != null">
+				emp_add = #{empAdd},
+			</if>
+			<if test="empQq != null">
+				emp_qq = #{empQq},
+			</if>
+			<if test="empFax != null">
+				emp_fax = #{empFax},
+			</if>
+			<if test="empEmail != null">
+				emp_email = #{empEmail},
+			</if>
+			<if test="empBirth != null">
+				emp_birth = #{empBirth},
+			</if>
+			<if test="empIdentity != null">
+				emp_identity = #{empIdentity},
+			</if>
+			<if test="empLoc != null">
+				emp_loc = #{empLoc},
+			</if>
+			<if test="empStatus != null">
+				emp_status = #{empStatus},
+			</if>
+			<if test="deptId != null">
+				dept_id = #{deptId},
+			</if>
+			<if test="postId != null">
+				post_id = #{postId},
+			</if>
+			<if test="empCreated != null">
+				emp_created = #{empCreated},
+			</if>
+			<if test="empUpdated != null">
+				emp_updated = #{empUpdated},
+			</if>
+			<if test="empEncrypt != null">
+				emp_encrypt = #{empEncrypt},
+			</if>
+			<if test="empLastIp != null">
+				emp_last_ip = #{empLastIp},
+			</if>
+			<if test="empExplain != null">
+				emp_explain = #{empExplain},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.usergroup.entity.SysEmployee">
+		update sys_employee
+		set 
+			emp_name = #{empName},
+			emp_login_name = #{empLoginName},
+			emp_pwd = #{empPwd},
+			emp_tel = #{empTel},
+			emp_phone = #{empPhone},
+			emp_add = #{empAdd},
+			emp_qq = #{empQq},
+			emp_fax = #{empFax},
+			emp_email = #{empEmail},
+			emp_birth = #{empBirth},
+			emp_identity = #{empIdentity},
+			emp_loc = #{empLoc},
+			emp_status = #{empStatus},
+			dept_id = #{deptId},
+			post_id = #{postId},
+			emp_created = #{empCreated},
+			emp_updated = #{empUpdated},
+			emp_encrypt = #{empEncrypt},
+			emp_last_ip = #{empLastIp},
+			emp_explain = #{empExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from sys_employee
+		where id = #{id}
+	</select>
+
+    <!-- new create method   -->
+
+    <!--     -->
+    <select id="selectByKeyword" parameterType="string" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        <include refid="Base_Column_List" />
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND (
+            emp_login_name = #{keyword}
+            OR emp_email = #{keyword}
+        )
+    </select>
+
+    <select id="selectByAllAndPage" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_employee
+        WHERE emp_status = 1
+        LIMIT #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectByDeptId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND dept_id = #{deptId}
+        LIMIT #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectByPostId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND post_id = #{postId}
+        LIMIT #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectByLikeKeywrod" resultMap="BaseResultMap" parameterType="map">
+        SELECT DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND (
+          emp_name LIKE CONCAT('%','#{keyword}','%')
+          OR emp_login_name LIKE CONCAT('%',#{keyword},'%')
+          OR emp_tel LIKE CONCAT('%',#{keyword},'%')
+          OR emp_phone LIKE CONCAT('%',#{keyword},'%')
+          OR emp_email LIKE CONCAT('%',#{keyword},'%')
+          OR emp_add LIKE CONCAT('%',#{keyword},'%')
+        )
+        LIMIT #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM sys_employee
+        WHERE emp_status = 1
+    </select>
+
+    <select id="countByDeptId" resultType="int" parameterType="int">
+        SELECT COUNT(1)
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND dept_id = #{deptId}
+    </select>
+
+    <select id="countByPostId" resultType="int" parameterType="int">
+        SELECT COUNT(1)
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND post_id = #{postId}
+    </select>
+
+    <select id="countByLikeKeyword" resultType="int" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND (
+          emp_name LIKE CONCAT('%',#{keyword},'%')
+          OR emp_login_name LIKE CONCAT('%',#{keyword},'%')
+          OR emp_tel LIKE CONCAT('%',#{keyword},'%')
+          OR emp_phone LIKE CONCAT('%',#{keyword},'%')
+          OR emp_email LIKE CONCAT('%',#{keyword},'%')
+          OR emp_add LIKE CONCAT('%',#{keyword},'%')
+        )
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+        UPDATE sys_employee
+        SET emp_status = #{status}
+        WHERE id = #{id}
+    </update>
+    
+    <select id="countByName" parameterType="map" resultType="int">
+        SELECT COUNT(1)
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND emp_login_name = #{loginName}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="selectByIdList" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM sys_employee
+        WHERE emp_status = 1
+        AND (id IN
+            <foreach collection="idList" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        )
+    </select>
+
+    <select id="selectByAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_employee
+        WHERE emp_status = 1
+    </select>
+
+</mapper>

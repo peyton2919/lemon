@@ -11,12 +11,18 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>lemon-user-service</artifactId>
     <packaging>jar</packaging>
-    <name>商城服务模块</name>
+    <name>用户服务模块</name>
 
     <dependencies>
         <dependency>
             <groupId>cn.peyton.spring</groupId>
             <artifactId>lemon-user-dao</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.peyton.spring</groupId>
+            <artifactId>lemon-log-service</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
@@ -44,12 +50,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-        </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
         </dependency>
 
         <dependency>

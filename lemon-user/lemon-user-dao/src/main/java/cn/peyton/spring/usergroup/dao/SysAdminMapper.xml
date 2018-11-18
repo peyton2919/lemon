@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.usergroup.dao.SysAdminMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.usergroup.entity.SysAdmin">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="password" property="password" jdbcType="VARCHAR"/>
+		<result column="status" property="status" jdbcType="INTEGER"/>
+		<result column="created" property="created" jdbcType="TIMESTAMP"/>
+		<result column="updated" property="updated" jdbcType="TIMESTAMP"/>
+		<result column="admin_encrypt" property="adminEncrypt" jdbcType="VARCHAR"/>
+		<result column="last_ip" property="lastIp" jdbcType="VARCHAR"/>
+		<result column="admin_explain" property="adminExplain" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,name,password,status,created,updated,admin_encrypt,last_ip,admin_explain
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.usergroup.entity.SysAdmin" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_admin(id,name,password,status,created,updated,admin_encrypt,last_ip,admin_explain)
+		values (#{id},#{name},#{password},#{status},#{created},#{updated},#{adminEncrypt},#{lastIp},#{adminExplain})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.usergroup.entity.SysAdmin" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_admin
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="created != null">
+				created,
+			</if>
+			<if test="updated != null">
+				updated,
+			</if>
+			<if test="adminEncrypt != null">
+				admin_encrypt,
+			</if>
+			<if test="lastIp != null">
+				last_ip,
+			</if>
+			<if test="adminExplain != null">
+				admin_explain,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="name != null">
+				#{name},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="created != null">
+				#{created},
+			</if>
+			<if test="updated != null">
+				#{updated},
+			</if>
+			<if test="adminEncrypt != null">
+				#{adminEncrypt},
+			</if>
+			<if test="lastIp != null">
+				#{lastIp},
+			</if>
+			<if test="adminExplain != null">
+				#{adminExplain},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_admin
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.usergroup.entity.SysAdmin">
+		update sys_admin
+		<set>
+			<if test="name != null">
+				name = #{name},
+			</if>
+			<if test="password != null">
+				password = #{password},
+			</if>
+			<if test="status != null">
+				status = #{status},
+			</if>
+			<if test="created != null">
+				created = #{created},
+			</if>
+			<if test="updated != null">
+				updated = #{updated},
+			</if>
+			<if test="adminEncrypt != null">
+				admin_encrypt = #{adminEncrypt},
+			</if>
+			<if test="lastIp != null">
+				last_ip = #{lastIp},
+			</if>
+			<if test="adminExplain != null">
+				admin_explain = #{adminExplain},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.usergroup.entity.SysAdmin">
+		update sys_admin
+		set 
+			name = #{name},
+			password = #{password},
+			status = #{status},
+			created = #{created},
+			updated = #{updated},
+			admin_encrypt = #{adminEncrypt},
+			last_ip = #{lastIp},
+			admin_explain = #{adminExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from sys_admin
+		where id = #{id}
+	</select>
+
+    <!-- new create method   -->
+
+    <!--     -->
+    <select id="selectByKeyword" parameterType="string" resultMap="BaseResultMap">
+        SELECT DISTINCT
+        <include refid="Base_Column_List" />
+        FROM sys_admin
+        WHERE status = 1
+        AND name = #{keyword}
+    </select>
+</mapper>
