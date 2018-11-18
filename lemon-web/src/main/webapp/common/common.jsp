@@ -141,6 +141,7 @@
             todayHighlight: false,    //今天高亮
             // showMeridian: 1,
             forceParse: 0 //是否强制转换不符合格式的字符串
+
         });
     }
 
@@ -164,8 +165,10 @@
             startView: 2,
             minView: "month",//设置只显示到月份
             todayHighlight: false,    //今天高亮
+            zIndex : 2001,//设置z-index
             // showMeridian: 1,
             forceParse: 0 //是否强制转换不符合格式的字符串
+
         });
     }
     /**

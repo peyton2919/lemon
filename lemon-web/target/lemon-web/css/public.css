@@ -18,9 +18,9 @@
     margin-left: auto;
     margin-right: auto;
 }
-.ud-emp-bottom {padding-bottom: 18px;}
 
 /* dialog 弹出模态窗 标题栏 和按钮样式 开始 */
+
 .ui-dialog-titlebar{
     background: #007dc1;
     background-image: -webkit-linear-gradient(top, #007dc1, #0061a7);
