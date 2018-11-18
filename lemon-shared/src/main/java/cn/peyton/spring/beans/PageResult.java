@@ -35,6 +35,16 @@ public final class PageResult<T> {
         this.total = total;
     }
 
+    /**
+     * <h4>赋值</h4>
+     * @param data 数据
+     * @param total 总条数
+     */
+    public void set(List<T> data, int total) {
+        this.data = data;
+        this.total = total;
+    }
+
     //================================== GET AND SET =======================================//
 
     /**
