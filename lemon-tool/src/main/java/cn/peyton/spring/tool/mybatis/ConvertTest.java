@@ -20,9 +20,13 @@ public class ConvertTest {
 //        System.out.println(generation.createCompat("sys_dept", "DeptParam","",
 //                "SysDept",null));
 
-        System.out.println(generation.createConvert("sys_employee", "SysEmployee",null,"emp"));
-        System.out.println(generation.createCompat("sys_employee", "EmployeeParam","emp",
-                "SysEmployee",""));
+//        System.out.println(generation.createConvert("sys_employee", "SysEmployee",null,"emp"));
+//        System.out.println(generation.createCompat("sys_employee", "EmployeeParam","emp",
+//                "SysEmployee",""));
+
+        System.out.println(generation.createConvert("sys_admin", "SysAdmin",null,"admin"));
+        System.out.println(generation.createCompat("sys_admin", "AdminParam","admin",
+                "SysAdmin",""));
 
     }
 }
