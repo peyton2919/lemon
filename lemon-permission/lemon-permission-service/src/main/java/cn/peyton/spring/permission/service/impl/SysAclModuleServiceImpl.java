@@ -107,7 +107,7 @@ public class SysAclModuleServiceImpl implements SysAclModuleService{
         String newLevelPrefix = after.getLevel();
         String oldLevelPrefix = before.getLevel();
         if (!after.getLevel().equals(before.getLevel())) {
-            List<SysAclModule> aclModuleList = sysAclModuleMapper.getChildAclModuleListByLevel(before.getLevel() + "."+before.getId());
+            List<SysAclModule> aclModuleList = sysAclModuleMapper.selectChildAclModuleListByLevel(before.getLevel() + "."+before.getId());
             if (CollectionUtils.isNotEmpty(aclModuleList)) {
                 for (SysAclModule aclModule : aclModuleList) {
                     String level = aclModule.getLevel();

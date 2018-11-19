@@ -3,11 +3,11 @@ package cn.peyton.spring.permission.entity;
 import java.util.Date;
 
 /**
- * <h3>角色 实体 类 .</h3>
+ * <h3>角色 实体</h3>
  * <pre>
- * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * @createDate: 2018-11-18 20:14
+ * @create date: 2018/11/19 11:17
+ * @author: <a href="http://www.peyton.cn">peyton</a>
  * @version: 1.0.0
  * </pre>
  */

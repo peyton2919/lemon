@@ -159,7 +159,7 @@
   </update>
 
     <!--    -->
-    <select id="getChildAclModuleListByLevel" resultMap="BaseResultMap">
+    <select id="selectChildAclModuleListByLevel" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl_module
@@ -186,7 +186,7 @@
         </if>
     </select>
 
-    <select id="getAllAclModule" resultMap="BaseResultMap">
+    <select id="selectAllAclModule" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl_module

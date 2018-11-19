@@ -1,13 +1,16 @@
 package cn.peyton.spring.permission.service.impl;
 
 import cn.peyton.spring.common.RequestHolder;
+import cn.peyton.spring.log.dao.SysLogMapper;
 import cn.peyton.spring.log.entity.SysLogWithBLOBs;
-import cn.peyton.spring.log.service.SysLogService;
 import cn.peyton.spring.permission.dao.SysRoleUserMapper;
 import cn.peyton.spring.permission.entity.SysRoleUser;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.permission.service.SysRoleUserService;
 import cn.peyton.spring.constant.LogType;
+import cn.peyton.spring.usergroup.bo.EmployeeBo;
+import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
+import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.util.IpUtil;
 import cn.peyton.spring.util.JsonMapper;
 import com.google.common.collect.Lists;
@@ -38,21 +41,21 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
     @Resource
     private SysEmployeeMapper sysEmployeeMapper;
     @Resource
-    private SysLogService sysLogService;
+    private SysLogMapper sysLogMapper;
 
     @Override
-    public List<SysEmployee> getListByRoleId(Integer roleId) {
-        List<Integer> empIdList = sysRoleUserMapper.getUserIdListByRoleId(roleId);
+    public List<EmployeeParam> findListByRoleId(Integer roleId) {
+        List<Integer> empIdList = sysRoleUserMapper.selectUserIdListByRoleId(roleId);
         if (CollectionUtils.isEmpty(empIdList)) {
             return Lists.newArrayList();
         }
-        return sysEmployeeMapper.selectByIdList(empIdList);
+        return new EmployeeBo().adapter(sysEmployeeMapper.selectByIdList(empIdList));
     }
 
     @SuppressWarnings("Duplicates")
     @Override
     public void changeRoleUsers(int roleId, List<Integer> userIdList) {
-        List<Integer> originUserIdList = sysRoleUserMapper.getUserIdListByRoleId(roleId);
+        List<Integer> originUserIdList = sysRoleUserMapper.selectUserIdListByRoleId(roleId);
         if (originUserIdList.size() == userIdList.size()) {
             Set<Integer> originUserIdSet = Sets.newHashSet(originUserIdList);
             Set<Integer> userIdSet = Sets.newHashSet(userIdList);
@@ -72,10 +75,15 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
             return;
         }
         List<SysRoleUser> roleUserList = Lists.newArrayList();
+        String username = RequestHolder.getCurrentUser().getUserName();
+        String ip = IpUtil.getRemoteIp(RequestHolder.getCurrentRequest());
         for (Integer userId : userIdList) {
-            SysRoleUser roleUser = new SysRoleUser(roleId,userId,
-                    RequestHolder.getCurrentUser().getUserName(),new Date(),
-                    IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+            SysRoleUser roleUser = new SysRoleUser();
+            roleUser.setRoleId(roleId);
+            roleUser.setUserId(userId);
+            roleUser.setOperateTime(new Date());
+            roleUser.setOperator(username);
+            roleUser.setOperateIp(ip);
             roleUserList.add(roleUser);
         }
         sysRoleUserMapper.batchInsert(roleUserList);

@@ -42,6 +42,10 @@
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.10" level="project" />
+    <orderEntry type="module" module-name="lemon-user-service" />
+    <orderEntry type="module" module-name="lemon-user-dao" />
+    <orderEntry type="module" module-name="lemon-user-common" />
+    <orderEntry type="module" module-name="lemon-user-pojo" />
     <orderEntry type="module" module-name="lemon-log-service" />
     <orderEntry type="module" module-name="lemon-log-dao" />
     <orderEntry type="module" module-name="lemon-log-common" />

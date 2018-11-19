@@ -1,8 +1,8 @@
 package cn.peyton.spring.permission.service;
 
-import cn.peyton.spring.def.BaseUser;
-import cn.peyton.spring.permission.entity.SysRole;
+import cn.peyton.spring.permission.dto.AclModuleLevelDto;
 import cn.peyton.spring.permission.param.RoleParam;
+import cn.peyton.spring.usergroup.param.EmployeeParam;
 
 import java.util.List;
 
@@ -32,27 +32,33 @@ public interface SysRoleService {
      * <h4>查找所有角色集合</h4>
      * @return 角色对象集合
      */
-    List<SysRole> getAll();
+    List<RoleParam> findByAll();
 
     /**
      * <h4>根据 用户ID 获取 角色对象集合</h4>
      * @param userId 用户ID
      * @return 角色对象集合
      */
-    List<SysRole> getRoleListByUserId(Integer userId);
+    List<RoleParam> findRoleListByUserId(Integer userId);
 
     /**
      * <h4>根据权限ID 获取 角色对象集合</h4>
      * @param aclId 权限ID
      * @return 角色对象集合
      */
-    List<SysRole> getRoleListByAclId(Integer aclId);
+    List<RoleParam> findRoleListByAclId(Integer aclId);
 
     /**
      * <h4>根据 角色对象集合 获取 用户对象集合</h4>
      * @param roleList 角色对象集合
-     * @param type 用户类型 0 顾客; 1 供应商; 2 员工; 3 管理员; 默认 0
      * @return 用户对象集合
      */
-    List<BaseUser> getUserListByRoleList(List<SysRole> roleList,Integer type);
+    List<EmployeeParam> findUserListByRoleList(List<RoleParam> roleList);
+
+    /**
+     * <h4>权限树</h4>
+     * @param roleId 角色ID
+     * @return 权限模块 传递层对象集合
+     */
+    List<AclModuleLevelDto> roleTree(Integer roleId) ;
 }

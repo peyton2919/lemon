@@ -197,7 +197,7 @@
         WHERE acl_module_id = #{aclModuleId}
     </select>
 
-    <select id="getPageByAclModuleId" parameterType="map" resultMap="BaseResultMap">
+    <select id="selectPageByAclModuleId" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl
@@ -207,13 +207,13 @@
     </select>
 
     <!--  -->
-    <select id="getByAll" resultMap="BaseResultMap">
+    <select id="selectByAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl
     </select>
 
-    <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    <select id="selectByIdList" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl
@@ -223,7 +223,7 @@
         </foreach>
     </select>
 
-    <select id="getByUrl" parameterType="string" resultMap="BaseResultMap">
+    <select id="selectByUrl" parameterType="string" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_acl

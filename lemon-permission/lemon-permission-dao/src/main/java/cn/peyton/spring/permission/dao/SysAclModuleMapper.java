@@ -64,7 +64,7 @@ public interface SysAclModuleMapper {
      * @param level 层级
      * @return 权限模块对象集合
      */
-    List<SysAclModule> getChildAclModuleListByLevel(@Param("level") String level);
+    List<SysAclModule> selectChildAclModuleListByLevel(@Param("level") String level);
 
     /**
      * <h4>批量更新Level</h4>
@@ -85,7 +85,7 @@ public interface SysAclModuleMapper {
      * <h4>获取所有权限模块集合</h4>
      * @return 权限模块对象集合
      */
-    List<SysAclModule> getAllAclModule();
+    List<SysAclModule> selectAllAclModule();
 
     /**
      * <h4>删除</h4>

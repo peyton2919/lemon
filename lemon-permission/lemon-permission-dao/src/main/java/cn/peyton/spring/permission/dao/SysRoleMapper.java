@@ -1,6 +1,7 @@
 package cn.peyton.spring.permission.dao;
 
 import cn.peyton.spring.permission.entity.SysRole;
+import cn.peyton.spring.permission.param.RoleParam;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -63,7 +64,7 @@ public interface SysRoleMapper {
      * <h4>查找所有的角色集合</h4>
      * @return
      */
-    List<SysRole> getAll();
+    List<SysRole> selectByAll();
 
     /**
      * <h4>判断角色名称是否同名</h4>
@@ -78,5 +79,5 @@ public interface SysRoleMapper {
      * @param idList
      * @return
      */
-    List<SysRole> getByIdList(@Param("idList") List<Integer> idList);
+    List<SysRole> selectByIdList(@Param("idList") List<Integer> idList);
 }

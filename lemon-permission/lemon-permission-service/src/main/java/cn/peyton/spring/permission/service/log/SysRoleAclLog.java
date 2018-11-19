@@ -6,8 +6,9 @@ import cn.peyton.spring.log.service.AbstractLogFactory;
 import cn.peyton.spring.permission.dao.SysRoleMapper;
 import cn.peyton.spring.permission.entity.SysRole;
 import cn.peyton.spring.permission.entity.SysRoleAcl;
+import cn.peyton.spring.permission.service.SysRoleAclService;
+import cn.peyton.spring.util.CheckedUtil;
 import cn.peyton.spring.util.JsonMapper;
-import com.google.common.base.Preconditions;
 import org.codehaus.jackson.type.TypeReference;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +31,15 @@ public class SysRoleAclLog extends AbstractLogFactory<SysRoleAcl> {
 
     @Resource
     private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysRoleAclService sysRoleAclService;
 
     @Override
     public void recover(SysLogWithBLOBs sysLog) {
         SysRole aclRole = sysRoleMapper.selectByPrimaryKey(Integer.valueOf(sysLog.getTargetId()));
-        Preconditions.checkNotNull(aclRole, "角色已经不存在了");
-        sysRoleAclService.changeRoleAcls(sysLog.getTargetId().intValue(), JsonMapper.string2Obj(sysLog.getOldValue(), new TypeReference<List<Integer>>() {
+        CheckedUtil.checkNoNull(aclRole, "角色已经不存在了");
+        sysRoleAclService.changeRoleAcls(Integer.valueOf(sysLog.getTargetId()),
+                JsonMapper.string2Obj(sysLog.getOldValue(), new TypeReference<List<Integer>>() {
         }));
     }
 

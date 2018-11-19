@@ -1,27 +1,35 @@
 package cn.peyton.spring.permission.service.impl;
 
 import cn.peyton.spring.common.RequestHolder;
-import cn.peyton.spring.def.BaseUser;
+import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.exception.ParamException;
 import cn.peyton.spring.log.service.SysLogService;
+import cn.peyton.spring.permission.bo.RoleBo;
 import cn.peyton.spring.permission.dao.SysRoleAclMapper;
 import cn.peyton.spring.permission.dao.SysRoleMapper;
 import cn.peyton.spring.permission.dao.SysRoleUserMapper;
 
+import cn.peyton.spring.permission.dto.AclDto;
+import cn.peyton.spring.permission.dto.AclModuleLevelDto;
+import cn.peyton.spring.permission.entity.SysAcl;
 import cn.peyton.spring.permission.entity.SysRole;
 import cn.peyton.spring.permission.param.RoleParam;
 import cn.peyton.spring.permission.service.SysRoleService;
 import cn.peyton.spring.permission.service.log.SysRoleLog;
+import cn.peyton.spring.usergroup.bo.EmployeeBo;
+import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
+import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.util.IpUtil;
 import cn.peyton.spring.validator.Validation;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -41,6 +49,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleUserMapper sysRoleUserMapper;
     @Resource
     private SysRoleAclMapper sysRoleAclMapper;
+    @Resource
+    private SysEmployeeMapper sysEmployeeMapper;
 
     @Resource
     private SysLogService sysLogService;
@@ -58,13 +68,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (checkExist(param.getName(), param.getId())) {
             throw new ParamException("角色名称已存在");
         }
-        SysRole sysRole = param.convert();
-        sysRole.setOperator(RequestHolder.getCurrentUser().getUserName());
-        sysRole.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
-        sysRole.setOperateTime(new Date());
-        sysRoleMapper.insertSelective(sysRole);
+
+        SysRole role = param.convert();
+        role.setOperator(RequestHolder.getCurrentUser().getUserName());
+        role.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
+        role.setOperateTime(new Date());
+        sysRoleMapper.insertSelective(role);
         //日志操作
-        sysLogService.save(null, sysRole,sysRoleLog);
+        sysLogService.save(null, role,sysRoleLog);
     }
 
     /**
@@ -96,42 +107,73 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return
      */
     @Override
-    public List<SysRole> getAll() {
-        return sysRoleMapper.getAll();
+    public List<RoleParam> findByAll() {
+
+        return new RoleBo().adapter(sysRoleMapper.selectByAll());
     }
 
     @Override
-    public List<SysRole> getRoleListByUserId(Integer userId) {
-        List<Integer> roleIdList = sysRoleUserMapper.getRoleIdListByUserId(userId);
+    public List<RoleParam> findRoleListByUserId(Integer userId) {
+        List<Integer> roleIdList = sysRoleUserMapper.selectRoleIdListByUserId(userId);
         if (CollectionUtils.isEmpty(roleIdList)) {
             return Lists.newArrayList();
         }
-        return sysRoleMapper.getByIdList(roleIdList);
+        return new RoleBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
     }
 
     @Override
-    public List<SysRole> getRoleListByAclId(Integer aclId) {
-        List<Integer> roleIdList = sysRoleAclMapper.getRoleIdListByAclId(aclId);
+    public List<RoleParam> findRoleListByAclId(Integer aclId) {
+        List<Integer> roleIdList = sysRoleAclMapper.selectRoleIdListByAclId(aclId);
         if (CollectionUtils.isEmpty(roleIdList)) {
             return Lists.newArrayList();
         }
-        return sysRoleMapper.getByIdList(roleIdList);
+        return new RoleBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
     }
 
     @Override
-    public List<BaseUser> getUserListByRoleList(List<SysRole> roleList,Integer type) {
+    public List<EmployeeParam> findUserListByRoleList(List<RoleParam> roleList) {
         if (CollectionUtils.isEmpty(roleList)) {
             return Lists.newArrayList();
         }
         List<Integer> roleIdList = roleList.stream()
                 .map(role -> role.getId())
                 .collect(Collectors.toList());
-        List<Integer> userIdList = sysRoleUserMapper.getUserIdListByRoleIdList(roleIdList);
+        List<Integer> userIdList = sysRoleUserMapper.selectUserIdListByRoleIdList(roleIdList);
         if (CollectionUtils.isEmpty(userIdList)) {
             return Lists.newArrayList();
         }
-        if ()
-        return sysUserMapper.getByIdList(userIdList);
+        return new EmployeeBo().adapter(sysEmployeeMapper.selectByIdList(userIdList));
+    }
+
+    /**
+     * <h4>权限树</h4>
+     * @param roleId 角色ID
+     * @return
+     */
+    @Override
+    public List<AclModuleLevelDto> roleTree(Integer roleId) {
+        //1. 当前用户已分配的权限点
+        List<SysAcl> userAclList = sysCoreService.getCurrentUserAclList();
+        //2. 当前角色已分配的权限点
+        List<SysAcl> roleAclList = sysCoreService.getRoleAclList(roleId);
+        //当前系统所有权限点
+        List<AclDto> aclDtoList = new ArrayList<>();
+
+        Set<Integer> userAclIdSet = userAclList.stream().map(sysAcl -> sysAcl.getId()).collect(Collectors.toSet());
+        Set<Integer> roleAclIdSet = roleAclList.stream().map(sysAcl ->sysAcl.getId()).collect(Collectors.toSet());
+
+        List<SysAcl> allAclList = sysAclMapper.getAll();
+        for (SysAcl acl : allAclList) {
+            AclDto dto = AclDto.adapt(acl);
+            if (userAclIdSet.contains(acl.getId())) {
+                dto.setHasAcl(true);
+            }
+            if (roleAclIdSet.contains(acl.getId())) {
+                dto.setChecked(true);
+            }
+            aclDtoList.add(dto);
+        }
+        return aclListToTree(aclDtoList);
     }
 
     /**
@@ -143,4 +185,61 @@ public class SysRoleServiceImpl implements SysRoleService {
     private boolean checkExist(String name, Integer id) {
         return sysRoleMapper.countByName(name,id) > 0;
     }
+
+    //  ===========================  \\\\\\\\\\\\<角色 树 开始>\\\\\\\\\\  ===========================
+
+    /**
+     * <h4>添加集合 到 树</h4>
+     * @param aclDtoList
+     * @return
+     */
+    private List<AclModuleLevelDto> aclListToTree( List<AclDto> aclDtoList) {
+        if (CollectionUtils.isEmpty(aclDtoList)) {
+            return new ArrayList<AclModuleLevelDto>();
+        }
+        List<AclModuleLevelDto> aclModuleLevelList = aclModuleTree();
+
+        Multimap<Integer,AclDto> moduleIdAclMap = ArrayListMultimap.create();
+        for (AclDto acl : aclDtoList) {
+            if (acl.getStatus() == Status.NORMAL.getCode()) {
+                moduleIdAclMap.put(acl.getAclModuleId(), acl);
+            }
+        }
+        bindAclsWithOrder(aclModuleLevelList,moduleIdAclMap);
+        return aclModuleLevelList;
+    }
+
+    /**
+     * <h4>权限点 绑定到 权限树</h4>
+     * @param aclModuleLevelList
+     * @param moduleIdAclMap
+     */
+    private void bindAclsWithOrder(List<AclModuleLevelDto> aclModuleLevelList,
+                                   Multimap<Integer,AclDto> moduleIdAclMap) {
+        if (CollectionUtils.isEmpty(aclModuleLevelList)) {
+            return;
+        }
+        for (AclModuleLevelDto dto : aclModuleLevelList) {
+            List<AclDto> aclDtoList = (List<AclDto>) moduleIdAclMap.get(dto.getId());
+            if (CollectionUtils.isNotEmpty(aclDtoList)) {
+                Collections.sort(aclDtoList, aclSeqComparator);
+                dto.setAclList(aclDtoList);
+            }
+            bindAclsWithOrder(dto.getAclModuleList(),moduleIdAclMap);//递归 调用
+        }
+    }
+
+
+    /**
+     * <h4>权限模块比较器</h4>
+     */
+    private Comparator<AclDto> aclSeqComparator = new Comparator<AclDto>() {
+        @Override
+        public int compare(AclDto acl1, AclDto acl2) {
+            return acl1.getSeq() - acl2.getSeq();
+        }
+    };
+
+    //  ===========================  \\\\\\\\\\\\<角色 树 结束>\\\\\\\\\\  ===========================
+
 }

@@ -109,13 +109,13 @@
   </update>
 
     <!--    -->
-    <select id="getRoleIdListByUserId" parameterType="map" resultType="int">
+    <select id="selectRoleIdListByUserId" parameterType="map" resultType="int">
         SELECT role_id
         FROM sys_role_user
         WHERE user_id = #{userId}
     </select>
 
-    <select id="getUserIdListByRoleId" parameterType="map" resultType="int">
+    <select id="selectUserIdListByRoleId" parameterType="map" resultType="int">
         SELECT user_id
         FROM sys_role_user
         WHERE role_id = #{roleId}
@@ -135,7 +135,7 @@
         </foreach>
     </insert>
 
-    <select id="getUserIdListByRoleIdList" parameterType="map" resultType="int">
+    <select id="selectUserIdListByRoleIdList" parameterType="map" resultType="int">
         SELECT user_id
         FROM sys_role_user
         WHERE role_id IN

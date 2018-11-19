@@ -82,11 +82,11 @@ public class SysAclServiceImpl implements SysAclService{
     }
 
     @Override
-    public PageResult<SysAcl> getPageByAclModuleId(Integer aclModuleId, PageQuery page) {
+    public PageResult<SysAcl> findPageByAclModuleId(Integer aclModuleId, PageQuery page) {
         Validation.check(page);
         int count = sysAclMapper.countByAclModuleId(aclModuleId);
         if (count > 0) {
-            List<SysAcl> aclList = sysAclMapper.getPageByAclModuleId(aclModuleId, page);
+            List<SysAcl> aclList = sysAclMapper.selectPageByAclModuleId(aclModuleId, page);
             return new PageResult<SysAcl>(aclList,count);
         }
         return new PageResult<SysAcl>();

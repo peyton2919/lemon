@@ -65,7 +65,7 @@ public interface SysRoleAclMapper {
      * @param roleIdList
      * @return
      */
-    List<Integer> getAclIdListByRoleIdList(@Param("roleIdList") List<Integer> roleIdList);
+    List<Integer> selectAclIdListByRoleIdList(@Param("roleIdList") List<Integer> roleIdList);
 
     /**
      * <h4>根据角色ID 删除 角色权限集</h4>
@@ -84,5 +84,5 @@ public interface SysRoleAclMapper {
      * @param aclId 权限ID
      * @return 角色ID集合
      */
-    List<Integer> getRoleIdListByAclId(@Param("aclId") Integer aclId);
+    List<Integer> selectRoleIdListByAclId(@Param("aclId") Integer aclId);
 }

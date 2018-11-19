@@ -6,6 +6,7 @@ import cn.peyton.spring.log.service.AbstractLogFactory;
 import cn.peyton.spring.permission.dao.SysRoleMapper;
 import cn.peyton.spring.permission.entity.SysRole;
 import cn.peyton.spring.permission.entity.SysRoleUser;
+import cn.peyton.spring.permission.service.SysRoleUserService;
 import cn.peyton.spring.util.JsonMapper;
 import com.google.common.base.Preconditions;
 import org.codehaus.jackson.type.TypeReference;
@@ -30,12 +31,15 @@ public class SysRoleUserLog extends AbstractLogFactory<SysRoleUser> {
 
     @Resource
     private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysRoleUserService sysRoleUserService;
 
     @Override
     public void recover(SysLogWithBLOBs sysLog) {
         SysRole userRole = sysRoleMapper.selectByPrimaryKey(Integer.valueOf(sysLog.getTargetId()));
         Preconditions.checkNotNull(userRole, "角色已经不存在了");
-        sysRoleUserService.changeRoleUsers(sysLog.getTargetId().intValue(), JsonMapper.string2Obj(sysLog.getOldValue(), new TypeReference<List<Long>>() {
+        sysRoleUserService.changeRoleUsers(Integer.valueOf(sysLog.getTargetId()),
+                JsonMapper.string2Obj(sysLog.getOldValue(), new TypeReference<List<Long>>() {
         }));
     }
 

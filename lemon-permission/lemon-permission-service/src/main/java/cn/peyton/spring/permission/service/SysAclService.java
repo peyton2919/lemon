@@ -33,6 +33,6 @@ public interface SysAclService {
      * @param page 分页类
      * @return
      */
-    PageResult<SysAcl> getPageByAclModuleId(Integer aclModuleId, PageQuery page);
+    PageResult<SysAcl> findPageByAclModuleId(Integer aclModuleId, PageQuery page);
 
 }

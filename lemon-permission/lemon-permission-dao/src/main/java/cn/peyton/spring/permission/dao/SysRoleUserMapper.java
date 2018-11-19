@@ -8,10 +8,10 @@ import java.util.List;
 /**
  * <h3>角色用户 Mapper 接口</h3>
  * <pre>
- * Author: <a href="http://www.peyton.cn">peyton</a>
- * MailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * CreateDate: 2018/6/23 12:03
- * Version: 1.0.0
+ * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @create date: 2018/11/19 11:10
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @version: 1.0.0
  * </pre>
  */
 public interface SysRoleUserMapper {
@@ -64,14 +64,14 @@ public interface SysRoleUserMapper {
      * @param userId 用户ID集合
      * @return 角色ID集合
      */
-    List<Integer> getRoleIdListByUserId(@Param("userId") Integer userId);
+    List<Integer> selectRoleIdListByUserId(@Param("userId") Integer userId);
 
     /**
      * <h4>根据角色ID 查找 用户ID</h4>
      * @param roleId 角色ID
      * @return 用户ID集合
      */
-    List<Integer> getUserIdListByRoleId(@Param("roleId") Integer roleId);
+    List<Integer> selectUserIdListByRoleId(@Param("roleId") Integer roleId);
 
     /**
      * <h4>根据 角色ID 删除</h4>
@@ -90,5 +90,5 @@ public interface SysRoleUserMapper {
      * @param roleIdList 角色ID集合
      * @return 用户ID集合
      */
-    List<Integer> getUserIdListByRoleIdList(@Param("roleIdList") List<Integer> roleIdList);
+    List<Integer> selectUserIdListByRoleIdList(@Param("roleIdList") List<Integer> roleIdList);
 }

@@ -7,6 +7,8 @@ import cn.peyton.spring.log.entity.SysLogWithBLOBs;
 import cn.peyton.spring.log.service.AbstractLogFactory;
 import cn.peyton.spring.permission.dao.SysRoleMapper;
 import cn.peyton.spring.permission.entity.SysRole;
+import cn.peyton.spring.permission.param.RoleParam;
+import cn.peyton.spring.util.CheckedUtil;
 import cn.peyton.spring.util.IpUtil;
 import cn.peyton.spring.util.JsonMapper;
 import com.google.common.base.Preconditions;
@@ -37,7 +39,7 @@ public class SysRoleLog extends AbstractLogFactory<SysRole> {
     @Override
     public void recover(SysLogWithBLOBs sysLog) {
         SysRole before = sysRoleMapper.selectByPrimaryKey(Integer.valueOf(sysLog.getTargetId()));
-        Preconditions.checkNotNull(before, "待还原角色已经不存在了");
+        CheckedUtil.checkNoNull(before, "待还原角色已经不存在了");
         if (StringUtils.isBlank(sysLog.getNewValue()) || StringUtils.isBlank(sysLog.getOldValue())) {
             throw new ParamException("新增和删除操作不做还原");
         }

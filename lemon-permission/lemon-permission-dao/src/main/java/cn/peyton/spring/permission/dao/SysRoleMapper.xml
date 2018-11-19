@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.peyton.spring.permission.dao.SysRoleMapper" >
-  <resultMap id="BaseResultMap" type="cn.peyton.spring.permission.entity.SysRole" >
+  <resultMap id="BaseResultMap" type="cn.peyton.spring.permission.entity.RoleParam" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
@@ -28,7 +28,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="cn.peyton.spring.permission.entity.SysRole"
+  <insert id="insert" parameterType="cn.peyton.spring.permission.entity.RoleParam"
           keyProperty="id" useGeneratedKeys="true" >
     insert into sys_role (id, name, type, 
       status, remark, operator, 
@@ -38,7 +38,7 @@
       #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR})
   </insert>
 
-  <insert id="insertSelective" parameterType="cn.peyton.spring.permission.entity.SysRole"
+  <insert id="insertSelective" parameterType="cn.peyton.spring.permission.entity.RoleParam"
           keyProperty="id" useGeneratedKeys="true" >
     insert into sys_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -95,7 +95,7 @@
     </trim>
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.permission.entity.SysRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.permission.entity.RoleParam" >
     update sys_role
     <set >
       <if test="name != null" >
@@ -123,7 +123,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.permission.entity.SysRole" >
+  <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.permission.entity.RoleParam" >
     update sys_role
     set name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
@@ -137,7 +137,7 @@
 
     <!--   -->
 
-    <select id="getAll" resultMap="BaseResultMap">
+    <select id="selectByAll" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_role
@@ -153,7 +153,7 @@
         </if>
     </select>
     
-    <select id="getByIdList" parameterType="map" resultMap="BaseResultMap">
+    <select id="selectByIdList" parameterType="map" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sys_role

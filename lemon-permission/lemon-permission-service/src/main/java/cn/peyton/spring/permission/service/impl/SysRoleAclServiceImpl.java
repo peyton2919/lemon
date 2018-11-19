@@ -41,7 +41,7 @@ public class SysRoleAclServiceImpl implements SysRoleAclService{
     @SuppressWarnings("Duplicates")
     @Override
     public void changeRoleAcls(Integer roleId, List<Integer> aclIdList) {
-        List<Integer> originAclIdList = sysRoleAclMapper.getAclIdListByRoleIdList(Lists.newArrayList(roleId));
+        List<Integer> originAclIdList = sysRoleAclMapper.selectAclIdListByRoleIdList(Lists.newArrayList(roleId));
         if (originAclIdList.size() == aclIdList.size()) {
             Set<Integer> originAclIdSet = Sets.newHashSet(originAclIdList);
             Set<Integer> aclIdSet = Sets.newHashSet(aclIdList);

@@ -84,25 +84,25 @@ public interface SysAclMapper {
      * @param page 分页对象
      * @return
      */
-    List<SysAcl> getPageByAclModuleId(@Param("aclModuleId") Integer aclModuleId, @Param("page") PageQuery page);
+    List<SysAcl> selectPageByAclModuleId(@Param("aclModuleId") Integer aclModuleId, @Param("page") PageQuery page);
 
     /**
      * <h4></h4>
      * @return
      */
-    List<SysAcl> getByAll();
+    List<SysAcl> selectByAll();
 
     /**
      * <h4>根据用户ID集合 查找 权限点集合</h4>
      * @param idList
      * @return
      */
-    List<SysAcl> getByIdList(@Param("idList") List<Integer> idList);
+    List<SysAcl> selectByIdList(@Param("idList") List<Integer> idList);
 
     /**
      * <h4>根据 url 获取 权限对象集合</h4>
      * @param url url链接
      * @return 权限对象集合
      */
-    List<SysAcl> getByUrl(@Param("url") String url);
+    List<SysAcl> selectByUrl(@Param("url") String url);
 }

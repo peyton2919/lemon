@@ -114,7 +114,7 @@
   </update>
 
     <!--  -->
-    <select id="getAclIdListByRoleIdList" parameterType="map" resultType="int">
+    <select id="selectAclIdListByRoleIdList" parameterType="map" resultType="int">
         SELECT
         acl_id
         FROM sys_role_acl
@@ -137,7 +137,7 @@
         </foreach>
     </insert>
     
-    <select id="getRoleIdListByAclId" parameterType="int" resultType="int">
+    <select id="selectRoleIdListByAclId" parameterType="int" resultType="int">
         SELECT role_id
         FROM sys_role_acl
         WHERE acl_id = #{aclId}
