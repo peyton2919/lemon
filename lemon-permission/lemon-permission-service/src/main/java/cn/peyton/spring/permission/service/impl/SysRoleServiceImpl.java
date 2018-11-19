@@ -145,36 +145,6 @@ public class SysRoleServiceImpl implements SysRoleService {
         return new EmployeeBo().adapter(sysEmployeeMapper.selectByIdList(userIdList));
     }
 
-    /**
-     * <h4>权限树</h4>
-     * @param roleId 角色ID
-     * @return
-     */
-    @Override
-    public List<AclModuleLevelDto> roleTree(Integer roleId) {
-        //1. 当前用户已分配的权限点
-        List<SysAcl> userAclList = sysCoreService.getCurrentUserAclList();
-        //2. 当前角色已分配的权限点
-        List<SysAcl> roleAclList = sysCoreService.getRoleAclList(roleId);
-        //当前系统所有权限点
-        List<AclDto> aclDtoList = new ArrayList<>();
-
-        Set<Integer> userAclIdSet = userAclList.stream().map(sysAcl -> sysAcl.getId()).collect(Collectors.toSet());
-        Set<Integer> roleAclIdSet = roleAclList.stream().map(sysAcl ->sysAcl.getId()).collect(Collectors.toSet());
-
-        List<SysAcl> allAclList = sysAclMapper.getAll();
-        for (SysAcl acl : allAclList) {
-            AclDto dto = AclDto.adapt(acl);
-            if (userAclIdSet.contains(acl.getId())) {
-                dto.setHasAcl(true);
-            }
-            if (roleAclIdSet.contains(acl.getId())) {
-                dto.setChecked(true);
-            }
-            aclDtoList.add(dto);
-        }
-        return aclListToTree(aclDtoList);
-    }
 
     /**
      * <h4>判断角色名称是否存在</h4>
@@ -186,60 +156,5 @@ public class SysRoleServiceImpl implements SysRoleService {
         return sysRoleMapper.countByName(name,id) > 0;
     }
 
-    //  ===========================  \\\\\\\\\\\\<角色 树 开始>\\\\\\\\\\  ===========================
-
-    /**
-     * <h4>添加集合 到 树</h4>
-     * @param aclDtoList
-     * @return
-     */
-    private List<AclModuleLevelDto> aclListToTree( List<AclDto> aclDtoList) {
-        if (CollectionUtils.isEmpty(aclDtoList)) {
-            return new ArrayList<AclModuleLevelDto>();
-        }
-        List<AclModuleLevelDto> aclModuleLevelList = aclModuleTree();
-
-        Multimap<Integer,AclDto> moduleIdAclMap = ArrayListMultimap.create();
-        for (AclDto acl : aclDtoList) {
-            if (acl.getStatus() == Status.NORMAL.getCode()) {
-                moduleIdAclMap.put(acl.getAclModuleId(), acl);
-            }
-        }
-        bindAclsWithOrder(aclModuleLevelList,moduleIdAclMap);
-        return aclModuleLevelList;
-    }
-
-    /**
-     * <h4>权限点 绑定到 权限树</h4>
-     * @param aclModuleLevelList
-     * @param moduleIdAclMap
-     */
-    private void bindAclsWithOrder(List<AclModuleLevelDto> aclModuleLevelList,
-                                   Multimap<Integer,AclDto> moduleIdAclMap) {
-        if (CollectionUtils.isEmpty(aclModuleLevelList)) {
-            return;
-        }
-        for (AclModuleLevelDto dto : aclModuleLevelList) {
-            List<AclDto> aclDtoList = (List<AclDto>) moduleIdAclMap.get(dto.getId());
-            if (CollectionUtils.isNotEmpty(aclDtoList)) {
-                Collections.sort(aclDtoList, aclSeqComparator);
-                dto.setAclList(aclDtoList);
-            }
-            bindAclsWithOrder(dto.getAclModuleList(),moduleIdAclMap);//递归 调用
-        }
-    }
-
-
-    /**
-     * <h4>权限模块比较器</h4>
-     */
-    private Comparator<AclDto> aclSeqComparator = new Comparator<AclDto>() {
-        @Override
-        public int compare(AclDto acl1, AclDto acl2) {
-            return acl1.getSeq() - acl2.getSeq();
-        }
-    };
-
-    //  ===========================  \\\\\\\\\\\\<角色 树 结束>\\\\\\\\\\  ===========================
 
 }

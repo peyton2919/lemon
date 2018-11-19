@@ -55,10 +55,4 @@ public interface SysRoleService {
      */
     List<EmployeeParam> findUserListByRoleList(List<RoleParam> roleList);
 
-    /**
-     * <h4>权限树</h4>
-     * @param roleId 角色ID
-     * @return 权限模块 传递层对象集合
-     */
-    List<AclModuleLevelDto> roleTree(Integer roleId) ;
 }
