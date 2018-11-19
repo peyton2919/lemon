@@ -1,5 +1,7 @@
 package cn.peyton.spring.usergroup.entity;
 
+import cn.peyton.spring.def.BaseUser;
+
 import java.util.Date;
 
 /**

@@ -15,7 +15,7 @@ import java.util.Date;
  * @version: 1.0.0
  * </pre>
  */
-public class SysAdmin extends BaseUser<Integer>{
+public class SysAdmin{
 	/** 编号  */
 	private Integer id;
 	/** 名称  */
@@ -39,28 +39,7 @@ public class SysAdmin extends BaseUser<Integer>{
 
 	//================================== Method =======================================//
 
-    @Override
-    protected String abstractUserType() {
-        return UserType.ADMIN.getValue();
-    }
-
-    @Override
-    protected Integer abstractUserTypeValue() {
-        return IUser.ADMIN_TYPE_NUM;
-    }
-
-    @Override
-    protected String abstractUserName() {
-        return name;
-    }
-
-    @Override
-    protected  Integer abstractPrimaryKey() {
-        return id;
-    }
-
-
-//================================== PREFIX_GET AND PREFIX_SET =======================================//
+    //================================== PREFIX_GET AND PREFIX_SET =======================================//
 
 	/** 
 	 * @param id 编号 

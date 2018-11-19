@@ -1,5 +1,8 @@
 package cn.peyton.spring.usergroup.param;
 
+import cn.peyton.spring.constant.UserType;
+import cn.peyton.spring.def.BaseUser;
+import cn.peyton.spring.inf.IUser;
 import cn.peyton.spring.regex.Regulation;
 import cn.peyton.spring.usergroup.entity.SysEmployee;
 import cn.peyton.spring.util.DateUtil;
@@ -14,7 +17,7 @@ import cn.peyton.spring.validator.constraints.*;
  * @version: 1.0.0
  * </pre>
  */
-public final class EmployeeParam {
+public final class EmployeeParam  extends BaseUser<Long> {
 
     /** 编号  */
     private Long id;
@@ -82,6 +85,28 @@ public final class EmployeeParam {
     private Integer status;
 
     //================================== Method =======================================//
+
+
+    @Override
+    protected String abstractUserType() {
+        return UserType.EMPLOYEE.getValue();
+    }
+
+    @Override
+    protected Integer abstractUserTypeValue() {
+        return IUser.EMPLOYEE_TYPE_NUM;
+    }
+
+    @Override
+    protected String abstractUserName() {
+        return getLoginName();
+    }
+
+    @Override
+    protected Long abstractPrimaryKey() {
+        return getId();
+    }
+
     /**
      * <h4>对象转成SysEmployee对象<h4>
      * <pre>
