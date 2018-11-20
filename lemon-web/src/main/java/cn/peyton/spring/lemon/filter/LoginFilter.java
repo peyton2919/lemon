@@ -1,10 +1,12 @@
-package cn.peyton.spring.lemon.common;
+package cn.peyton.spring.lemon.filter;
 
 import cn.peyton.spring.common.RequestHolder;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.inf.IUser;
 import cn.peyton.spring.constant.Constants;
 import cn.peyton.spring.constant.UserType;
+import cn.peyton.spring.usergroup.param.AdminParam;
+import cn.peyton.spring.usergroup.param.EmployeeParam;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +30,11 @@ import java.io.PrintWriter;
  *       </filter-mapping>
  * </pre>
  * <pre>
- * Author: <a href="http://www.peyton.cn">peyton</a>
- * MailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * CreateDate: 2018/6/26 16:02
- * Version: 1.0.0
+ * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @create date: 2018/11/20 10:54
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @version: 1.0.0
  * </pre>
- * @author peyton
  */
 public class LoginFilter implements Filter {
 
@@ -44,8 +45,6 @@ public class LoginFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         System.out.println("=======================login filter ===========================");
     }
-
-
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -80,25 +79,25 @@ public class LoginFilter implements Filter {
         System.out.println(userType);
         String type = baseUser.getUserType();
         if (UserType.EMPLOYEE.getValue().equals(type)) {
-//            SysEmployee employee = (SysEmployee) req.getSession().getAttribute(Constants.CURRENT_USER.name());
-//            if (null == employee) {
-//                resp.sendRedirect(FAIL_URL);
-//                return;
-//            }
-//            RequestHolder.add(employee);
+            EmployeeParam employee = (EmployeeParam) req.getSession().getAttribute(Constants.CURRENT_USER.name());
+            if (null == employee) {
+                resp.sendRedirect(FAIL_URL);
+                return;
+            }
+            RequestHolder.add(employee);
         }else if (UserType.ADMIN.getValue().equals(type)) {
-//            SysAdmin admin = (SysAdmin) req.getSession().getAttribute(Constants.CURRENT_USER.name());
-//            if (null == admin) {
-//                resp.sendRedirect(FAIL_URL);
-//                return;
-//            }
-//            RequestHolder.add(admin);
+            AdminParam admin = (AdminParam) req.getSession().getAttribute(Constants.CURRENT_USER.name());
+            if (null == admin) {
+                resp.sendRedirect(FAIL_URL);
+                return;
+            }
+            RequestHolder.add(admin);
         } else if (UserType.CUSTOMER.getValue().equals(type)) {
 
         } else if (UserType.SUPPLIER.getValue().equals(type)) {
 
         }
-
+        RequestHolder.add(req);
         filterChain.doFilter(servletRequest, servletResponse);
         return;
     }

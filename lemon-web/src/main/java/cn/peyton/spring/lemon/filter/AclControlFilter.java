@@ -1,11 +1,12 @@
-package cn.peyton.spring.lemon.common;
+package cn.peyton.spring.lemon.filter;
 
+import cn.peyton.spring.common.ApplicationContextHelper;
 import cn.peyton.spring.common.RequestHolder;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.log.LogUtil;
-import cn.peyton.spring.common.ApplicationContextHelper;
 import cn.peyton.spring.common.JsonData;
 import cn.peyton.spring.constant.ResponseCode;
+import cn.peyton.spring.permission.service.SysCoreService;
 import cn.peyton.spring.util.JsonMapper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Sets;
@@ -33,12 +34,32 @@ import java.util.Set;
  *      </filter-mapping>
  * </pre>
  * <pre>
- * Author: <a href="http://www.peyton.cn">peyton</a>
- * MailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * CreateDate: 2018/7/6 14:12
- * Version: 1.0.0
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @mailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @createDate: 2018/7/6 14:12
+ * @version: 1.0.0
  * </pre>
- * @author peyton
+ */
+/**
+ * <h3>权限控制 拦截</h3>
+ * <pre>
+ *      必需在web.xml配置
+ *     <filter>
+ *          <filter-name>aclControlFilter</filter-name>
+ *          <filter-class>cn.peyton.spring.permission.filter.AclControlFilter</filter-class>
+ *      </filter>
+ *      <filter-mapping>
+ *          <filter-name>aclControlFilter</filter-name>
+ *          <url-pattern>/sys/*</url-pattern>
+ *          <url-pattern>/admin/*</url-pattern>
+ *      </filter-mapping>
+ * </pre>
+ * <pre>
+ * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @create date: 2018/11/20 9:16
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @version: 1.0.0
+ * </pre>
  */
 public class AclControlFilter implements Filter {
 
@@ -79,15 +100,15 @@ public class AclControlFilter implements Filter {
             return;
         }
 
-//        SysCoreService sysCoreService = ApplicationContextHelper.popBean(SysCoreService.class);
-//        //调用权限比对
-//        if (!sysCoreService.hasUrlAcl(servletPath)) {
-//            //无权限 操作
-//            LogUtil.info("{} 访问: {},但是没有登录,参数: {}",
-//                    JsonMapper.obj2String(sysUser), servletPath, JsonMapper.obj2String(requestMap));
-//            noAuth(request, response);
-//            return;
-//        }
+        SysCoreService sysCoreService = ApplicationContextHelper.popBean(SysCoreService.class);
+        //调用权限比对
+        if (!sysCoreService.hasUrlAcl(servletPath)) {
+            //无权限 操作
+            LogUtil.info("{} 访问: {},但是没有登录,参数: {}",
+                    JsonMapper.obj2String(sysUser), servletPath, JsonMapper.obj2String(requestMap));
+            noAuth(request, response);
+            return;
+        }
         filterChain.doFilter(servletRequest, servletResponse);
         return;
     }

@@ -49,7 +49,7 @@ public class AdminController {
         }else if (UserType.ADMIN.getValue().equals(type)){
             request.setAttribute("username",baseUser.getUserName());
         }
-        return new ModelAndView("perm/admin");
+        return new ModelAndView("emp/admin");
     }
 
     @ResponseBody

@@ -107,35 +107,35 @@
     <!--</filter-mapping>-->
 
     <!-- 登录过滤器  -->
-    <!--<filter>-->
-        <!--<filter-name>loginFilter</filter-name>-->
-        <!--<filter-class>cn.peyton.spring.lemon.filter.LoginFilter</filter-class>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>loginFilter</filter-name>-->
-        <!--<url-pattern>/sys/*</url-pattern>-->
-        <!--<url-pattern>/admin/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>cn.peyton.spring.lemon.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 
     <!-- 权限 过滤器  -->
-    <!--<filter>-->
-        <!--<filter-name>aclControlFilter</filter-name>-->
-        <!--<filter-class>cn.peyton.spring.lemon.filter.AclControlFilter</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>targetFilterLifecycle</param-name>-->
-            <!--<param-value>true</param-value>-->
-        <!--</init-param>-->
-        <!--<init-param>-->
-            <!--&lt;!&ndash;  排除路径 &ndash;&gt;-->
-            <!--<param-name>exclusionUrls</param-name>-->
-            <!--<param-value>/sys/user/noAuth.page,/login.page</param-value>-->
-        <!--</init-param>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>aclControlFilter</filter-name>-->
-        <!--<url-pattern>/sys/*</url-pattern>-->
-        <!--<url-pattern>/admin/*</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>aclControlFilter</filter-name>
+        <filter-class>cn.peyton.spring.lemon.filter.AclControlFilter</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <!--  排除路径 -->
+            <param-name>exclusionUrls</param-name>
+            <param-value>/sys/user/noAuth.page,/login.page</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>aclControlFilter</filter-name>
+        <url-pattern>/sys/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
 
     <!--  session 退出时间 -->
     <session-config>

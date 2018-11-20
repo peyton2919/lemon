@@ -5,8 +5,10 @@ import cn.peyton.spring.constant.Constants;
 import cn.peyton.spring.constant.Numerical;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.inf.IUser;
-import cn.peyton.spring.usergroup.entity.SysEmployee;
+import cn.peyton.spring.usergroup.entity.SysAdmin;
+import cn.peyton.spring.usergroup.param.AdminParam;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
+import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -38,8 +40,8 @@ public final class LoginController {
     private static final String PATH_CUS = "/sign-in-cus.page";
     private static final String PATH_SUP = "/sign-in-sup.page";
 
-//    @Resource
-//    private SysAdminService sysAdminService;
+    @Resource
+    private SysAdminService sysAdminService;
     @Resource
     private SysEmployeeService sysEmployeeService;
 //    @Resource
@@ -81,12 +83,12 @@ public final class LoginController {
                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.EMPLOYEE_TYPE_NUM);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
-//            SysAdmin admin = sysAdminService.findByKeyword(username);
-//            checkPass = checked(admin, errorMsg, username, password);
-//            if (checkPass) {
-//               session.setAttribute(Constants.CURRENT_USER.name(),admin);
-//                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.ADMIN_TYPE_NUM);
-//            }
+            AdminParam admin = sysAdminService.findByKeyword(username);
+            checkPass = checked(admin, errorMsg, username, password);
+            if (checkPass) {
+                session.setAttribute(Constants.CURRENT_USER.name(),admin);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.ADMIN_TYPE_NUM);
+            }
         }
 
         if (checkPass) {
@@ -197,16 +199,16 @@ public final class LoginController {
             errorMsg.append("查询不到指定用户");
             return false;
         }
-//        if (obj instanceof SysAdmin) {
-//            SysAdmin admin = (SysAdmin) obj;
-//            if (!admin.getPassword().equals(MD5Util.encrypt(password))) {
-//                errorMsg.append("管理员名或密码错误");
-//                return false;
-//            } else if (!Numerical.FIRST.equals(admin.getStatus())) {
-//                errorMsg.append("管理员已被冻结");
-//                return false;
-//            }
-//        }
+        if (obj instanceof SysAdmin) {
+            SysAdmin admin = (SysAdmin) obj;
+            if (!admin.getPassword().equals(Md5Util.encrypt(password))) {
+                errorMsg.append("管理员名或密码错误");
+                return false;
+            } else if (!Numerical.FIRST.equals(admin.getStatus())) {
+                errorMsg.append("管理员已被冻结");
+                return false;
+            }
+        }
         if (obj instanceof EmployeeParam) {
             EmployeeParam employee = (EmployeeParam) obj;
             String originalPwd = employee.getPwd();

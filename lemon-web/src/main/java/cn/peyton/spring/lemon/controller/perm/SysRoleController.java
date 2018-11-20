@@ -1,10 +1,11 @@
 package cn.peyton.spring.lemon.controller.perm;
 
 import cn.peyton.spring.permission.dto.AclModuleLevelDto;
-import cn.peyton.spring.permission.entity.SysEmployee;
 import cn.peyton.spring.permission.param.RoleParam;
 import cn.peyton.spring.permission.service.*;
 import cn.peyton.spring.common.JsonData;
+import cn.peyton.spring.usergroup.entity.SysEmployee;
+import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import cn.peyton.spring.util.StringUtil;
 import com.google.common.collect.Lists;
@@ -24,12 +25,10 @@ import java.util.stream.Collectors;
 /**
  * <h3>角色 Controller 类</h3>
  * <pre>
- * Author: <a href="http://www.peyton.cn">peyton</a>
- * MailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * ProjectName: perm
- * PackageName: cn.peyton.spring.perm.controller.SysRoleController.java
- * CreateDate: 2018/6/30 8:39
- * Version: 1.0.0
+ * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @create date: 2018/11/20 9:05
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @version: 1.0.0
  * </pre>
  */
 @Controller
@@ -94,20 +93,20 @@ public class SysRoleController {
     @ResponseBody
     public JsonData users(@RequestParam("roleId") Integer roleId) {
         //todo 修改 user 为employee
-        List<SysEmployee> selectedEmpList = sysRoleUserService.getListByRoleId(roleId);
-        List<SysEmployee> allEmpList = sysEmployeeService.findByAll();
-        List<SysEmployee> unselectedUserList = Lists.newArrayList();
+        List<EmployeeParam> selectedEmpList = sysRoleUserService.findListByRoleId(roleId);
+        List<EmployeeParam> allEmpList = sysEmployeeService.findByAll();
+        List<EmployeeParam> unselectedUserList = Lists.newArrayList();
 
-        Set<Integer> selectedUserIdSet = selectedEmpList.stream()
-                .map(sysEmployee -> sysEmployee.getId())
+        Set<Long> selectedUserIdSet = selectedEmpList.stream()
+                .map(employeeParam -> employeeParam.getId())
                 .collect(Collectors.toSet());
 
-        for (SysEmployee sysEmployee : allEmpList) {
-            if (sysEmployee.getEmpStatus() == 1 && !selectedUserIdSet.contains(sysEmployee.getId())) {
-                unselectedUserList.add(sysEmployee);
+        for (EmployeeParam employeeParam : allEmpList) {
+            if (employeeParam.getStatus() == 1 && !selectedUserIdSet.contains(employeeParam.getId())) {
+                unselectedUserList.add(employeeParam);
             }
         }
-        Map<String,List<SysEmployee>> map = Maps.newHashMap();
+        Map<String,List<EmployeeParam>> map = Maps.newHashMap();
         map.put("selected", selectedEmpList);
         map.put("unselected", unselectedUserList);
         return JsonData.success(map);

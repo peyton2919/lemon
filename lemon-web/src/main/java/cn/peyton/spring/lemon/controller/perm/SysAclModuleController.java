@@ -17,12 +17,10 @@ import java.util.List;
 /**
  * <h3>权限模块 Controller 类</h3>
  * <pre>
- * Author: <a href="http://www.peyton.cn">peyton</a>
- * MailListener: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
- * ProjectName: perm
- * PackageName: cn.peyton.spring.perm.controller.SysAclModuleController.java
- * CreateDate: 2018/6/26 16:45
- * Version: 1.0.0
+ * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+ * @create date: 2018/11/20 9:10
+ * @author: <a href="http://www.peyton.cn">peyton</a>
+ * @version: 1.0.0
  * </pre>
  */
 @Controller
