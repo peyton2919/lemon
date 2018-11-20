@@ -1,7 +1,7 @@
 package cn.peyton.spring.usergroup.service.impl;
 
 import cn.peyton.spring.usergroup.dao.SysAdminMapper;
-import cn.peyton.spring.usergroup.entity.SysAdmin;
+import cn.peyton.spring.usergroup.param.AdminParam;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
@@ -21,7 +21,7 @@ public class SysAdminServiceImpl implements SysAdminService {
 	private SysAdminMapper sysAdminMapper;
 
     @Override
-    public SysAdmin findByKeyword(String keyword) {
-        return sysAdminMapper.selectByKeyword(keyword);
+    public AdminParam findByKeyword(String keyword) {
+        return new AdminParam().compat(sysAdminMapper.selectByKeyword(keyword));
     }
 }

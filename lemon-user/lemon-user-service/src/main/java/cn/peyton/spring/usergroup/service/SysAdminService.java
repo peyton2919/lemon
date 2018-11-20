@@ -1,6 +1,6 @@
 package cn.peyton.spring.usergroup.service;
 
-import cn.peyton.spring.usergroup.entity.SysAdmin;
+import cn.peyton.spring.usergroup.param.AdminParam;
 
 /**
  * <h3>管理员 Service 接口 .</h3>
@@ -17,6 +17,6 @@ public interface SysAdminService {
      * @param keyword 关键字[登录名]
      * @return 对象
      */
-    SysAdmin findByKeyword(String keyword);
+    AdminParam findByKeyword(String keyword);
 
 }
