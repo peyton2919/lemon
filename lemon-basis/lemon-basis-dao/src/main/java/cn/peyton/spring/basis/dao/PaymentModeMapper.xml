@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.PaymentModeMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.PaymentMode">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="pamo_name" property="pamoName" jdbcType="VARCHAR"/>
+		<result column="pamo_explain" property="pamoExplain" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,pamo_name,pamo_explain
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.PaymentMode" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_payment_mode(id,pamo_name,pamo_explain)
+		values (#{id},#{pamoName},#{pamoExplain})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.PaymentMode" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_payment_mode
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="pamoName != null">
+				pamo_name,
+			</if>
+			<if test="pamoExplain != null">
+				pamo_explain,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="pamoName != null">
+				#{pamoName},
+			</if>
+			<if test="pamoExplain != null">
+				#{pamoExplain},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_payment_mode
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.PaymentMode">
+		update tb_payment_mode
+		<set>
+			<if test="pamoName != null">
+				pamo_name = #{pamoName},
+			</if>
+			<if test="pamoExplain != null">
+				pamo_explain = #{pamoExplain},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.PaymentMode">
+		update tb_payment_mode
+		set 
+			pamo_name = #{pamoName},
+			pamo_explain = #{pamoExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_payment_mode
+		where id = #{id}
+	</select>
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_payment_mode
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_payment_mode
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_payment_mode
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            pamo_name LIKE concat('%',#{keyword},'%')
+            OR pamo_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_payment_mode
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            pamo_name LIKE concat('%',#{keyword},'%')
+            OR pamo_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT id,pamo_name
+        FROM tb_payment_mode
+        ORDER BY id DESC
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_payment_mode
+        WHERE pamo_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+</mapper>

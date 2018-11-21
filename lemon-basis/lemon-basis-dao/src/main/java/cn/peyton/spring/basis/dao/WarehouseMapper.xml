@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.WarehouseMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.Warehouse">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="war_name" property="warName" jdbcType="VARCHAR"/>
+		<result column="war_tel" property="warTel" jdbcType="VARCHAR"/>
+		<result column="war_phone" property="warPhone" jdbcType="VARCHAR"/>
+		<result column="war_add" property="warAdd" jdbcType="VARCHAR"/>
+		<result column="war_qq" property="warQq" jdbcType="VARCHAR"/>
+		<result column="war_location" property="warLocation" jdbcType="VARCHAR"/>
+		<result column="war_explain" property="warExplain" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,war_name,war_tel,war_phone,war_add,war_qq,war_location,war_explain
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Warehouse" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_warehouse(id,war_name,war_tel,war_phone,war_add,war_qq,war_location,war_explain)
+		values (#{id},#{warName},#{warTel},#{warPhone},#{warAdd},#{warQq},#{warLocation},#{warExplain})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Warehouse" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_warehouse
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="warName != null">
+				war_name,
+			</if>
+			<if test="warTel != null">
+				war_tel,
+			</if>
+			<if test="warPhone != null">
+				war_phone,
+			</if>
+			<if test="warAdd != null">
+				war_add,
+			</if>
+			<if test="warQq != null">
+				war_qq,
+			</if>
+			<if test="warLocation != null">
+				war_location,
+			</if>
+			<if test="warExplain != null">
+				war_explain,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="warName != null">
+				#{warName},
+			</if>
+			<if test="warTel != null">
+				#{warTel},
+			</if>
+			<if test="warPhone != null">
+				#{warPhone},
+			</if>
+			<if test="warAdd != null">
+				#{warAdd},
+			</if>
+			<if test="warQq != null">
+				#{warQq},
+			</if>
+			<if test="warLocation != null">
+				#{warLocation},
+			</if>
+			<if test="warExplain != null">
+				#{warExplain},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_warehouse
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Warehouse">
+		update tb_warehouse
+		<set>
+			<if test="warName != null">
+				war_name = #{warName},
+			</if>
+			<if test="warTel != null">
+				war_tel = #{warTel},
+			</if>
+			<if test="warPhone != null">
+				war_phone = #{warPhone},
+			</if>
+			<if test="warAdd != null">
+				war_add = #{warAdd},
+			</if>
+			<if test="warQq != null">
+				war_qq = #{warQq},
+			</if>
+			<if test="warLocation != null">
+				war_location = #{warLocation},
+			</if>
+			<if test="warExplain != null">
+				war_explain = #{warExplain},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Warehouse">
+		update tb_warehouse
+		set 
+			war_name = #{warName},
+			war_tel = #{warTel},
+			war_phone = #{warPhone},
+			war_add = #{warAdd},
+			war_qq = #{warQq},
+			war_location = #{warLocation},
+			war_explain = #{warExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_warehouse
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_warehouse
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_warehouse
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            war_name LIKE concat('%',#{keyword},'%')
+            OR war_tel LIKE concat('%',#{keyword},'%')
+            OR war_phone LIKE concat('%',#{keyword},'%')
+            OR war_qq LIKE concat('%',#{keyword},'%')
+            OR war_add LIKE concat('%',#{keyword},'%')
+            OR war_location LIKE concat('%',#{keyword},'%')
+            OR war_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_warehouse
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_warehouse
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            war_name LIKE concat('%',#{keyword},'%')
+            OR war_tel LIKE concat('%',#{keyword},'%')
+            OR war_phone LIKE concat('%',#{keyword},'%')
+            OR war_qq LIKE concat('%',#{keyword},'%')
+            OR war_add LIKE concat('%',#{keyword},'%')
+            OR war_location LIKE concat('%',#{keyword},'%')
+            OR war_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_warehouse
+        WHERE war_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap" parameterType="map">
+        select
+         id,war_name
+        FROM tb_warehouse
+    </select>
+
+</mapper>

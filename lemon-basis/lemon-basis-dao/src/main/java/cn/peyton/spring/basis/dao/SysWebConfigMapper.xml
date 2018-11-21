@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.SysWebConfigMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.SysWebConfig">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="web_title" property="webTitle" jdbcType="VARCHAR"/>
+		<result column="web_link" property="webLink" jdbcType="VARCHAR"/>
+		<result column="web_email" property="webEmail" jdbcType="VARCHAR"/>
+		<result column="web_logo_image" property="webLogoImage" jdbcType="VARCHAR"/>
+		<result column="web_add" property="webAdd" jdbcType="VARCHAR"/>
+		<result column="web_tel" property="webTel" jdbcType="VARCHAR"/>
+		<result column="web_phone" property="webPhone" jdbcType="VARCHAR"/>
+		<result column="web_fax" property="webFax" jdbcType="VARCHAR"/>
+		<result column="web_icp" property="webIcp" jdbcType="VARCHAR"/>
+		<result column="web_copy_right" property="webCopyRight" jdbcType="VARCHAR"/>
+		<result column="web_name" property="webName" jdbcType="VARCHAR"/>
+		<result column="web_keyword" property="webKeyword" jdbcType="VARCHAR"/>
+		<result column="web_link_icon" property="webLinkIcon" jdbcType="VARCHAR"/>
+		<result column="web_close_tip" property="webCloseTip" jdbcType="VARCHAR"/>
+		<result column="web_upload_path" property="webUploadPath" jdbcType="VARCHAR"/>
+		<result column="web_skin" property="webSkin" jdbcType="VARCHAR"/>
+		<result column="web_census_code" property="webCensusCode" jdbcType="LONGVARCHAR"/>
+		<result column="web_status" property="webStatus" jdbcType="INTEGER"/>
+		<result column="web_desc" property="webDesc" jdbcType="VARCHAR"/>
+		<result column="web_explain" property="webExplain" jdbcType="VARCHAR"/>
+		<result column="web_created" property="webCreated" jdbcType="TIMESTAMP"/>
+		<result column="web_updated" property="webUpdated" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,web_title,web_link,web_email,web_logo_image,web_add,web_tel,web_phone,web_fax,web_icp,web_copy_right,web_name,
+		web_keyword,web_link_icon,web_close_tip,web_upload_path,web_skin,web_census_code,web_status,
+		web_desc,web_explain,web_created,web_updated
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.SysWebConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_web_config(id,web_title,web_link,web_email,web_logo_image,web_add,web_tel,web_phone,web_fax,web_icp,
+		web_copy_right,web_name,web_keyword,web_link_icon,web_close_tip,web_upload_path,web_skin,web_census_code,web_status,
+		web_desc,web_explain,web_created,web_updated)
+		values
+		(#{id},#{webTitle},#{webLink},#{webEmail},#{webLogoImage},#{webAdd},#{webTel},#{webPhone},#{webFax},#{webIcp},
+		#{webCopyRight},#{webName},#{webKeyword},#{webLinkIcon},#{webCloseTip},#{webUploadPath},#{webSkin},#{webCensusCode},#{webStatus},
+		#{webDesc},#{webExplain},#{webCreated},#{webUpdated})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.SysWebConfig" keyProperty="id" useGeneratedKeys="true">
+		insert into sys_web_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="webTitle != null">
+				web_title,
+			</if>
+			<if test="webLink != null">
+				web_link,
+			</if>
+			<if test="webEmail != null">
+				web_email,
+			</if>
+			<if test="webLogoImage != null">
+				web_logo_image,
+			</if>
+			<if test="webAdd != null">
+				web_add,
+			</if>
+			<if test="webTel != null">
+				web_tel,
+			</if>
+			<if test="webPhone != null">
+				web_phone,
+			</if>
+			<if test="webFax != null">
+				web_fax,
+			</if>
+			<if test="webIcp != null">
+				web_icp,
+			</if>
+			<if test="webCopyRight != null">
+				web_copy_right,
+			</if>
+			<if test="webName != null">
+				web_name,
+			</if>
+			<if test="webKeyword != null">
+				web_keyword,
+			</if>
+			<if test="webLinkIcon != null">
+				web_link_icon,
+			</if>
+			<if test="webCloseTip != null">
+				web_close_tip,
+			</if>
+			<if test="webUploadPath != null">
+				web_upload_path,
+			</if>
+			<if test="webSkin != null">
+				web_skin,
+			</if>
+			<if test="webCensusCode != null">
+				web_census_code,
+			</if>
+			<if test="webStatus != null">
+				web_status,
+			</if>
+			<if test="webDesc != null">
+				web_desc,
+			</if>
+			<if test="webExplain != null">
+				web_explain,
+			</if>
+			<if test="webCreated != null">
+				web_created,
+			</if>
+			<if test="webUpdated != null">
+				web_updated,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="webTitle != null">
+				#{webTitle},
+			</if>
+			<if test="webLink != null">
+				#{webLink},
+			</if>
+			<if test="webEmail != null">
+				#{webEmail},
+			</if>
+			<if test="webLogoImage != null">
+				#{webLogoImage},
+			</if>
+			<if test="webAdd != null">
+				#{webAdd},
+			</if>
+			<if test="webTel != null">
+				#{webTel},
+			</if>
+			<if test="webPhone != null">
+				#{webPhone},
+			</if>
+			<if test="webFax != null">
+				#{webFax},
+			</if>
+			<if test="webIcp != null">
+				#{webIcp},
+			</if>
+			<if test="webCopyRight != null">
+				#{webCopyRight},
+			</if>
+			<if test="webName != null">
+				#{webName},
+			</if>
+			<if test="webKeyword != null">
+				#{webKeyword},
+			</if>
+			<if test="webLinkIcon != null">
+				#{webLinkIcon},
+			</if>
+			<if test="webCloseTip != null">
+				#{webCloseTip},
+			</if>
+			<if test="webUploadPath != null">
+				#{webUploadPath},
+			</if>
+			<if test="webSkin != null">
+				#{webSkin},
+			</if>
+			<if test="webCensusCode != null">
+				#{webCensusCode},
+			</if>
+			<if test="webStatus != null">
+				#{webStatus},
+			</if>
+			<if test="webDesc != null">
+				#{webDesc},
+			</if>
+			<if test="webExplain != null">
+				#{webExplain},
+			</if>
+			<if test="webCreated != null">
+				#{webCreated},
+			</if>
+			<if test="webUpdated != null">
+				#{webUpdated},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sys_web_config
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+		update sys_web_config
+		<set>
+			<if test="webTitle != null">
+				web_title = #{webTitle},
+			</if>
+			<if test="webLink != null">
+				web_link = #{webLink},
+			</if>
+			<if test="webEmail != null">
+				web_email = #{webEmail},
+			</if>
+			<if test="webLogoImage != null">
+				web_logo_image = #{webLogoImage},
+			</if>
+			<if test="webAdd != null">
+				web_add = #{webAdd},
+			</if>
+			<if test="webTel != null">
+				web_tel = #{webTel},
+			</if>
+			<if test="webPhone != null">
+				web_phone = #{webPhone},
+			</if>
+			<if test="webFax != null">
+				web_fax = #{webFax},
+			</if>
+			<if test="webIcp != null">
+				web_icp = #{webIcp},
+			</if>
+			<if test="webCopyRight != null">
+				web_copy_right = #{webCopyRight},
+			</if>
+			<if test="webName != null">
+				web_name = #{webName},
+			</if>
+			<if test="webKeyword != null">
+				web_keyword = #{webKeyword},
+			</if>
+			<if test="webLinkIcon != null">
+				web_link_icon = #{webLinkIcon},
+			</if>
+			<if test="webCloseTip != null">
+				web_close_tip = #{webCloseTip},
+			</if>
+			<if test="webUploadPath != null">
+				web_upload_path = #{webUploadPath},
+			</if>
+			<if test="webSkin != null">
+				web_skin = #{webSkin},
+			</if>
+			<if test="webCensusCode != null">
+				web_census_code = #{webCensusCode},
+			</if>
+			<if test="webStatus != null">
+				web_status = #{webStatus},
+			</if>
+			<if test="webDesc != null">
+				web_desc = #{webDesc},
+			</if>
+			<if test="webExplain != null">
+				web_explain = #{webExplain},
+			</if>
+			<if test="webCreated != null">
+				web_created = #{webCreated},
+			</if>
+			<if test="webUpdated != null">
+				web_updated = #{webUpdated},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+		update sys_web_config
+		set 
+			web_title = #{webTitle},
+			web_link = #{webLink},
+			web_email = #{webEmail},
+			web_logo_image = #{webLogoImage},
+			web_add = #{webAdd},
+			web_tel = #{webTel},
+			web_phone = #{webPhone},
+			web_fax = #{webFax},
+			web_icp = #{webIcp},
+			web_copy_right = #{webCopyRight},
+			web_name = #{webName},
+			web_keyword = #{webKeyword},
+			web_link_icon = #{webLinkIcon},
+			web_close_tip = #{webCloseTip},
+			web_upload_path = #{webUploadPath},
+			web_skin = #{webSkin},
+			web_census_code = #{webCensusCode},
+			web_status = #{webStatus},
+			web_desc = #{webDesc},
+			web_explain = #{webExplain},
+			web_created = #{webCreated},
+			web_updated = #{webUpdated}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from sys_web_config
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectBaseById" resultMap="BaseResultMap" parameterType="int">
+        select
+          id,web_title,web_link,web_email,web_logo_image,web_add,web_tel,web_phone,web_fax,web_name,web_created,web_updated
+        from sys_web_config
+        where id = #{id}
+    </select>
+
+    <update id="updateBase" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+        update sys_web_config
+        set
+        web_title = #{webTitle},
+        web_link = #{webLink},
+        web_email = #{webEmail},
+        web_logo_image = #{webLogoImage},
+        web_add = #{webAdd},
+        web_tel = #{webTel},
+        web_phone = #{webPhone},
+        web_fax = #{webFax},
+        web_name = #{webName},
+        web_updated = #{webUpdated}
+        where id = #{id}
+    </update>
+
+    <select id="selectExtById" resultMap="BaseResultMap" parameterType="int">
+        select
+        id,web_upload_path,web_skin,web_keyword,web_census_code
+        from sys_web_config
+        where id = #{id}
+    </select>
+
+    <update id="updateExt" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+        update sys_web_config
+        set
+        web_upload_path = #{webUploadPath},
+        web_skin = #{webSkin},
+        web_keyword = #{webKeyword},
+        web_census_code = #{webCensusCode}
+        where id = #{id}
+    </update>
+
+    <select id="selectCopyrightById" resultMap="BaseResultMap" parameterType="int">
+        select
+        id,web_copy_right,web_link_icon,web_icp,web_desc,web_explain
+        from sys_web_config
+        where id = #{id}
+    </select>
+
+    <update id="updateCopyright" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+        update sys_web_config
+        set
+        web_copy_right = #{webCopyRight},
+        web_link_icon = #{webLinkIcon},
+        web_icp = #{webIcp},
+        web_desc = #{webDesc},
+        web_explain = #{webExplain}
+        where id = #{id}
+    </update>
+
+    <select id="selectCloseById" resultMap="BaseResultMap" parameterType="int">
+        select
+        id,web_status,web_close_tip
+        from sys_web_config
+        where id = #{id}
+    </select>
+
+    <update id="updateClose" parameterType="cn.peyton.spring.basis.entity.SysWebConfig">
+        update sys_web_config
+        set
+        web_status = #{webStatus},
+        web_close_tip = #{webCloseTip}
+        where id = #{id}
+    </update>
+
+</mapper>

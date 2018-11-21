@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.ShippingMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.Shipping">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="cust_id" property="custId" jdbcType="BIGINT"/>
+		<result column="ship_name" property="shipName" jdbcType="VARCHAR"/>
+		<result column="ship_tel" property="shipTel" jdbcType="VARCHAR"/>
+		<result column="ship_phone" property="shipPhone" jdbcType="VARCHAR"/>
+		<result column="ship_province" property="shipProvince" jdbcType="VARCHAR"/>
+		<result column="ship_city" property="shipCity" jdbcType="VARCHAR"/>
+		<result column="ship_district" property="shipDistrict" jdbcType="VARCHAR"/>
+		<result column="ship_address" property="shipAddress" jdbcType="VARCHAR"/>
+		<result column="ship_zip" property="shipZip" jdbcType="VARCHAR"/>
+		<result column="ship_created" property="shipCreated" jdbcType="TIMESTAMP"/>
+		<result column="ship_updated" property="shipUpdated" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,cust_id,ship_name,ship_tel,ship_phone,ship_province,ship_city,
+		ship_district,ship_address,ship_zip,ship_created,ship_updated
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Shipping"
+            keyProperty="id" useGeneratedKeys="true">
+		insert into tb_shipping_info(id,cust_id,ship_name,ship_tel,ship_phone,ship_province,
+		ship_city,ship_district,ship_address,ship_zip,ship_created,ship_updated)
+		values (#{id},#{custId},#{shipName},#{shipTel},#{shipPhone},#{shipProvince},#{shipCity},
+		#{shipDistrict},#{shipAddress},#{shipZip},#{shipCreated},#{shipUpdated})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Shipping"
+            keyProperty="id" useGeneratedKeys="true">
+		insert into tb_shipping_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="custId != null">
+				cust_id,
+			</if>
+			<if test="shipName != null">
+				ship_name,
+			</if>
+			<if test="shipTel != null">
+				ship_tel,
+			</if>
+			<if test="shipPhone != null">
+				ship_phone,
+			</if>
+			<if test="shipProvince != null">
+				ship_province,
+			</if>
+			<if test="shipCity != null">
+				ship_city,
+			</if>
+			<if test="shipDistrict != null">
+				ship_district,
+			</if>
+			<if test="shipAddress != null">
+				ship_address,
+			</if>
+			<if test="shipZip != null">
+				ship_zip,
+			</if>
+			<if test="shipCreated != null">
+				ship_created,
+			</if>
+			<if test="shipUpdated != null">
+				ship_updated,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="custId != null">
+				#{custId},
+			</if>
+			<if test="shipName != null">
+				#{shipName},
+			</if>
+			<if test="shipTel != null">
+				#{shipTel},
+			</if>
+			<if test="shipPhone != null">
+				#{shipPhone},
+			</if>
+			<if test="shipProvince != null">
+				#{shipProvince},
+			</if>
+			<if test="shipCity != null">
+				#{shipCity},
+			</if>
+			<if test="shipDistrict != null">
+				#{shipDistrict},
+			</if>
+			<if test="shipAddress != null">
+				#{shipAddress},
+			</if>
+			<if test="shipZip != null">
+				#{shipZip},
+			</if>
+			<if test="shipCreated != null">
+				#{shipCreated},
+			</if>
+			<if test="shipUpdated != null">
+				#{shipUpdated},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_shipping_info
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Shipping">
+		update tb_shipping_info
+		<set>
+			<if test="custId != null">
+				cust_id = #{custId},
+			</if>
+			<if test="shipName != null">
+				ship_name = #{shipName},
+			</if>
+			<if test="shipTel != null">
+				ship_tel = #{shipTel},
+			</if>
+			<if test="shipPhone != null">
+				ship_phone = #{shipPhone},
+			</if>
+			<if test="shipProvince != null">
+				ship_province = #{shipProvince},
+			</if>
+			<if test="shipCity != null">
+				ship_city = #{shipCity},
+			</if>
+			<if test="shipDistrict != null">
+				ship_district = #{shipDistrict},
+			</if>
+			<if test="shipAddress != null">
+				ship_address = #{shipAddress},
+			</if>
+			<if test="shipZip != null">
+				ship_zip = #{shipZip},
+			</if>
+			<if test="shipCreated != null">
+				ship_created = #{shipCreated},
+			</if>
+			<if test="shipUpdated != null">
+				ship_updated = #{shipUpdated},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Shipping">
+		update tb_shipping_info
+		set 
+			cust_id = #{custId},
+			ship_name = #{shipName},
+			ship_tel = #{shipTel},
+			ship_phone = #{shipPhone},
+			ship_province = #{shipProvince},
+			ship_city = #{shipCity},
+			ship_district = #{shipDistrict},
+			ship_address = #{shipAddress},
+			ship_zip = #{shipZip},
+			ship_created = #{shipCreated},
+			ship_updated = #{shipUpdated}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_shipping_info
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_shipping_info
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_shipping_info
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            ship_name LIKE concat('%',#{keyword},'%')
+            OR ship_tel LIKE concat('%',#{keyword},'%')
+            OR ship_phone LIKE concat('%',#{keyword},'%')
+            OR ship_province LIKE concat('%',#{keyword},'%')
+            OR ship_city` LIKE concat('%',#{keyword},'%')
+            OR ship_district LIKE concat('%',#{keyword},'%')
+            OR ship_address LIKE concat('%',#{keyword},'%')
+            OR ship_zip LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_shipping_info
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_shipping_info
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            ship_name LIKE concat('%',#{keyword},'%')
+            OR ship_tel LIKE concat('%',#{keyword},'%')
+            OR ship_phone LIKE concat('%',#{keyword},'%')
+            OR ship_province LIKE concat('%',#{keyword},'%')
+            OR ship_city` LIKE concat('%',#{keyword},'%')
+            OR ship_district LIKE concat('%',#{keyword},'%')
+            OR ship_address LIKE concat('%',#{keyword},'%')
+            OR ship_zip LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+
+</mapper>

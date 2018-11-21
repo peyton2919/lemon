@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.FreightTypeMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.FreightType">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="frt_name" property="frtName" jdbcType="VARCHAR"/>
+		<result column="frt_tel" property="frtTel" jdbcType="VARCHAR"/>
+		<result column="frt_phone" property="frtPhone" jdbcType="VARCHAR"/>
+		<result column="frt_fax" property="frtFax" jdbcType="VARCHAR"/>
+		<result column="frt_qq" property="frtQq" jdbcType="VARCHAR"/>
+		<result column="frt_email" property="frtEmail" jdbcType="VARCHAR"/>
+		<result column="frt_add" property="frtAdd" jdbcType="VARCHAR"/>
+		<result column="frt_explain" property="frtExplain" jdbcType="VARCHAR"/>
+		<result column="frt_created" property="frtCreated" jdbcType="TIMESTAMP"/>
+		<result column="frt_updated" property="frtUpdated" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,frt_name,frt_tel,frt_phone,frt_fax,frt_qq,frt_email,frt_add,frt_explain,frt_created,frt_updated
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.FreightType" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_freight_type(id,frt_name,frt_tel,frt_phone,frt_fax,frt_qq,frt_email,frt_add,frt_explain,frt_created,frt_updated)
+		values (#{id},#{frtName},#{frtTel},#{frtPhone},#{frtFax},#{frtQq},#{frtEmail},#{frtAdd},#{frtExplain},#{frtCreated},#{frtUpdated})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.FreightType" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_freight_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="frtName != null">
+				frt_name,
+			</if>
+			<if test="frtTel != null">
+				frt_tel,
+			</if>
+			<if test="frtPhone != null">
+				frt_phone,
+			</if>
+			<if test="frtFax != null">
+				frt_fax,
+			</if>
+			<if test="frtQq != null">
+				frt_qq,
+			</if>
+			<if test="frtEmail != null">
+				frt_email,
+			</if>
+			<if test="frtAdd != null">
+				frt_add,
+			</if>
+			<if test="frtExplain != null">
+				frt_explain,
+			</if>
+			<if test="frtCreated != null">
+				frt_created,
+			</if>
+			<if test="frtUpdated != null">
+				frt_updated,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="frtName != null">
+				#{frtName},
+			</if>
+			<if test="frtTel != null">
+				#{frtTel},
+			</if>
+			<if test="frtPhone != null">
+				#{frtPhone},
+			</if>
+			<if test="frtFax != null">
+				#{frtFax},
+			</if>
+			<if test="frtQq != null">
+				#{frtQq},
+			</if>
+			<if test="frtEmail != null">
+				#{frtEmail},
+			</if>
+			<if test="frtAdd != null">
+				#{frtAdd},
+			</if>
+			<if test="frtExplain != null">
+				#{frtExplain},
+			</if>
+			<if test="frtCreated != null">
+				#{frtCreated},
+			</if>
+			<if test="frtUpdated != null">
+				#{frtUpdated},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_freight_type
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.FreightType">
+		update tb_freight_type
+		<set>
+			<if test="frtName != null">
+				frt_name = #{frtName},
+			</if>
+			<if test="frtTel != null">
+				frt_tel = #{frtTel},
+			</if>
+			<if test="frtPhone != null">
+				frt_phone = #{frtPhone},
+			</if>
+			<if test="frtFax != null">
+				frt_fax = #{frtFax},
+			</if>
+			<if test="frtQq != null">
+				frt_qq = #{frtQq},
+			</if>
+			<if test="frtEmail != null">
+				frt_email = #{frtEmail},
+			</if>
+			<if test="frtAdd != null">
+				frt_add = #{frtAdd},
+			</if>
+			<if test="frtExplain != null">
+				frt_explain = #{frtExplain},
+			</if>
+			<if test="frtCreated != null">
+				frt_created = #{frtCreated},
+			</if>
+			<if test="frtUpdated != null">
+				frt_updated = #{frtUpdated},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.FreightType">
+		update tb_freight_type
+		set 
+			frt_name = #{frtName},
+			frt_tel = #{frtTel},
+			frt_phone = #{frtPhone},
+			frt_fax = #{frtFax},
+			frt_qq = #{frtQq},
+			frt_email = #{frtEmail},
+			frt_add = #{frtAdd},
+			frt_explain = #{frtExplain},
+			frt_created = #{frtCreated},
+			frt_updated = #{frtUpdated}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_freight_type
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_freight_type
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_freight_type
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            frt_name LIKE concat('%',#{keyword},'%')
+            OR frt_tel LIKE concat('%',#{keyword},'%')
+            OR frt_phone LIKE concat('%',#{keyword},'%')
+            OR frt_fax LIKE concat('%',#{keyword},'%')
+            OR frt_qq LIKE concat('%',#{keyword},'%')
+            OR frt_email LIKE concat('%',#{keyword},'%')
+            OR frt_add LIKE concat('%',#{keyword},'%')
+            OR frt_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_freight_type
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_freight_type
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            frt_name LIKE concat('%',#{keyword},'%')
+            OR frt_tel LIKE concat('%',#{keyword},'%')
+            OR frt_phone LIKE concat('%',#{keyword},'%')
+            OR frt_fax LIKE concat('%',#{keyword},'%')
+            OR frt_qq LIKE concat('%',#{keyword},'%')
+            OR frt_email LIKE concat('%',#{keyword},'%')
+            OR frt_add LIKE concat('%',#{keyword},'%')
+            OR frt_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_freight_type
+        WHERE frt_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+</mapper>

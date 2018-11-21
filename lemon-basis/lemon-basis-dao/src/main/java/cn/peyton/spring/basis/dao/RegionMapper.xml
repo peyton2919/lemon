@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.RegionMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.Region">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="regi_name" property="regiName" jdbcType="VARCHAR"/>
+		<result column="regi_code" property="regiCode" jdbcType="VARCHAR"/>
+		<result column="regi_seq" property="regiSeq" jdbcType="INTEGER"/>
+		<result column="regi_level" property="regiLevel" jdbcType="VARCHAR"/>
+		<result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,regi_name,regi_code,regi_seq,regi_level,parent_id
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Region" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_region(id,regi_name,regi_code,regi_seq,regi_level,parent_id)
+		values (#{id},#{regiName},#{regiCode},#{regiSeq},#{regiLevel},#{parentId})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Region" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_region
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="regiName != null">
+				regi_name,
+			</if>
+			<if test="regiCode != null">
+				regi_code,
+			</if>
+			<if test="regiSeq != null">
+				regi_seq,
+			</if>
+			<if test="regiLevel != null">
+				regi_level,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="regiName != null">
+				#{regiName},
+			</if>
+			<if test="regiCode != null">
+				#{regiCode},
+			</if>
+			<if test="regiSeq != null">
+				#{regiSeq},
+			</if>
+			<if test="regiLevel != null">
+				#{regiLevel},
+			</if>
+			<if test="parentId != null">
+				#{parentId},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_region
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Region">
+		update tb_region
+		<set>
+			<if test="regiName != null">
+				regi_name = #{regiName},
+			</if>
+			<if test="regiCode != null">
+				regi_code = #{regiCode},
+			</if>
+			<if test="regiSeq != null">
+				regi_seq = #{regiSeq},
+			</if>
+			<if test="regiLevel != null">
+				regi_level = #{regiLevel},
+			</if>
+			<if test="parentId != null">
+				parent_id = #{parentId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Region">
+		update tb_region
+		set 
+			regi_name = #{regiName},
+			regi_code = #{regiCode},
+			regi_seq = #{regiSeq},
+			regi_level = #{regiLevel},
+			parent_id = #{parentId}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_region
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectByParentId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        WHERE parent_id = #{parentId}
+        ORDER BY regi_seq ASC
+    </select>
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        ORDER BY regi_seq ASC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_region
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        SELECT DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            regi_name LIKE concat('%',#{keyword},'%')
+            OR regi_code LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY regi_seq ASC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="int">
+        SELECT DISTINCT
+        COUNT(1)
+        FROM tb_region
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            regi_name LIKE concat('%',#{keyword},'%')
+            OR regi_code LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        ORDER BY regi_seq ASC
+    </select>
+
+    <select id="selectByTree" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        ORDER BY regi_seq ASC
+    </select>
+
+    <select id="getChildRegionListByLevel" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_region
+        WHERE regi_level LIKE concat('',#{level},'%')
+    </select>
+
+    <update id="batchUpdateLevel" parameterType="map">
+        <foreach collection="regionList" item="region" separator=";">
+            UPDATE tb_regi_on
+            SET regi_level = #{region.regiLevel}
+            WHERE id = #{region.id}
+        </foreach>
+    </update>
+
+    <select id="countByNameAndParentId" parameterType="map" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_region
+        WHERE regi_name = #{name}
+        <if test="parentId != null">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="countByParentId" parameterType="long" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_region
+        WHERE parent_id = #{regiId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.basis.dao.BrandMapper">
+    <resultMap id="BaseResultMap" type="cn.peyton.spring.basis.entity.Brand">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="sup_id" property="supId" jdbcType="BIGINT"/>
+        <result column="brand_logo" property="brandLogo" jdbcType="VARCHAR"/>
+        <result column="brand_area" property="brandArea" jdbcType="VARCHAR"/>
+        <result column="brand_seq" property="brandSeq" jdbcType="INTEGER"/>
+        <result column="brand_name" property="brandName" jdbcType="VARCHAR"/>
+        <result column="brand_status" property="brandStatus" jdbcType="INTEGER"/>
+        <result column="brand_explain" property="brandExplain" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,sup_id,brand_logo,brand_area,brand_seq,brand_name,brand_status,brand_explain
+    </sql>
+
+    <insert id="insert" parameterType="cn.peyton.spring.basis.entity.Brand" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_brand_info(id,sup_id,brand_logo,brand_area,brand_seq,brand_name,brand_status,brand_explain)
+        values (#{id},#{supId},#{brandLogo},#{brandArea},#{brandSeq},#{brandName},#{brandStatus},#{brandExplain})
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Brand" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_brand_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="supId != null">
+                sup_id,
+            </if>
+            <if test="brandLogo != null">
+                brand_logo,
+            </if>
+            <if test="brandArea != null">
+                brand_area,
+            </if>
+            <if test="brandSeq != null">
+                brand_seq,
+            </if>
+            <if test="brandName != null">
+                brand_name,
+            </if>
+            <if test="brandStatus != null">
+                brand_status,
+            </if>
+            <if test="brandExplain != null">
+                brand_explain,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="supId != null">
+                #{supId},
+            </if>
+            <if test="brandLogo != null">
+                #{brandLogo},
+            </if>
+            <if test="brandArea != null">
+                #{brandArea},
+            </if>
+            <if test="brandSeq != null">
+                #{brandSeq},
+            </if>
+            <if test="brandName != null">
+                #{brandName},
+            </if>
+            <if test="brandStatus != null">
+                #{brandStatus},
+            </if>
+            <if test="brandExplain != null">
+                #{brandExplain},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tb_brand_info
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Brand">
+        update tb_brand_info
+        <set>
+            <if test="supId != null">
+                sup_id = #{supId},
+            </if>
+            <if test="brandLogo != null">
+                brand_logo = #{brandLogo},
+            </if>
+            <if test="brandArea != null">
+                brand_area = #{brandArea},
+            </if>
+            <if test="brandSeq != null">
+                brand_seq = #{brandSeq},
+            </if>
+            <if test="brandName != null">
+                brand_name = #{brandName},
+            </if>
+            <if test="brandStatus != null">
+                brand_status = #{brandStatus},
+            </if>
+            <if test="brandExplain != null">
+                brand_explain = #{brandExplain},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Brand">
+        update tb_brand_info
+        set
+        sup_id = #{supId},
+        brand_logo = #{brandLogo},
+        brand_area = #{brandArea},
+        brand_seq = #{brandSeq},
+        brand_name = #{brandName},
+        brand_explain = #{brandExplain}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_brand_info
+        where id = #{id}
+    </select>
+
+    <!-- new create method   -->
+
+    <update id="updateStatus" parameterType="map">
+        update tb_brand_info
+        set
+          brand_status = #{status}
+        where id = #{id}
+    </update>
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_brand_info
+        WHERE brand_status != 2
+        ORDER BY brand_seq ASC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_brand_info
+        WHERE brand_status != 2
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_brand_info
+        WHERE 1 = 1
+        AND brand_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            brand_name LIKE concat('%',#{keyword},'%')
+            OR brand_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY brand_seq ASC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_brand_info
+        WHERE 1 = 1
+        AND brand_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            brand_name LIKE concat('%',#{keyword},'%')
+            OR brand_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT id,brand_name
+        FROM tb_brand_info
+        WHERE brand_status != 2
+        ORDER BY brand_seq ASC
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_brand_info
+        WHERE brand_name = #{name}
+        AND brand_status != 2
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+</mapper>
