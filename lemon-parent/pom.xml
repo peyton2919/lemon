@@ -19,6 +19,7 @@
         <module>../lemon-shared</module>
         <module>../lemon-log</module>
         <module>../lemon-basis</module>
+        <module>../lemon-generator</module>
     </modules>
 
     <properties>
