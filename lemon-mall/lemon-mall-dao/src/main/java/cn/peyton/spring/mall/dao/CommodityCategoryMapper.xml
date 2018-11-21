@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.CommodityCategoryMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.CommodityCategory">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="parent_id" property="parentId" jdbcType="BIGINT"/>
+		<result column="coca_name" property="cocaName" jdbcType="VARCHAR"/>
+		<result column="coca_level" property="cocaLevel" jdbcType="VARCHAR"/>
+		<result column="coca_seq" property="cocaSeq" jdbcType="INTEGER"/>
+        <result column="coca_explain" property="cocaExplain" jdbcType="VARCHAR"/>
+		<result column="coca_created" property="cocaCreated" jdbcType="TIMESTAMP"/>
+		<result column="coca_updated" property="cocaUpdated" jdbcType="TIMESTAMP"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,parent_id,coca_name,coca_level,coca_seq,coca_explain,coca_created,coca_updated
+	</sql>
+
+    <insert id="insert" parameterType="cn.peyton.spring.mall.entity.CommodityCategory" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_commodity_category(id,parent_id,coca_name,coca_level,coca_seq,coca_explain,coca_created,coca_updated)
+		values (#{id},#{parentId},#{cocaName},#{cocaLevel},#{cocaSeq},#{cocaExplain},#{cocaCreated},#{cocaUpdated})
+	</insert>
+
+    <insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.CommodityCategory" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_commodity_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="cocaName != null">
+                coca_name,
+            </if>
+            <if test="cocaLevel != null">
+                coca_level,
+            </if>
+            <if test="cocaSeq != null">
+                coca_seq,
+            </if>
+            <if test="cocaExplain != null">
+                coca_explain,
+            </if>
+            <if test="cocaCreated != null">
+                coca_created,
+            </if>
+            <if test="cocaUpdated != null">
+                coca_updated,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="cocaName != null">
+                #{cocaName},
+            </if>
+            <if test="cocaLevel != null">
+                #{cocaLevel},
+            </if>
+            <if test="cocaSeq != null">
+                #{cocaSeq},
+            </if>
+            <if test="cocaExplain != null">
+                #{cocaExplain},
+            </if>
+            <if test="cocaCreated != null">
+                #{cocaCreated},
+            </if>
+            <if test="cocaUpdated != null">
+                #{cocaUpdated},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from tb_commodity_category
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.CommodityCategory">
+        update tb_commodity_category
+        <set>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="cocaName != null">
+                coca_name = #{cocaName},
+            </if>
+            <if test="cocaLevel != null">
+                coca_level = #{cocaLevel},
+            </if>
+            <if test="cocaSeq != null">
+                coca_seq = #{cocaSeq},
+            </if>
+            <if test="cocaExplain != null">
+                coca_explain = #{cocaExplain},
+            </if>
+            <if test="cocaCreated != null">
+                coca_created = #{cocaCreated},
+            </if>
+            <if test="cocaUpdated != null">
+                coca_updated = #{cocaUpdated},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.CommodityCategory">
+		update tb_commodity_category
+		set
+			parent_id = #{parentId},
+			coca_name = #{cocaName},
+			coca_level = #{cocaLevel},
+			coca_seq = #{cocaSeq},
+			coca_explain = #{cocaExplain},
+			coca_created = #{cocaCreated},
+			coca_updated = #{cocaUpdated}
+		where id = #{id}
+	</update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_commodity_category
+        where id = #{id}
+    </select>
+
+
+	<!-- new create method   -->
+
+
+    <select id="selectChildCommodityCategoryListByLevel" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_category
+        WHERE coca_level LIKE #{level} '%'
+    </select>
+
+    <update id="batchUpdateLevel" parameterType="map">
+        <foreach collection="CommodityCategories" item="coca" separator=";">
+            UPDATE tb_commodity_category
+            SET coca_level = #{coca.cocaLevel}
+            WHERE id = #{coca.id}
+        </foreach>
+    </update>
+
+    <select id="countByNameAndParentId" parameterType="map" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_commodity_category
+        WHERE coca_name = #{name}
+        <if test="parentId != null">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="countByParentId" parameterType="long" resultType="int">
+        SELECT COUNT(1)
+        FROM tb_commodity_category
+        WHERE parent_id = #{id}
+    </select>
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_category
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_commodity_category
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_category
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            coca_name LIKE concat('%',#{keyword},'%')
+            OR coca_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_commodity_category
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            coca_name LIKE concat('%',#{keyword},'%')
+            OR coca_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_category
+    </select>
+
+</mapper>

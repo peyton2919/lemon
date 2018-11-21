@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.InventoryMapper">
+    <resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.Inventory">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="inve_created" property="inveCreated" jdbcType="TIMESTAMP"/>
+        <result column="inve_detail" property="inveDetail" jdbcType="VARCHAR"/>
+        <result column="inve_tip" property="inveTip" jdbcType="INTEGER"/>
+        <result column="inve_com_name" property="inveComName" jdbcType="VARCHAR"/>
+        <result column="inve_total" property="inveTotal" jdbcType="INTEGER"/>
+        <result column="war_id" property="warId" jdbcType="INTEGER"/>
+        <result column="com_id" property="comId" jdbcType="VARCHAR"/>
+        <result column="inve_explain" property="inveExplain" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,inve_created,inve_detail,inve_tip,inve_com_name,inve_total,war_id,com_id,inve_explain
+    </sql>
+
+    <insert id="insert" parameterType="cn.peyton.spring.mall.entity.Inventory" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_inventory(id,inve_created,inve_detail,inve_tip,inve_com_name,inve_total,war_id,com_id,inve_explain)
+        values (#{id},#{inveCreated},#{inveDetail},#{inveTip},#{inveComName},#{inveTotal},#{warId},#{comId},#{inveExplain})
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.Inventory" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_inventory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="inveCreated != null">
+                inve_created,
+            </if>
+            <if test="inveDetail != null">
+                inve_detail,
+            </if>
+            <if test="inveTip != null">
+                inve_tip,
+            </if>
+            <if test="inveComName != null">
+                inve_com_name,
+            </if>
+            <if test="inveTotal != null">
+                inve_total,
+            </if>
+            <if test="warId != null">
+                war_id,
+            </if>
+            <if test="comId != null">
+                com_id,
+            </if>
+            <if test="inveExplain != null">
+                inve_explain,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="inveCreated != null">
+                #{inveCreated},
+            </if>
+            <if test="inveDetail != null">
+                #{inveDetail},
+            </if>
+            <if test="inveTip != null">
+                #{inveTip},
+            </if>
+            <if test="inveComName != null">
+                #{inveComName},
+            </if>
+            <if test="inveTotal != null">
+                #{inveTotal},
+            </if>
+            <if test="warId != null">
+                #{warId},
+            </if>
+            <if test="comId != null">
+                #{comId},
+            </if>
+            <if test="inveExplain != null">
+                #{inveExplain},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from tb_inventory
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.Inventory">
+        update tb_inventory
+        <set>
+            <if test="inveCreated != null">
+                inve_created = #{inveCreated},
+            </if>
+            <if test="inveDetail != null">
+                inve_detail = #{inveDetail},
+            </if>
+            <if test="inveTip != null">
+                inve_tip = #{inveTip},
+            </if>
+            <if test="inveComName != null">
+                inve_com_name = #{inveComName},
+            </if>
+            <if test="inveTotal != null">
+                inve_total = #{inveTotal},
+            </if>
+            <if test="warId != null">
+                war_id = #{warId},
+            </if>
+            <if test="comId != null">
+                com_id = #{comId},
+            </if>
+            <if test="inveExplain != null">
+                inve_explain = #{inveExplain},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.Inventory">
+		update tb_inventory
+		set
+			inve_created = #{inveCreated},
+			inve_detail = #{inveDetail},
+			inve_tip = #{inveTip},
+			inve_com_name = #{inveComName},
+			inve_total = #{inveTotal},
+			war_id = #{warId},
+			com_id = #{comId},
+			inve_explain = #{inveExplain}
+		where id = #{id}
+	</update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_inventory
+        where id = #{id}
+    </select>
+
+
+    <!-- new create method   -->
+    <update id="updateDetailAndTotal" parameterType="cn.peyton.spring.mall.entity.Inventory">
+        update tb_inventory
+		set
+            inve_detail = #{inveDetail},
+            inve_total = #{inveTotal}
+		where id = #{id}
+    </update>
+
+    <select id="selectByComIdAndWarId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_inventory
+        WHERE com_id = #{comId}
+        AND war_id = #{warId}
+    </select>
+
+    <select id="selectByAll" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_inventory
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_inventory
+    </select>
+
+    <select id="selectLikeByKeyword" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_inventory
+        WHERE inve_com_name LIKE concat('%',#{keyword},'%')
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_inventory
+        WHERE inve_com_name LIKE concat('%',#{keyword},'%')
+    </select>
+
+    <select id="selectByComId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_inventory
+        WHERE com_id = #{comId}
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="selectDisplayByComId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+          war_id,inve_explain
+        FROM tb_inventory
+        WHERE com_id = #{comId}
+    </select>
+
+    <select id="countByComId" resultType="java.lang.Integer" parameterType="string">
+        SELECT COUNT(1)
+        FROM tb_inventory
+        WHERE com_id = #{comId}
+    </select>
+
+    <select id="selectByWarId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_inventory
+        WHERE war_id = #{warId}
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countByWarId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_inventory
+        WHERE war_id = #{warId}
+    </select>
+
+</mapper>

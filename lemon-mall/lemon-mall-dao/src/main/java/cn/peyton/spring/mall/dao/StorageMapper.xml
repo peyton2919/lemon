@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.StorageMapper">
+    <resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.Storage">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="stor_created" property="storCreated" jdbcType="TIMESTAMP"/>
+        <result column="stor_updated" property="storUpdated" jdbcType="TIMESTAMP"/>
+        <result column="stor_direction" property="storDirection" jdbcType="INTEGER"/>
+        <result column="stor_status" property="storStatus" jdbcType="INTEGER"/>
+        <result column="stor_total" property="storTotal" jdbcType="INTEGER"/>
+        <result column="stor_com_name" property="storComName" jdbcType="VARCHAR"/>
+        <result column="stor_image_url" property="storImageUrl" jdbcType="VARCHAR"/>
+        <result column="stor_war_name" property="storWarName" jdbcType="VARCHAR"/>
+        <result column="stor_emp_name" property="storEmpName" jdbcType="VARCHAR"/>
+        <result column="war_id" property="warId" jdbcType="INTEGER"/>
+        <result column="com_id" property="comId" jdbcType="VARCHAR"/>
+        <result column="emp_id" property="empId" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,stor_created,stor_updated,stor_direction,stor_status,stor_total,stor_com_name,stor_image_url,stor_war_name,stor_emp_name,war_id,com_id,emp_id
+    </sql>
+
+    <insert id="insert" parameterType="cn.peyton.spring.mall.entity.Storage" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_storage(id,stor_created,stor_updated,stor_direction,stor_status,stor_total,stor_com_name,stor_image_url,stor_war_name,stor_emp_name,war_id,com_id,emp_id)
+        values (#{id},#{storCreated},#{storUpdated},#{storDirection},#{storStatus},#{storTotal},#{storComName},#{storImageUrl},#{storWarName},#{storEmpName},#{warId},#{comId},#{empId})
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.Storage" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_storage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="storCreated != null">
+                stor_created,
+            </if>
+            <if test="storUpdated != null">
+                stor_updated,
+            </if>
+            <if test="storDirection != null">
+                stor_direction,
+            </if>
+            <if test="storStatus != null">
+                stor_status,
+            </if>
+            <if test="storTotal != null">
+                stor_total,
+            </if>
+            <if test="storComName != null">
+                stor_com_name,
+            </if>
+            <if test="storImageUrl != null">
+                stor_image_url,
+            </if>
+            <if test="storWarName != null">
+                stor_war_name,
+            </if>
+            <if test="storEmpName != null">
+                stor_emp_name,
+            </if>
+            <if test="warId != null">
+                war_id,
+            </if>
+            <if test="comId != null">
+                com_id,
+            </if>
+            <if test="empId != null">
+                emp_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="storCreated != null">
+                #{storCreated},
+            </if>
+            <if test="storUpdated != null">
+                #{storUpdated},
+            </if>
+            <if test="storDirection != null">
+                #{storDirection},
+            </if>
+            <if test="storStatus != null">
+                #{storStatus},
+            </if>
+            <if test="storTotal != null">
+                #{storTotal},
+            </if>
+            <if test="storComName != null">
+                #{storComName},
+            </if>
+            <if test="storImageUrl != null">
+                #{storImageUrl},
+            </if>
+            <if test="storWarName != null">
+                #{storWarName},
+            </if>
+            <if test="storEmpName != null">
+                #{storEmpName},
+            </if>
+            <if test="warId != null">
+                #{warId},
+            </if>
+            <if test="comId != null">
+                #{comId},
+            </if>
+            <if test="empId != null">
+                #{empId},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from tb_storage
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.Storage">
+        update tb_storage
+        <set>
+            <if test="storCreated != null">
+                stor_created = #{storCreated},
+            </if>
+            <if test="storUpdated != null">
+                stor_updated = #{storUpdated},
+            </if>
+            <if test="storDirection != null">
+                stor_direction = #{storDirection},
+            </if>
+            <if test="storStatus != null">
+                stor_status = #{storStatus},
+            </if>
+            <if test="storTotal != null">
+                stor_total = #{storTotal},
+            </if>
+            <if test="storComName != null">
+                stor_com_name = #{storComName},
+            </if>
+            <if test="storImageUrl != null">
+                stor_image_url = #{storImageUrl},
+            </if>
+            <if test="storWarName != null">
+                stor_war_name = #{storWarName},
+            </if>
+            <if test="storEmpName != null">
+                stor_emp_name = #{storEmpName},
+            </if>
+            <if test="warId != null">
+                war_id = #{warId},
+            </if>
+            <if test="comId != null">
+                com_id = #{comId},
+            </if>
+            <if test="empId != null">
+                emp_id = #{empId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.Storage">
+        update tb_storage
+        set
+        stor_created = #{storCreated},
+        stor_updated = #{storUpdated},
+        stor_direction = #{storDirection},
+        stor_status = #{storStatus},
+        stor_total = #{storTotal},
+        stor_com_name = #{storComName},
+        stor_image_url = #{storImageUrl},
+        stor_war_name = #{storWarName},
+        stor_emp_name = #{storEmpName},
+        war_id = #{warId},
+        com_id = #{comId},
+        emp_id = #{empId}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_storage
+        where id = #{id}
+    </select>
+
+	<!-- new create method   -->
+
+    <update id="updateStatus" parameterType="map">
+        update tb_storage
+        set
+          stor_status = #{status}
+        where id = #{id}
+        and stor_status = 1
+    </update>
+
+    <update id="updateTotal"  parameterType="cn.peyton.spring.mall.entity.Storage">
+        update tb_storage
+        set
+          stor_total = #{storTotal},
+          stor_updated = #{storUpdated}
+        where id = #{id}
+        and stor_status = 1
+    </update>
+
+    <select id="selectByAll" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE stor_status = 1
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE  stor_status = 1
+    </select>
+
+    <select id="selectLikeByKeyword" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE stor_status = 1
+        <if test="keyword != null and keyword != ''">
+            AND stor_com_name LIKE concat('%',#{keyword},'%')
+        </if>
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE  stor_status = 1
+        <if test="keyword != null and keyword != ''">
+            AND stor_com_name LIKE concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="selectByEmpId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE emp_id = #{empId}
+        and stor_status = 1
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countByEmpId" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE emp_id = #{empId}
+        and stor_status = 1
+    </select>
+
+    <select id="selectByWarId" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE war_id = #{warId}
+        and stor_status = 1
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countByWarId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE war_id = #{warId}
+        and stor_status = 1
+    </select>
+
+    <select id="selectByTime" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE stor_status = 1
+        <if test="(beginTime != null and beginTime != '') and (endTime !=null and endTime != '')">
+            AND (stor_created BETWEEN #{beginTime} and #{endTime})
+        </if>
+        <if test="(beginTime == null or beginTime == '') and (endTime !=null and endTime != '')">
+            AND stor_created &lt;= #{endTime}
+        </if>
+        <if test="(beginTime != null and beginTime != '') and (endTime ==null or endTime == '')">
+            AND stor_created  &gt;= #{beginTime}
+        </if>
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countByTime" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE stor_status = 1
+        <if test="(beginTime != null and beginTime != '') and (endTime !=null and endTime != '')">
+            AND (stor_created BETWEEN #{beginTime} and #{endTime})
+        </if>
+        <if test="(beginTime == null or beginTime == '') and (endTime !=null and endTime != '')">
+            AND stor_created &lt;= #{endTime}
+        </if>
+        <if test="(beginTime != null and beginTime != '') and (endTime ==null or endTime == '')">
+            AND stor_created  &gt;= #{beginTime}
+        </if>
+    </select>
+
+    <select id="selectByDirection" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE stor_direction = #{direction}
+        and stor_status = 1
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countByDirection" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE stor_direction = #{direction}
+        and stor_status = 1
+    </select>
+
+    <select id="selectMultiCondition" resultMap="BaseResultMap" parameterType="map">
+        SELECT DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_storage
+        WHERE stor_status = 1
+        <if test="warId != null">
+            AND war_id = #{warId}
+        </if>
+        <if test="comName != null and comName != ''">
+            AND stor_com_name LIKE concat('%',#{comName},'%')
+        </if>
+        <if test="direction != null">
+            AND stor_direction = #{direction}
+        </if>
+        <if test="(beginTime != null) and (endTime !=null)">
+            AND (stor_created BETWEEN #{beginTime} and #{endTime})
+        </if>
+        <if test="(beginTime == null) and (endTime !=null)">
+            AND stor_created &lt;= #{endTime}
+        </if>
+        <if test="(beginTime != null) and (endTime ==null)">
+            AND stor_created  &gt;= #{beginTime}
+        </if>
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countMultiCondition" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM tb_storage
+        WHERE stor_status = 1
+        <if test="warId != null">
+            AND war_id = #{warId}
+        </if>
+        <if test="comName != null and comName != ''">
+            AND stor_com_name LIKE concat('%',#{comName},'%')
+        </if>
+        <if test="direction != null">
+            AND stor_direction = #{direction}
+        </if>
+        <if test="(beginTime != null) and (endTime !=null)">
+            AND (stor_created BETWEEN #{beginTime} and #{endTime})
+        </if>
+        <if test="(beginTime == null) and (endTime !=null)">
+            AND stor_created &lt;= #{endTime}
+        </if>
+        <if test="(beginTime != null) and (endTime ==null)">
+            AND stor_created  &gt;= #{beginTime}
+        </if>
+    </select>
+
+</mapper>

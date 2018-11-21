@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.CommoditySortMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.CommoditySort">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="cos_name" property="cosName" jdbcType="VARCHAR"/>
+		<result column="cos_explain" property="cosExplain" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,cos_name,cos_explain
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.mall.entity.CommoditySort" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_commodity_sort(id,cos_name,cos_explain)
+		values (#{id},#{cosName},#{cosExplain})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.CommoditySort" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_commodity_sort
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="cosName != null">
+				cos_name,
+			</if>
+			<if test="cosExplain != null">
+				cos_explain,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="cosName != null">
+				#{cosName},
+			</if>
+			<if test="cosExplain != null">
+				#{cosExplain},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_commodity_sort
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.CommoditySort">
+		update tb_commodity_sort
+		<set>
+			<if test="cosName != null">
+				cos_name = #{cosName},
+			</if>
+			<if test="cosExplain != null">
+				cos_explain = #{cosExplain},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.CommoditySort">
+		update tb_commodity_sort
+		set 
+			cos_name = #{cosName},
+			cos_explain = #{cosExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_commodity_sort
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_sort
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_commodity_sort
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity_sort
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            cos_name LIKE concat('%',#{keyword},'%')
+            OR cos_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_commodity_sort
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND (
+            cos_name LIKE concat('%',#{keyword},'%')
+            OR cos_explain LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT id,cos_name
+        FROM tb_commodity_sort
+        ORDER BY id DESC
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_commodity_sort
+        WHERE cos_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+</mapper>

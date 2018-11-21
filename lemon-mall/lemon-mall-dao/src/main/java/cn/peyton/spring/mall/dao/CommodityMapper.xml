@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.CommodityMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.Commodity">
+		<id column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="com_name" property="comName" jdbcType="VARCHAR"/>
+		<result column="com_model" property="comModel" jdbcType="VARCHAR"/>
+		<result column="com_keyword" property="comKeyword" jdbcType="VARCHAR"/>
+		<result column="com_format" property="comFormat" jdbcType="VARCHAR"/>
+		<result column="com_pack" property="comPack" jdbcType="VARCHAR"/>
+		<result column="com_unit" property="comUnit" jdbcType="VARCHAR"/>
+		<result column="com_price" property="comPrice" jdbcType="DECIMAL"/>
+		<result column="com_retail" property="comRetail" jdbcType="DECIMAL"/>
+		<result column="com_wholesale" property="comWholesale" jdbcType="DECIMAL"/>
+		<result column="com_main_img" property="comMainImg" jdbcType="VARCHAR"/>
+		<result column="com_images" property="comImages" jdbcType="VARCHAR"/>
+		<result column="com_status" property="comStatus" jdbcType="INTEGER"/>
+		<result column="com_comment" property="comComment" jdbcType="INTEGER"/>
+		<result column="com_barCode" property="comBarCode" jdbcType="VARCHAR"/>
+		<result column="com_hot" property="comHot" jdbcType="INTEGER"/>
+		<result column="com_detail" property="comDetail" jdbcType="LONGVARCHAR"/>
+		<result column="com_created" property="comCreated" jdbcType="TIMESTAMP"/>
+		<result column="com_updated" property="comUpdated" jdbcType="TIMESTAMP"/>
+		<result column="ori_id" property="oriId" jdbcType="INTEGER"/>
+		<result column="coso_id" property="cosoId" jdbcType="VARCHAR"/>
+		<result column="coca_id" property="cocaId" jdbcType="BIGINT"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,com_name,com_model,com_keyword,com_format,com_pack,com_unit,com_price,com_retail,com_wholesale,com_main_img,com_images,com_status,com_comment,com_barCode,com_hot,com_detail,com_created,com_updated,ori_id,coso_id,coca_id
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.mall.entity.Commodity" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_commodity(id,com_name,com_model,com_keyword,com_format,com_pack,com_unit,com_price,com_retail,com_wholesale,com_main_img,com_images,com_status,com_comment,com_barCode,com_hot,com_detail,com_created,com_updated,ori_id,coso_id,coca_id)
+		values (#{id},#{comName},#{comModel},#{comKeyword},#{comFormat},#{comPack},#{comUnit},#{comPrice},#{comRetail},#{comWholesale},#{comMainImg},#{comImages},#{comStatus},#{comComment},#{comBarCode},#{comHot},#{comDetail},#{comCreated},#{comUpdated},#{oriId},#{cosoId},#{cocaId})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.Commodity" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_commodity
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="comName != null">
+				com_name,
+			</if>
+			<if test="comModel != null">
+				com_model,
+			</if>
+			<if test="comKeyword != null">
+				com_keyword,
+			</if>
+			<if test="comFormat != null">
+				com_format,
+			</if>
+			<if test="comPack != null">
+				com_pack,
+			</if>
+			<if test="comUnit != null">
+				com_unit,
+			</if>
+			<if test="comPrice != null">
+				com_price,
+			</if>
+			<if test="comRetail != null">
+				com_retail,
+			</if>
+			<if test="comWholesale != null">
+				com_wholesale,
+			</if>
+			<if test="comMainImg != null">
+				com_main_img,
+			</if>
+			<if test="comImages != null">
+				com_images,
+			</if>
+			<if test="comStatus != null">
+				com_status,
+			</if>
+			<if test="comComment != null">
+				com_comment,
+			</if>
+			<if test="comBarCode != null">
+				com_barCode,
+			</if>
+			<if test="comHot != null">
+				com_hot,
+			</if>
+			<if test="comDetail != null">
+				com_detail,
+			</if>
+			<if test="comCreated != null">
+				com_created,
+			</if>
+			<if test="comUpdated != null">
+				com_updated,
+			</if>
+			<if test="oriId != null">
+				ori_id,
+			</if>
+			<if test="cosoId != null">
+				coso_id,
+			</if>
+			<if test="cocaId != null">
+				coca_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="comName != null">
+				#{comName},
+			</if>
+			<if test="comModel != null">
+				#{comModel},
+			</if>
+			<if test="comKeyword != null">
+				#{comKeyword},
+			</if>
+			<if test="comFormat != null">
+				#{comFormat},
+			</if>
+			<if test="comPack != null">
+				#{comPack},
+			</if>
+			<if test="comUnit != null">
+				#{comUnit},
+			</if>
+			<if test="comPrice != null">
+				#{comPrice},
+			</if>
+			<if test="comRetail != null">
+				#{comRetail},
+			</if>
+			<if test="comWholesale != null">
+				#{comWholesale},
+			</if>
+			<if test="comMainImg != null">
+				#{comMainImg},
+			</if>
+			<if test="comImages != null">
+				#{comImages},
+			</if>
+			<if test="comStatus != null">
+				#{comStatus},
+			</if>
+			<if test="comComment != null">
+				#{comComment},
+			</if>
+			<if test="comBarCode != null">
+				#{comBarCode},
+			</if>
+			<if test="comHot != null">
+				#{comHot},
+			</if>
+			<if test="comDetail != null">
+				#{comDetail},
+			</if>
+			<if test="comCreated != null">
+				#{comCreated},
+			</if>
+			<if test="comUpdated != null">
+				#{comUpdated},
+			</if>
+			<if test="oriId != null">
+				#{oriId},
+			</if>
+			<if test="cosoId != null">
+				#{cosoId},
+			</if>
+			<if test="cocaId != null">
+				#{cocaId},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="string">
+		delete from tb_commodity
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.Commodity">
+		update tb_commodity
+		<set>
+			<if test="comName != null">
+				com_name = #{comName},
+			</if>
+			<if test="comModel != null">
+				com_model = #{comModel},
+			</if>
+			<if test="comKeyword != null">
+				com_keyword = #{comKeyword},
+			</if>
+			<if test="comFormat != null">
+				com_format = #{comFormat},
+			</if>
+			<if test="comPack != null">
+				com_pack = #{comPack},
+			</if>
+			<if test="comUnit != null">
+				com_unit = #{comUnit},
+			</if>
+			<if test="comPrice != null">
+				com_price = #{comPrice},
+			</if>
+			<if test="comRetail != null">
+				com_retail = #{comRetail},
+			</if>
+			<if test="comWholesale != null">
+				com_wholesale = #{comWholesale},
+			</if>
+			<if test="comMainImg != null">
+				com_main_img = #{comMainImg},
+			</if>
+			<if test="comImages != null">
+				com_images = #{comImages},
+			</if>
+			<if test="comStatus != null">
+				com_status = #{comStatus},
+			</if>
+			<if test="comComment != null">
+				com_comment = #{comComment},
+			</if>
+			<if test="comBarCode != null">
+				com_barCode = #{comBarCode},
+			</if>
+			<if test="comHot != null">
+				com_hot = #{comHot},
+			</if>
+			<if test="comDetail != null">
+				com_detail = #{comDetail},
+			</if>
+			<if test="comCreated != null">
+				com_created = #{comCreated},
+			</if>
+			<if test="comUpdated != null">
+				com_updated = #{comUpdated},
+			</if>
+			<if test="oriId != null">
+				ori_id = #{oriId},
+			</if>
+			<if test="cosoId != null">
+				coso_id = #{cosoId},
+			</if>
+			<if test="cocaId != null">
+				coca_id = #{cocaId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.Commodity">
+		update tb_commodity
+		set 
+			com_name = #{comName},
+			com_model = #{comModel},
+			com_keyword = #{comKeyword},
+			com_format = #{comFormat},
+			com_pack = #{comPack},
+			com_unit = #{comUnit},
+			com_price = #{comPrice},
+			com_retail = #{comRetail},
+			com_wholesale = #{comWholesale},
+			com_main_img = #{comMainImg},
+			com_images = #{comImages},
+			com_status = #{comStatus},
+			com_comment = #{comComment},
+			com_barCode = #{comBarCode},
+			com_hot = #{comHot},
+			com_detail = #{comDetail},
+			com_created = #{comCreated},
+			com_updated = #{comUpdated},
+			ori_id = #{oriId},
+			coso_id = #{cosoId},
+			coca_id = #{cocaId}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="string">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_commodity
+		where id = #{id}
+        and com_status != 2
+	</select>
+
+
+	<!-- new create method   -->
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity
+        WHERE com_status != 2
+        ORDER BY com_hot DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_commodity
+        WHERE  com_status != 2
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity
+        WHERE com_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            com_name LIKE concat('%',#{keyword},'%')
+            OR com_model LIKE concat('%',#{keyword},'%')
+            OR com_keyword LIKE concat('%',#{keyword},'%')
+            )
+        </if>
+        ORDER BY com_hot DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_commodity
+        WHERE com_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            com_name LIKE concat('%',#{keyword},'%')
+            OR com_model LIKE concat('%',#{keyword},'%')
+            OR com_keyword LIKE concat('%',#{keyword},'%')
+            )
+        </if>
+    </select>
+
+    <update id="updateHot" parameterType="string">
+        UPDATE  tb_commodity
+        SET com_hot = com_hot + 1
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateImages" parameterType="map">
+        UPDATE  tb_commodity
+        SET
+          com_main_img = #{mainImg},
+          com_images = #{images}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="map">
+        UPDATE  tb_commodity
+        SET
+          com_status = #{status}
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectMainImgById" resultType="string" parameterType="string">
+        select
+          com_main_img
+        FROM tb_commodity
+        WHERE com_status != 2 AND id= #{id}
+    </select>
+
+    <select id="selectByPriceBetween" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity
+        WHERE com_status != 2
+        <if test="type == 1">
+          com_price BETWEEN #{min} and #{max}
+        </if>
+        <if test="type == 2">
+          com_retail BETWEEN #{min} and #{max}
+        </if>
+        <if test="type == 3">
+          com_wholesale BETWEEN #{min} and #{max}
+        </if>
+        ORDER BY com_hot DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countPriceBetween" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM tb_commodity
+        WHERE  com_status != 2
+        <if test="type == 1">
+            com_price BETWEEN #{min} and #{max}
+        </if>
+        <if test="type == 2">
+            com_retail BETWEEN #{min} and #{max}
+        </if>
+        <if test="type == 3">
+            com_wholesale BETWEEN #{min} and #{max}
+        </if>
+    </select>
+
+    <select id="selectByOriId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity
+        WHERE ori_id = #{oriId}
+        and com_status != 2
+        ORDER BY com_hot DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countOriId" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM tb_commodity
+        WHERE ori_id = #{oriId}
+        and com_status != 2
+    </select>
+
+    <select id="selectByCocaId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_commodity
+        WHERE coca_id = #{cocaId}
+        and com_status != 2
+        ORDER BY com_hot DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countCocaId" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM tb_commodity
+        WHERE coca_id = #{cocaId}
+        and com_status != 2
+    </select>
+
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.StorageDetailMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.StorageDetail">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="stde_quantity" property="stdeQuantity" jdbcType="INTEGER"/>
+		<result column="stde_explain" property="stdeExplain" jdbcType="VARCHAR"/>
+		<result column="stor_id" property="storId" jdbcType="BIGINT"/>
+		<result column="col_id" property="colId" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,stde_quantity,stde_explain,stor_id,col_id
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.mall.entity.StorageDetail" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_storage_detail(id,stde_quantity,stde_explain,stor_id,col_id)
+		values (#{id},#{stdeQuantity},#{stdeExplain},#{storId},#{colId})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.StorageDetail" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_storage_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="stdeQuantity != null">
+				stde_quantity,
+			</if>
+			<if test="stdeExplain != null">
+				stde_explain,
+			</if>
+			<if test="storId != null">
+				stor_id,
+			</if>
+			<if test="colId != null">
+				col_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="stdeQuantity != null">
+				#{stdeQuantity},
+			</if>
+			<if test="stdeExplain != null">
+				#{stdeExplain},
+			</if>
+			<if test="storId != null">
+				#{storId},
+			</if>
+			<if test="colId != null">
+				#{colId},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_storage_detail
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.StorageDetail">
+		update tb_storage_detail
+		<set>
+			<if test="stdeQuantity != null">
+				stde_quantity = #{stdeQuantity},
+			</if>
+			<if test="stdeExplain != null">
+				stde_explain = #{stdeExplain},
+			</if>
+			<if test="storId != null">
+				stor_id = #{storId},
+			</if>
+			<if test="colId != null">
+				col_id = #{colId},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.StorageDetail">
+		update tb_storage_detail
+		set 
+			stde_quantity = #{stdeQuantity},
+			stde_explain = #{stdeExplain},
+			stor_id = #{storId},
+			col_id = #{colId}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_storage_detail
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+    
+    <insert id="batchInsert" parameterType="map">
+        INSERT INTO tb_storage_detail
+            (stde_quantity,stde_explain,stor_id,col_id)
+        VALUES
+          <foreach collection="storageDetailList" item="storageDetail" separator=",">
+              (#{storageDetail.stdeQuantity},#{storageDetail.stdeExplain},
+                #{storageDetail.storId},#{storageDetail.colId})
+          </foreach>
+    </insert>
+
+    <delete id="deleteByStorId" parameterType="java.lang.Long">
+        DELETE from tb_storage_detail
+        WHERE stor_id = #{storId}
+    </delete>
+
+    <select id="selectByStorId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM tb_storage_detail
+        WHERE stor_id = #{storId}
+    </select>
+
+</mapper>
