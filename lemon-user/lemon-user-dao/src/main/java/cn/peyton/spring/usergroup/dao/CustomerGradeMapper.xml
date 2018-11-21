@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.usergroup.dao.CustomerGradeMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.usergroup.entity.CustomerGrade">
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="cugr_name" property="cugrName" jdbcType="VARCHAR"/>
+		<result column="cugr_dr" property="cugrDr" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,cugr_name,cugr_dr
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.usergroup.entity.CustomerGrade" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_customer_grade(id,cugr_name,cugr_dr)
+		values (#{id},#{cugrName},#{cugrDr})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.usergroup.entity.CustomerGrade" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_customer_grade
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="cugrName != null">
+				cugr_name,
+			</if>
+			<if test="cugrDr != null">
+				cugr_dr,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="cugrName != null">
+				#{cugrName},
+			</if>
+			<if test="cugrDr != null">
+				#{cugrDr},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from tb_customer_grade
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.usergroup.entity.CustomerGrade">
+		update tb_customer_grade
+		<set>
+			<if test="cugrName != null">
+				cugr_name = #{cugrName},
+			</if>
+			<if test="cugrDr != null">
+				cugr_dr = #{cugrDr},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.usergroup.entity.CustomerGrade">
+		update tb_customer_grade
+		set 
+			cugr_name = #{cugrName},
+			cugr_dr = #{cugrDr}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_customer_grade
+		where id = #{id}
+	</select>
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_customer_grade
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_customer_grade
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_customer_grade
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND cugr_name LIKE concat('%',#{keyword},'%')
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_customer_grade
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND cugr_name LIKE concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap">
+        SELECT id,cugr_name
+        FROM tb_customer_grade
+        ORDER BY id DESC
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_customer_grade
+        WHERE cugr_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+</mapper>

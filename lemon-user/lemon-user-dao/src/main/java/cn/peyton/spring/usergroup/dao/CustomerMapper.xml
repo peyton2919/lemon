@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.usergroup.dao.CustomerMapper">
+    <resultMap id="BaseResultMap" type="cn.peyton.spring.usergroup.entity.Customer">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="cus_name" property="cusName" jdbcType="VARCHAR"/>
+        <result column="cus_login_name" property="cusLoginName" jdbcType="VARCHAR"/>
+        <result column="cus_avatar" property="cusAvatar" jdbcType="VARCHAR"/>
+        <result column="cus_pwd" property="cusPwd" jdbcType="VARCHAR"/>
+        <result column="cus_tel" property="cusTel" jdbcType="VARCHAR"/>
+        <result column="cus_phone" property="cusPhone" jdbcType="VARCHAR"/>
+        <result column="cus_add" property="cusAdd" jdbcType="VARCHAR"/>
+        <result column="cus_qq" property="cusQq" jdbcType="VARCHAR"/>
+        <result column="cus_fax" property="cusFax" jdbcType="VARCHAR"/>
+        <result column="cus_email" property="cusEmail" jdbcType="VARCHAR"/>
+        <result column="cus_birth" property="cusBirth" jdbcType="TIMESTAMP"/>
+        <result column="cus_identity" property="cusIdentity" jdbcType="VARCHAR"/>
+        <result column="cus_loc" property="cusLoc" jdbcType="INTEGER"/>
+        <result column="cus_status" property="cusStatus" jdbcType="INTEGER"/>
+        <result column="cus_hot" property="cusHot" jdbcType="INTEGER"/>
+        <result column="regi_id" property="regiId" jdbcType="BIGINT"/>
+        <result column="cugr_id" property="cugrId" jdbcType="INTEGER"/>
+        <result column="cus_created" property="cusCreated" jdbcType="TIMESTAMP"/>
+        <result column="cus_updated" property="cusUpdated" jdbcType="TIMESTAMP"/>
+        <result column="cus_type" property="cusType" jdbcType="INTEGER"/>
+        <result column="cus_encrypt" property="cusEncrypt" jdbcType="VARCHAR"/>
+        <result column="cus_last_ip" property="cusLastIp" jdbcType="VARCHAR"/>
+        <result column="cus_explain" property="cusExplain" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,cus_name,cus_login_name,cus_avatar,cus_pwd,cus_tel,cus_phone,cus_add,cus_qq,cus_fax,cus_email,cus_birth,cus_identity,cus_loc,cus_status,cus_hot,regi_id,cugr_id,cus_created,cus_updated,cus_type,cus_encrypt,cus_last_ip,cus_explain
+    </sql>
+
+    <insert id="insert" parameterType="cn.peyton.spring.usergroup.entity.Customer" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_customer(id,cus_name,cus_login_name,cus_avatar,cus_pwd,cus_tel,cus_phone,cus_add,cus_qq,cus_fax,cus_email,cus_birth,cus_identity,cus_loc,cus_status,cus_hot,regi_id,cugr_id,cus_created,cus_updated,cus_type,cus_encrypt,cus_last_ip,cus_explain)
+        values (#{id},#{cusName},#{cusLoginName},#{cusAvatar},#{cusPwd},#{cusTel},#{cusPhone},#{cusAdd},#{cusQq},#{cusFax},#{cusEmail},#{cusBirth},#{cusIdentity},#{cusLoc},#{cusStatus},#{cusHot},#{regiId},#{cugrId},#{cusCreated},#{cusUpdated},#{cusType},#{cusEncrypt},#{cusLastIp},#{cusExplain})
+    </insert>
+
+    <insert id="insertSelective" parameterType="cn.peyton.spring.usergroup.entity.Customer" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_customer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cusName != null">
+                cus_name,
+            </if>
+            <if test="cusLoginName != null">
+                cus_login_name,
+            </if>
+            <if test="cusAvatar != null">
+                cus_avatar,
+            </if>
+            <if test="cusPwd != null">
+                cus_pwd,
+            </if>
+            <if test="cusTel != null">
+                cus_tel,
+            </if>
+            <if test="cusPhone != null">
+                cus_phone,
+            </if>
+            <if test="cusAdd != null">
+                cus_add,
+            </if>
+            <if test="cusQq != null">
+                cus_qq,
+            </if>
+            <if test="cusFax != null">
+                cus_fax,
+            </if>
+            <if test="cusEmail != null">
+                cus_email,
+            </if>
+            <if test="cusBirth != null">
+                cus_birth,
+            </if>
+            <if test="cusIdentity != null">
+                cus_identity,
+            </if>
+            <if test="cusLoc != null">
+                cus_loc,
+            </if>
+            <if test="cusStatus != null">
+                cus_status,
+            </if>
+            <if test="cusHot != null">
+                cus_hot,
+            </if>
+            <if test="regiId != null">
+                regi_id,
+            </if>
+            <if test="cugrId != null">
+                cugr_id,
+            </if>
+            <if test="cusCreated != null">
+                cus_created,
+            </if>
+            <if test="cusUpdated != null">
+                cus_updated,
+            </if>
+            <if test="cusType != null">
+                cus_type,
+            </if>
+            <if test="cusEncrypt != null">
+                cus_encrypt,
+            </if>
+            <if test="cusLastIp != null">
+                cus_last_ip,
+            </if>
+            <if test="cusExplain != null">
+                cus_explain,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="cusName != null">
+                #{cusName},
+            </if>
+            <if test="cusLoginName != null">
+                #{cusLoginName},
+            </if>
+            <if test="cusAvatar != null">
+                #{cusAvatar},
+            </if>
+            <if test="cusPwd != null">
+                #{cusPwd},
+            </if>
+            <if test="cusTel != null">
+                #{cusTel},
+            </if>
+            <if test="cusPhone != null">
+                #{cusPhone},
+            </if>
+            <if test="cusAdd != null">
+                #{cusAdd},
+            </if>
+            <if test="cusQq != null">
+                #{cusQq},
+            </if>
+            <if test="cusFax != null">
+                #{cusFax},
+            </if>
+            <if test="cusEmail != null">
+                #{cusEmail},
+            </if>
+            <if test="cusBirth != null">
+                #{cusBirth},
+            </if>
+            <if test="cusIdentity != null">
+                #{cusIdentity},
+            </if>
+            <if test="cusLoc != null">
+                #{cusLoc},
+            </if>
+            <if test="cusStatus != null">
+                #{cusStatus},
+            </if>
+            <if test="cusHot != null">
+                #{cusHot},
+            </if>
+            <if test="regiId != null">
+                #{regiId},
+            </if>
+            <if test="cugrId != null">
+                #{cugrId},
+            </if>
+            <if test="cusCreated != null">
+                #{cusCreated},
+            </if>
+            <if test="cusUpdated != null">
+                #{cusUpdated},
+            </if>
+            <if test="cusType != null">
+                #{cusType},
+            </if>
+            <if test="cusEncrypt != null">
+                #{cusEncrypt},
+            </if>
+            <if test="cusLastIp != null">
+                #{cusLastIp},
+            </if>
+            <if test="cusExplain != null">
+                #{cusExplain},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from tb_customer
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.usergroup.entity.Customer">
+        update tb_customer
+        <set>
+            <if test="cusName != null">
+                cus_name = #{cusName},
+            </if>
+            <if test="cusLoginName != null">
+                cus_login_name = #{cusLoginName},
+            </if>
+            <if test="cusAvatar != null">
+                cus_avatar = #{cusAvatar},
+            </if>
+            <if test="cusPwd != null">
+                cus_pwd = #{cusPwd},
+            </if>
+            <if test="cusTel != null">
+                cus_tel = #{cusTel},
+            </if>
+            <if test="cusPhone != null">
+                cus_phone = #{cusPhone},
+            </if>
+            <if test="cusAdd != null">
+                cus_add = #{cusAdd},
+            </if>
+            <if test="cusQq != null">
+                cus_qq = #{cusQq},
+            </if>
+            <if test="cusFax != null">
+                cus_fax = #{cusFax},
+            </if>
+            <if test="cusEmail != null">
+                cus_email = #{cusEmail},
+            </if>
+            <if test="cusBirth != null">
+                cus_birth = #{cusBirth},
+            </if>
+            <if test="cusIdentity != null">
+                cus_identity = #{cusIdentity},
+            </if>
+            <if test="cusLoc != null">
+                cus_loc = #{cusLoc},
+            </if>
+            <if test="cusStatus != null">
+                cus_status = #{cusStatus},
+            </if>
+            <if test="cusHot != null">
+                cus_hot = #{cusHot},
+            </if>
+            <if test="regiId != null">
+                regi_id = #{regiId},
+            </if>
+            <if test="cugrId != null">
+                cugr_id = #{cugrId},
+            </if>
+            <if test="cusCreated != null">
+                cus_created = #{cusCreated},
+            </if>
+            <if test="cusUpdated != null">
+                cus_updated = #{cusUpdated},
+            </if>
+            <if test="cusType != null">
+                cus_type = #{cusType},
+            </if>
+            <if test="cusEncrypt != null">
+                cus_encrypt = #{cusEncrypt},
+            </if>
+            <if test="cusLastIp != null">
+                cus_last_ip = #{cusLastIp},
+            </if>
+            <if test="cusExplain != null">
+                cus_explain = #{cusExplain},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.usergroup.entity.Customer">
+        update tb_customer
+        set
+        cus_name = #{cusName},
+        cus_login_name = #{cusLoginName},
+        cus_tel = #{cusTel},
+        cus_phone = #{cusPhone},
+        cus_add = #{cusAdd},
+        cus_qq = #{cusQq},
+        cus_fax = #{cusFax},
+        cus_email = #{cusEmail},
+        cus_birth = #{cusBirth},
+        cus_identity = #{cusIdentity},
+        regi_id = #{regiId},
+        cugr_id = #{cugrId},
+        cus_updated = #{cusUpdated},
+        cus_type = #{cusType},
+        cus_last_ip = #{cusLastIp},
+        cus_explain = #{cusExplain}
+        where id = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_customer
+        where id = #{id}
+    </select>
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_customer
+        WHERE cus_status != 2
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_customer
+        WHERE cus_status != 2
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_customer
+        WHERE 1 = 1
+        AND cus_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            cus_name LIKE concat('%',#{keyword},'%')
+            OR cus_login_name LIKE concat('%',#{keyword},'%')
+            OR cus_tel LIKE concat('%',#{keyword},'%')
+            OR cus_phone LIKE concat('%',#{keyword},'%')
+            OR cus_add LIKE concat('%',#{keyword},'%')
+            OR cus_qq LIKE concat('%',#{keyword},'%')
+            OR cus_email LIKE concat('%',#{keyword},'%')
+            OR cus_explain LIKE concat('%',#{keyword},'%')
+            OR cus_fax LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_customer
+        WHERE 1 = 1
+        AND cus_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            cus_name LIKE concat('%',#{keyword},'%')
+            OR cus_login_name LIKE concat('%',#{keyword},'%')
+            OR cus_tel LIKE concat('%',#{keyword},'%')
+            OR cus_phone LIKE concat('%',#{keyword},'%')
+            OR cus_add LIKE concat('%',#{keyword},'%')
+            OR cus_qq LIKE concat('%',#{keyword},'%')
+            OR cus_email LIKE concat('%',#{keyword},'%')
+            OR cus_explain LIKE concat('%',#{keyword},'%')
+            OR cus_fax LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap" parameterType="map">
+        select
+        id,cus_name,cus_login_name
+        FROM tb_customer
+        WHERE cus_status = 1
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_customer
+        WHERE cus_login_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_customer
+        WHERE cus_login_name = #{loginName}
+    </select>
+
+    <update id="updateLoc" parameterType="java.lang.Long">
+        UPDATE tb_customer
+        SET
+        cus_loc = cus_loc + 1
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateHot" parameterType="java.lang.Long">
+        UPDATE tb_customer
+        SET
+        cus_hot = cus_hot + 1
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="existPwd" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT id,cus_encrypt,cus_pwd
+        FROM tb_customer
+        WHERE  id = #{id}
+    </select>
+
+    <update id="updatePwd" parameterType="map">
+        UPDATE tb_customer
+        SET
+        cus_pwd = #{pwd}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="map">
+        UPDATE tb_customer
+        SET
+        cus_status = #{status}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateAvatar" parameterType="map">
+        UPDATE tb_customer
+        SET
+        cus_avatar = #{avatar}
+        WHERE
+        id = #{id}
+    </update>
+
+</mapper>

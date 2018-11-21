@@ -10,14 +10,12 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="lemon-log-service" />
-    <orderEntry type="module" module-name="lemon-log-dao" />
-    <orderEntry type="module" module-name="lemon-log-common" />
-    <orderEntry type="module" module-name="lemon-log-pojo" />
     <orderEntry type="module" module-name="lemon-user-dao" />
     <orderEntry type="module" module-name="lemon-user-common" />
     <orderEntry type="module" module-name="lemon-user-pojo" />
@@ -44,6 +42,9 @@
     <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:1.3.1" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.38" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:druid:1.1.10" level="project" />
+    <orderEntry type="module" module-name="lemon-basis-service" />
+    <orderEntry type="module" module-name="lemon-basis-dao" />
+    <orderEntry type="module" module-name="lemon-basis-pojo" />
     <orderEntry type="module" module-name="lemon-log-service" />
     <orderEntry type="module" module-name="lemon-log-dao" />
     <orderEntry type="module" module-name="lemon-log-common" />

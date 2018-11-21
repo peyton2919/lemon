@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.usergroup.dao.SupplierMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.usergroup.entity.Supplier">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="sup_name" property="supName" jdbcType="VARCHAR"/>
+		<result column="sup_login_name" property="supLoginName" jdbcType="VARCHAR"/>
+		<result column="sup_avatar" property="supAvatar" jdbcType="VARCHAR"/>
+		<result column="sup_pwd" property="supPwd" jdbcType="VARCHAR"/>
+		<result column="sup_tel" property="supTel" jdbcType="VARCHAR"/>
+		<result column="sup_phone" property="supPhone" jdbcType="VARCHAR"/>
+		<result column="sup_add" property="supAdd" jdbcType="VARCHAR"/>
+		<result column="sup_qq" property="supQq" jdbcType="VARCHAR"/>
+		<result column="sup_fax" property="supFax" jdbcType="VARCHAR"/>
+		<result column="sup_email" property="supEmail" jdbcType="VARCHAR"/>
+		<result column="sup_loc" property="supLoc" jdbcType="INTEGER"/>
+		<result column="sup_status" property="supStatus" jdbcType="INTEGER"/>
+		<result column="sup_created" property="supCreated" jdbcType="TIMESTAMP"/>
+		<result column="sup_updated" property="supUpdated" jdbcType="TIMESTAMP"/>
+		<result column="sup_encrypt" property="supEncrypt" jdbcType="VARCHAR"/>
+		<result column="sup_last_ip" property="supLastIp" jdbcType="VARCHAR"/>
+		<result column="sup_explain" property="supExplain" jdbcType="VARCHAR"/>
+		<result column="sup_web_site" property="supWebSite" jdbcType="VARCHAR"/>
+		<result column="sup_web_code" property="supWebCode" jdbcType="VARCHAR"/>
+		<result column="sup_hot" property="supHot" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,sup_name,sup_login_name,sup_avatar,sup_pwd,sup_tel,sup_phone,sup_add,sup_qq,sup_fax,
+		sup_email,sup_loc,sup_status,sup_created,sup_updated,sup_encrypt,sup_last_ip,
+		sup_explain,sup_hot
+	</sql>
+    <sql id="Base_Ext_Column_List">
+		id,sup_web_site,sup_web_code
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.usergroup.entity.Supplier" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_supplier(id,sup_name,sup_login_name,sup_avatar,sup_pwd,sup_tel,sup_phone,sup_add,sup_qq,sup_fax,sup_email,sup_loc,sup_status,sup_created,sup_updated,sup_encrypt,sup_last_ip,sup_explain,sup_web_site,sup_web_code,sup_hot)
+		values (#{id},#{supName},#{supLoginName},#{supAvatar},#{supPwd},#{supTel},#{supPhone},#{supAdd},#{supQq},#{supFax},#{supEmail},#{supLoc},#{supStatus},#{supCreated},#{supUpdated},#{supEncrypt},#{supLastIp},#{supExplain},#{supWebSite},#{supWebCode},#{supHot})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.usergroup.entity.Supplier" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_supplier
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="supName != null">
+				sup_name,
+			</if>
+			<if test="supLoginName != null">
+				sup_login_name,
+			</if>
+			<if test="supAvatar != null">
+				sup_avatar,
+			</if>
+			<if test="supPwd != null">
+				sup_pwd,
+			</if>
+			<if test="supTel != null">
+				sup_tel,
+			</if>
+			<if test="supPhone != null">
+				sup_phone,
+			</if>
+			<if test="supAdd != null">
+				sup_add,
+			</if>
+			<if test="supQq != null">
+				sup_qq,
+			</if>
+			<if test="supFax != null">
+				sup_fax,
+			</if>
+			<if test="supEmail != null">
+				sup_email,
+			</if>
+			<if test="supLoc != null">
+				sup_loc,
+			</if>
+			<if test="supStatus != null">
+				sup_status,
+			</if>
+			<if test="supCreated != null">
+				sup_created,
+			</if>
+			<if test="supUpdated != null">
+				sup_updated,
+			</if>
+			<if test="supEncrypt != null">
+				sup_encrypt,
+			</if>
+			<if test="supLastIp != null">
+				sup_last_ip,
+			</if>
+			<if test="supExplain != null">
+				sup_explain,
+			</if>
+			<if test="supHot != null">
+				sup_hot,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="supName != null">
+				#{supName},
+			</if>
+			<if test="supLoginName != null">
+				#{supLoginName},
+			</if>
+			<if test="supAvatar != null">
+				#{supAvatar},
+			</if>
+			<if test="supPwd != null">
+				#{supPwd},
+			</if>
+			<if test="supTel != null">
+				#{supTel},
+			</if>
+			<if test="supPhone != null">
+				#{supPhone},
+			</if>
+			<if test="supAdd != null">
+				#{supAdd},
+			</if>
+			<if test="supQq != null">
+				#{supQq},
+			</if>
+			<if test="supFax != null">
+				#{supFax},
+			</if>
+			<if test="supEmail != null">
+				#{supEmail},
+			</if>
+			<if test="supLoc != null">
+				#{supLoc},
+			</if>
+			<if test="supStatus != null">
+				#{supStatus},
+			</if>
+			<if test="supCreated != null">
+				#{supCreated},
+			</if>
+			<if test="supUpdated != null">
+				#{supUpdated},
+			</if>
+			<if test="supEncrypt != null">
+				#{supEncrypt},
+			</if>
+			<if test="supLastIp != null">
+				#{supLastIp},
+			</if>
+			<if test="supExplain != null">
+				#{supExplain},
+			</if>
+			<if test="supHot != null">
+				#{supHot},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_supplier
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.usergroup.entity.Supplier">
+		update tb_supplier
+		<set>
+			<if test="supName != null">
+				sup_name = #{supName},
+			</if>
+			<if test="supLoginName != null">
+				sup_login_name = #{supLoginName},
+			</if>
+			<if test="supAvatar != null">
+				sup_avatar = #{supAvatar},
+			</if>
+			<if test="supTel != null">
+				sup_tel = #{supTel},
+			</if>
+			<if test="supPhone != null">
+				sup_phone = #{supPhone},
+			</if>
+			<if test="supAdd != null">
+				sup_add = #{supAdd},
+			</if>
+			<if test="supQq != null">
+				sup_qq = #{supQq},
+			</if>
+			<if test="supFax != null">
+				sup_fax = #{supFax},
+			</if>
+			<if test="supEmail != null">
+				sup_email = #{supEmail},
+			</if>
+			<if test="supLoc != null">
+				sup_loc = #{supLoc},
+			</if>
+			<if test="supStatus != null">
+				sup_status = #{supStatus},
+			</if>
+			<if test="supCreated != null">
+				sup_created = #{supCreated},
+			</if>
+			<if test="supUpdated != null">
+				sup_updated = #{supUpdated},
+			</if>
+			<if test="supEncrypt != null">
+				sup_encrypt = #{supEncrypt},
+			</if>
+			<if test="supLastIp != null">
+				sup_last_ip = #{supLastIp},
+			</if>
+			<if test="supExplain != null">
+				sup_explain = #{supExplain},
+			</if>
+			<if test="supHot != null">
+				sup_hot = #{supHot},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.usergroup.entity.Supplier">
+		update tb_supplier
+		set 
+			sup_name = #{supName},
+			sup_login_name = #{supLoginName},
+			sup_tel = #{supTel},
+			sup_phone = #{supPhone},
+			sup_add = #{supAdd},
+			sup_qq = #{supQq},
+			sup_fax = #{supFax},
+			sup_email = #{supEmail},
+			sup_updated = #{supUpdated},
+			sup_last_ip = #{supLastIp},
+			sup_explain = #{supExplain}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_supplier
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+    <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM tb_supplier
+        WHERE sup_status != 2
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_supplier
+        WHERE sup_status != 2
+    </select>
+
+    <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
+        select DISTINCT
+        <include refid="Base_Column_List"/>
+        FROM tb_supplier
+        WHERE 1 = 1
+        AND sup_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            sup_name LIKE concat('%',#{keyword},'%')
+            OR sup_login_name LIKE concat('%',#{keyword},'%')
+            OR sup_tel LIKE concat('%',#{keyword},'%')
+            OR sup_phone LIKE concat('%',#{keyword},'%')
+            OR sup_add LIKE concat('%',#{keyword},'%')
+            OR sup_qq LIKE concat('%',#{keyword},'%')
+            OR sup_email LIKE concat('%',#{keyword},'%')
+            OR sup_explain LIKE concat('%',#{keyword},'%')
+            OR sup_fax LIKE concat('%',#{keyword},'%'))
+        </if>
+        ORDER BY id DESC
+        limit #{page.offset},#{page.pageSize}
+    </select>
+
+    <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
+        SELECT DISTINCT COUNT(1)
+        FROM tb_supplier
+        WHERE 1 = 1
+        AND sup_status != 2
+        <if test="keyword != null and keyword != ''">
+            AND (
+            sup_name LIKE concat('%',#{keyword},'%')
+            OR sup_login_name LIKE concat('%',#{keyword},'%')
+            OR sup_tel LIKE concat('%',#{keyword},'%')
+            OR sup_phone LIKE concat('%',#{keyword},'%')
+            OR sup_add LIKE concat('%',#{keyword},'%')
+            OR sup_qq LIKE concat('%',#{keyword},'%')
+            OR sup_email LIKE concat('%',#{keyword},'%')
+            OR sup_explain LIKE concat('%',#{keyword},'%')
+            OR sup_fax LIKE concat('%',#{keyword},'%'))
+        </if>
+    </select>
+
+    <select id="selectBySelect" resultMap="BaseResultMap" parameterType="map">
+        select
+          id,sup_name,sup_login_name
+        FROM tb_supplier
+        WHERE sup_status = 1
+    </select>
+
+    <select id="countByName" parameterType="map" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM tb_supplier
+        WHERE sup_login_name = #{name}
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+
+    <select id="login" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_supplier
+        WHERE sup_login_name = #{loginName}
+    </select>
+
+    <update id="updateLoc" parameterType="java.lang.Long">
+        UPDATE tb_supplier
+        SET
+          sup_loc = sup_loc + 1
+        WHERE
+          id = #{id}
+    </update>
+    
+    <select id="existPwd" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT id,sup_encrypt,sup_pwd
+        FROM tb_supplier
+        WHERE  id = #{id}
+    </select>
+
+    <update id="updatePwd" parameterType="map">
+        UPDATE tb_supplier
+        SET
+        sup_pwd = #{pwd}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="map">
+        UPDATE tb_supplier
+        SET
+        sup_status = #{status}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="updateWeb" parameterType="map">
+        UPDATE tb_supplier
+        SET
+        sup_web_code = #{webCode},
+        sup_web_site = #{webSite}
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="selectByWeb" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT
+        <include refid="Base_Ext_Column_List"/>
+        FROM tb_supplier
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateAvatar" parameterType="map">
+        UPDATE tb_supplier
+        SET
+        sup_avatar = #{avatar}
+        WHERE
+        id = #{id}
+    </update>
+
+</mapper>
