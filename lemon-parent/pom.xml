@@ -18,6 +18,7 @@
         <module>../lemon-tool</module>
         <module>../lemon-shared</module>
         <module>../lemon-log</module>
+        <module>../lemon-basis</module>
     </modules>
 
     <properties>
