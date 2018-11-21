@@ -12,12 +12,12 @@
 	</sql>
 
 	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Origin" keyProperty="id" useGeneratedKeys="true">
-		insert into tb_origin_info(id,ori_name,ori_explain)
+		insert into tb_origin(id,ori_name,ori_explain)
 		values (#{id},#{oriName},#{oriExplain})
 	</insert>
 
 	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Origin" keyProperty="id" useGeneratedKeys="true">
-		insert into tb_origin_info
+		insert into tb_origin
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -43,12 +43,12 @@
 	</insert>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from tb_origin_info
+		delete from tb_origin
 		where id = #{id}
 	</delete>
 
 	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Origin">
-		update tb_origin_info
+		update tb_origin
 		<set>
 			<if test="oriName != null">
 				ori_name = #{oriName},
@@ -61,7 +61,7 @@
 	</update>
 
 	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Origin">
-		update tb_origin_info
+		update tb_origin
 		set 
 			ori_name = #{oriName},
 			ori_explain = #{oriExplain}
@@ -71,7 +71,7 @@
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List"/>
-		from tb_origin_info
+		from tb_origin
 		where id = #{id}
 	</select>
 
@@ -80,20 +80,20 @@
     <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        FROM tb_origin_info
+        FROM tb_origin
         ORDER BY id DESC
         limit #{page.offset},#{page.pageSize}
     </select>
 
     <select id="count" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_origin_info
+        FROM tb_origin
     </select>
 
     <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
         select DISTINCT
         <include refid="Base_Column_List"/>
-        FROM tb_origin_info
+        FROM tb_origin
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
@@ -106,7 +106,7 @@
 
     <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
         SELECT DISTINCT COUNT(1)
-        FROM tb_origin_info
+        FROM tb_origin
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
@@ -117,13 +117,13 @@
 
     <select id="selectBySelect" resultMap="BaseResultMap">
         SELECT id,ori_name
-        FROM tb_origin_info
+        FROM tb_origin
         ORDER BY id DESC
     </select>
 
     <select id="countByName" parameterType="map" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_origin_info
+        FROM tb_origin
         WHERE ori_name = #{name}
         <if test="id != null">
             AND id != #{id}

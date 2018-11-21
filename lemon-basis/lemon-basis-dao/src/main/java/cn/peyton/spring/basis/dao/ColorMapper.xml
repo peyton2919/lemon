@@ -12,12 +12,12 @@
 	</sql>
 
 	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Color" keyProperty="id" useGeneratedKeys="true">
-		insert into tb_color_info(id,col_name,col_code)
+		insert into tb_color(id,col_name,col_code)
 		values (#{id},#{colName},#{colCode})
 	</insert>
 
 	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Color" keyProperty="id" useGeneratedKeys="true">
-		insert into tb_color_info
+		insert into tb_color
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -43,12 +43,12 @@
 	</insert>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from tb_color_info
+		delete from tb_color
 		where id = #{id}
 	</delete>
 
 	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Color">
-		update tb_color_info
+		update tb_color
 		<set>
 			<if test="colName != null">
 				col_name = #{colName},
@@ -61,7 +61,7 @@
 	</update>
 
 	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Color">
-		update tb_color_info
+		update tb_color
 		set 
 			col_name = #{colName},
 			col_code = #{colCode}
@@ -71,7 +71,7 @@
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List"/>
-		from tb_color_info
+		from tb_color
 		where id = #{id}
 	</select>
 
@@ -81,20 +81,20 @@
     <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        FROM tb_color_info
+        FROM tb_color
         ORDER BY id DESC
         limit #{page.offset},#{page.pageSize}
     </select>
 
     <select id="count" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_color_info
+        FROM tb_color
     </select>
 
     <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
         select DISTINCT
         <include refid="Base_Column_List"/>
-        FROM tb_color_info
+        FROM tb_color
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
@@ -107,7 +107,7 @@
 
     <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
         SELECT DISTINCT COUNT(1)
-        FROM tb_color_info
+        FROM tb_color
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
@@ -118,13 +118,13 @@
     
     <select id="selectBySelect" resultMap="BaseResultMap">
         SELECT id,col_name
-        FROM tb_color_info
+        FROM tb_color
         ORDER BY id DESC
     </select>
 
     <select id="countByName" parameterType="map" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_color_info
+        FROM tb_color
         WHERE col_name = #{name}
         <if test="id != null">
             AND id != #{id}

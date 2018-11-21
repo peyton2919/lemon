@@ -4,7 +4,7 @@ import cn.peyton.spring.basis.bo.WarehouseBo;
 import cn.peyton.spring.basis.dao.WarehouseMapper;
 import cn.peyton.spring.basis.entity.Warehouse;
 import cn.peyton.spring.basis.param.WarehouseParam;
-import cn.peyton.spring.basis.service.WarehouseInfoService;
+import cn.peyton.spring.basis.service.WarehouseService;
 import cn.peyton.spring.beans.ResultAdapter;
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
@@ -24,8 +24,8 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-@Service("warehouseInfoService")
-public class WarehouseInfoServiceImpl implements WarehouseInfoService {
+@Service("warehouseService")
+public class WarehouseServiceImpl implements WarehouseService {
 	@Resource
 	private WarehouseMapper warehouseMapper;
 

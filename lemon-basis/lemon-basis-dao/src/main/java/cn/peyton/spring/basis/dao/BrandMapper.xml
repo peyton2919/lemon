@@ -17,12 +17,12 @@
     </sql>
 
     <insert id="insert" parameterType="cn.peyton.spring.basis.entity.Brand" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_brand_info(id,sup_id,brand_logo,brand_area,brand_seq,brand_name,brand_status,brand_explain)
+        insert into tb_brand(id,sup_id,brand_logo,brand_area,brand_seq,brand_name,brand_status,brand_explain)
         values (#{id},#{supId},#{brandLogo},#{brandArea},#{brandSeq},#{brandName},#{brandStatus},#{brandExplain})
     </insert>
 
     <insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Brand" keyProperty="id" useGeneratedKeys="true">
-        insert into tb_brand_info
+        insert into tb_brand
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -78,12 +78,12 @@
     </insert>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-        delete from tb_brand_info
+        delete from tb_brand
         where id = #{id}
     </delete>
 
     <update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Brand">
-        update tb_brand_info
+        update tb_brand
         <set>
             <if test="supId != null">
                 sup_id = #{supId},
@@ -111,7 +111,7 @@
     </update>
 
     <update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Brand">
-        update tb_brand_info
+        update tb_brand
         set
         sup_id = #{supId},
         brand_logo = #{brandLogo},
@@ -125,14 +125,14 @@
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
-        from tb_brand_info
+        from tb_brand
         where id = #{id}
     </select>
 
     <!-- new create method   -->
 
     <update id="updateStatus" parameterType="map">
-        update tb_brand_info
+        update tb_brand
         set
           brand_status = #{status}
         where id = #{id}
@@ -141,7 +141,7 @@
     <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE brand_status != 2
         ORDER BY brand_seq ASC
         limit #{page.offset},#{page.pageSize}
@@ -149,14 +149,14 @@
 
     <select id="count" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE brand_status != 2
     </select>
 
     <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
         select DISTINCT
         <include refid="Base_Column_List"/>
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE 1 = 1
         AND brand_status != 2
         <if test="keyword != null and keyword != ''">
@@ -170,7 +170,7 @@
 
     <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
         SELECT DISTINCT COUNT(1)
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE 1 = 1
         AND brand_status != 2
         <if test="keyword != null and keyword != ''">
@@ -182,14 +182,14 @@
 
     <select id="selectBySelect" resultMap="BaseResultMap">
         SELECT id,brand_name
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE brand_status != 2
         ORDER BY brand_seq ASC
     </select>
 
     <select id="countByName" parameterType="map" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_brand_info
+        FROM tb_brand
         WHERE brand_name = #{name}
         AND brand_status != 2
         <if test="id != null">

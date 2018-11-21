@@ -16,7 +16,7 @@ import cn.peyton.spring.beans.PageResult;
  * @version 1.0.0
  * </pre>
 */
-public interface WarehouseInfoService extends IService<Integer,WarehouseParam,Warehouse>,IServiceBySelect<WarehouseParam>{
+public interface WarehouseService extends IService<Integer,WarehouseParam,Warehouse>,IServiceBySelect<WarehouseParam>{
 
     /**
      * <h4>分页模糊查找</h4>

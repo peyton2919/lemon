@@ -13,6 +13,7 @@
     <artifactId>lemon-basis</artifactId>
     <packaging>pom</packaging>
     <name>基础模块</name>
+
     <modules>
         <module>lemon-basis-dao</module>
         <module>lemon-basis-pojo</module>

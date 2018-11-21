@@ -24,7 +24,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-@Service("originInfoService")
+@Service("originService")
 public class OriginServiceImpl implements OriginService {
 	@Resource
 	private OriginMapper originMapper;

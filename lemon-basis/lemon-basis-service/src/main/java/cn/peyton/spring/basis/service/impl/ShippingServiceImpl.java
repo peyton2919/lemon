@@ -22,7 +22,7 @@ import java.util.Date;
  * @version 1.0.0
  * </pre>
 */
-@Service("shippingInfoService")
+@Service("shippingService")
 public class ShippingServiceImpl implements ShippingService {
 	@Resource
 	private ShippingMapper shippingMapper;

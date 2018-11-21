@@ -33,7 +33,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-@Service("regionInfoService")
+@Service("regionService")
 public class RegionServiceImpl implements RegionService {
 	@Resource
 	private RegionMapper regionMapper;

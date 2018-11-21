@@ -23,7 +23,7 @@
 
 	<insert id="insert" parameterType="cn.peyton.spring.basis.entity.Shipping"
             keyProperty="id" useGeneratedKeys="true">
-		insert into tb_shipping_info(id,cust_id,ship_name,ship_tel,ship_phone,ship_province,
+		insert into tb_shipping(id,cust_id,ship_name,ship_tel,ship_phone,ship_province,
 		ship_city,ship_district,ship_address,ship_zip,ship_created,ship_updated)
 		values (#{id},#{custId},#{shipName},#{shipTel},#{shipPhone},#{shipProvince},#{shipCity},
 		#{shipDistrict},#{shipAddress},#{shipZip},#{shipCreated},#{shipUpdated})
@@ -31,7 +31,7 @@
 
 	<insert id="insertSelective" parameterType="cn.peyton.spring.basis.entity.Shipping"
             keyProperty="id" useGeneratedKeys="true">
-		insert into tb_shipping_info
+		insert into tb_shipping
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -111,12 +111,12 @@
 	</insert>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from tb_shipping_info
+		delete from tb_shipping
 		where id = #{id}
 	</delete>
 
 	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.basis.entity.Shipping">
-		update tb_shipping_info
+		update tb_shipping
 		<set>
 			<if test="custId != null">
 				cust_id = #{custId},
@@ -156,7 +156,7 @@
 	</update>
 
 	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.basis.entity.Shipping">
-		update tb_shipping_info
+		update tb_shipping
 		set 
 			cust_id = #{custId},
 			ship_name = #{shipName},
@@ -175,7 +175,7 @@
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select
 		<include refid="Base_Column_List"/>
-		from tb_shipping_info
+		from tb_shipping
 		where id = #{id}
 	</select>
 
@@ -185,7 +185,7 @@
     <select id="selectByAll" resultMap="BaseResultMap" parameterType="map">
         select
         <include refid="Base_Column_List"/>
-        FROM tb_shipping_info
+        FROM tb_shipping
         ORDER BY id DESC
         limit #{page.offset},#{page.pageSize}
     </select>
@@ -193,7 +193,7 @@
     <select id="selectLikeByKeyword" resultMap="BaseResultMap" parameterType="map">
         select DISTINCT
         <include refid="Base_Column_List"/>
-        FROM tb_shipping_info
+        FROM tb_shipping
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
@@ -212,12 +212,12 @@
 
     <select id="count" resultType="java.lang.Integer">
         SELECT COUNT(1)
-        FROM tb_shipping_info
+        FROM tb_shipping
     </select>
 
     <select id="countLikeByKeyword" resultType="java.lang.Integer" parameterType="string">
         SELECT DISTINCT COUNT(1)
-        FROM tb_shipping_info
+        FROM tb_shipping
         WHERE 1 = 1
         <if test="keyword != null and keyword != ''">
             AND (
