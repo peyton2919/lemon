@@ -8,6 +8,8 @@ import cn.peyton.spring.inf.IUser;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
+import cn.peyton.spring.usergroup.service.CustomerService;
+import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import org.apache.commons.lang3.StringUtils;
@@ -44,10 +46,10 @@ public final class LoginController {
     private SysAdminService sysAdminService;
     @Resource
     private SysEmployeeService sysEmployeeService;
-//    @Resource
-//    private SupplierService supplierInfoService;
-//    @Resource
-//    private CustomerService customerInfoService;
+    @Resource
+    private SupplierService supplierInfoService;
+    @Resource
+    private CustomerService customerInfoService;
 
     @RequestMapping("/sign-in-emp.page")
     public ModelAndView signinEmp() {

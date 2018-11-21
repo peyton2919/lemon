@@ -2,7 +2,7 @@ package cn.peyton.spring.lemon.controller.basis;
 
 import cn.peyton.spring.basis.entity.Warehouse;
 import cn.peyton.spring.basis.param.WarehouseParam;
-import cn.peyton.spring.basis.service.WarehouseInfoService;
+import cn.peyton.spring.basis.service.WarehouseService;
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.common.JsonData;
@@ -28,7 +28,7 @@ import javax.annotation.Resource;
 public class WarehouseController implements IController<Integer,WarehouseParam,Warehouse> {
 
 	@Resource
-	private WarehouseInfoService warehouseInfoService;
+	private WarehouseService warehouseService;
     @Override
     @RequestMapping("/sys/wh/warehouse.page")
     public ModelAndView index() {
@@ -40,7 +40,7 @@ public class WarehouseController implements IController<Integer,WarehouseParam,W
     @ResponseBody
     @RequestMapping("/sys/wh/save.json")
     public JsonData save(WarehouseParam param) {
-        warehouseInfoService.save(param);
+        warehouseService.save(param);
         return JsonData.success();
     }
 
@@ -48,7 +48,7 @@ public class WarehouseController implements IController<Integer,WarehouseParam,W
     @ResponseBody
     @RequestMapping("/sys/wh/delete.json")
     public JsonData delete(Integer id) {
-        warehouseInfoService.delete(id);
+        warehouseService.delete(id);
         return JsonData.success();
     }
 
@@ -56,25 +56,25 @@ public class WarehouseController implements IController<Integer,WarehouseParam,W
     @ResponseBody
     @RequestMapping("/sys/wh/update.json")
     public JsonData update(WarehouseParam param) {
-        warehouseInfoService.update(param);
+        warehouseService.update(param);
         return JsonData.success();
     }
     @ResponseBody
     @RequestMapping("/wh/detail.json")
     public JsonData detail(@RequestParam("id") Integer id) {
-        WarehouseParam param = warehouseInfoService.findById(id);
+        WarehouseParam param = warehouseService.findById(id);
         return JsonData.success(param);
     }
     @ResponseBody
     @RequestMapping("/sys/wh/list.json")
     public JsonData list(PageQuery page) {
-        PageResult<WarehouseParam> warehouseParams = warehouseInfoService.findByAll(page);
+        PageResult<WarehouseParam> warehouseParams = warehouseService.findByAll(page);
         return JsonData.success(warehouseParams);
     }
     @ResponseBody
     @RequestMapping("/sys/wh/search.json")
     public JsonData findLikeByKeyword(@RequestParam("keyword") String keyword,PageQuery page) {
-        PageResult<WarehouseParam> warehouseParams = warehouseInfoService.findLikeByKeywordAndPage(keyword, page);
+        PageResult<WarehouseParam> warehouseParams = warehouseService.findLikeByKeywordAndPage(keyword, page);
         return JsonData.success(warehouseParams);
     }
 }
