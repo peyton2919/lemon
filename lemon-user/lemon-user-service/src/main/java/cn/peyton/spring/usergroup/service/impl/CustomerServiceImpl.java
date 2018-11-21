@@ -30,7 +30,7 @@ import java.util.Date;
  * @version 1.0.0
  * </pre>
 */
-@Service("customerInfoService")
+@Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 
 

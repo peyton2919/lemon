@@ -32,7 +32,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-@Service("supplierInfoService")
+@Service("supplierService")
 public class SupplierServiceImpl implements SupplierService {
 	@Resource
 	private SupplierMapper supplierMapper;
