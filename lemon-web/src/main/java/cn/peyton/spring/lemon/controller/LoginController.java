@@ -45,9 +45,9 @@ public final class LoginController {
     @Resource
     private SysEmployeeService sysEmployeeService;
 //    @Resource
-//    private SupplierInfoService supplierInfoService;
+//    private SupplierService supplierInfoService;
 //    @Resource
-//    private CustomerInfoService customerInfoService;
+//    private CustomerService customerInfoService;
 
     @RequestMapping("/sign-in-emp.page")
     public ModelAndView signinEmp() {
