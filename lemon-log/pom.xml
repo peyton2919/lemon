@@ -13,6 +13,7 @@
     <artifactId>lemon-log</artifactId>
     <packaging>pom</packaging>
     <name>日志模块</name>
+
     <modules>
         <module>lemon-log-dao</module>
         <module>lemon-log-service</module>
