@@ -1,5 +1,7 @@
 package cn.peyton.spring.util;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,7 @@ public final class CookieUtil {
 			}
 		}
 	}
+
 	/**
 	 * <h4>设置cookie</h4>
 	 * @param response 响应
@@ -67,6 +70,12 @@ public final class CookieUtil {
         //30min
 		cookie.setMaxAge(maxAge);
 		cookie.setPath(path);
+        // 如果cookie的值中含有中文时，需要对cookie进行编码，不然会产生乱码
+        try {
+            URLEncoder.encode(value, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 		cookie.setDomain(domain);
 		response.addCookie(cookie);
 	}
