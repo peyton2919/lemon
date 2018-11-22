@@ -163,48 +163,48 @@
 <div id="dialog-base-form" style="display: none;">
 
     <form id="baseForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+        <table class="table table-bordered dataTable no-footer" role="grid"
                aria-describedby="dynamic-table_info" style="font-size:14px">
             <tbody>
             <tr>
                 <td><label for="web-name">网站名称</label></td>
                 <td>
                     <input type="hidden" name="id" id="base-id">
-                    <input type="text" name="webName" id="web-name" placeholder="网站名称不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webName" id="web-name" placeholder="网站名称不能为空" class="text form-control">
                 </td>
                 <td><label for="web-title">网站标题</label></td>
                 <td>
-                    <input type="text" name="webTitle" id="web-title" placeholder="网站标题不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webTitle" id="web-title" placeholder="网站标题不能为空" class="text form-control">
                 </td>
             </tr>
             <tr>
                 <td><label for="web-tel">电话</label></td>
                 <td>
-                    <input type="text" name="webTel" id="web-tel" placeholder="电话不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webTel" id="web-tel" placeholder="电话不能为空" class="text form-control">
                 </td>
                 <td><label for="web-email">邮箱</label></td>
                 <td>
-                    <input type="text" name="webEmail" id="web-email" placeholder="邮箱不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webEmail" id="web-email" placeholder="邮箱不能为空" class="text form-control">
                 </td>
             </tr>
             <tr>
                 <td><label for="web-phone">手机</label></td>
                 <td>
-                    <input type="text" name="webPhone" id="web-phone" placeholder="手机不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webPhone" id="web-phone" placeholder="手机不能为空" class="text form-control">
                 </td>
                 <td><label for="web-link">链接地址</label></td>
                 <td>
-                    <input type="text" name="webLink" id="web-link" placeholder="链接地址不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webLink" id="web-link" placeholder="链接地址不能为空" class="text form-control">
                 </td>
             </tr>
             <tr>
                 <td><label for="web-fax">传真</label></td>
                 <td>
-                    <input type="text" name="webFax" id="web-fax" placeholder="传真不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webFax" id="web-fax" placeholder="传真不能为空" class="text form-control">
                 </td>
                 <td><label for="web-add">地址</label></td>
                 <td>
-                    <input type="text" name="webAdd" id="web-add" placeholder="地址不能为空" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="webAdd" id="web-add" placeholder="地址不能为空" class="text form-control">
                 </td>
             </tr>
             <tr>
@@ -239,7 +239,7 @@
 
 <div id="dialog-ext-form" style="display: none;">
     <form id="extForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+        <table class="table table-bordered dataTable no-footer" role="grid"
                aria-describedby="dynamic-table_info" style="font-size:14px">
             <tbody>
             <tr>
@@ -276,7 +276,7 @@
 
 <div id="dialog-copyright-form" style="display: none;">
     <form id="copyrightForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+        <table class="table table-bordered dataTable no-footer" role="grid"
                aria-describedby="dynamic-table_info" style="font-size:14px">
             <tbody>
             <tr>
@@ -284,7 +284,7 @@
                 <td>
                     <input type="hidden" name="id" id="copyright-id">
                     <textarea name="webCopyRight" id="web-copy-right" cols="45" rows="12"
-                              style="width:560px;height:200px;"></textarea>
+                              class="form-control"></textarea>
                 </td>
 
             </tr>
@@ -315,21 +315,21 @@
                 <td><label for="web-icp">ICP备案</label></td>
                 <td>
                     <textarea name="webIcp" id="web-icp" cols="45" rows="12"
-                              style="width:560px;height:200px;"></textarea>
+                              class="form-control"></textarea>
                 </td>
             </tr>
             <tr>
                 <td><label for="web-desc">站点描述</label></td>
                 <td>
                     <textarea name="webDesc" id="web-desc" cols="45" rows="12"
-                              style="width:560px;height:200px;"></textarea>
+                              class="form-control"></textarea>
                 </td>
             </tr>
             <tr>
                 <td><label for="web-explain">站点说明</label></td>
                 <td>
                     <textarea name="webExplain" id="web-explain" cols="45" rows="12"
-                              style="width:560px;height:200px;"></textarea>
+                              class="form-control"></textarea>
                 </td>
             </tr>
             </tbody>
@@ -339,7 +339,7 @@
 
 <div id="dialog-close-form" style="display: none;">
     <form id="closeForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+        <table class="table table-bordered dataTable no-footer" role="grid"
                aria-describedby="dynamic-table_info" style="font-size:14px">
             <tbody>
             <tr>
@@ -356,7 +356,7 @@
                 <td><label for="web-close-tip">关闭提示</label></td>
                 <td>
                     <textarea name="webCloseTip" id="web-close-tip" cols="45" rows="12"
-                              style="width:560px;height:400px;"></textarea>
+                              class="form-control"></textarea>
                 </td>
             </tr>
             </tbody>
@@ -415,6 +415,13 @@
                             model: true,
                             width: 580,
                             title: "编辑基础配置",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 $("#base-id").val(webConfig.id);
@@ -495,6 +502,13 @@
                             model: true,
                             width: 780,
                             title: "编辑扩展配置",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 //$("body > div[role=dialog]").appendTo("form#form");
                                 var ccEdit = KindEditor.create('textarea[name="webCensusCode"]', {
@@ -582,6 +596,13 @@
                             model: true,
                             width: 780,
                             title: "编辑扩展配置",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 //$("body > div[role=dialog]").appendTo("form#form");
@@ -692,6 +713,13 @@
                             model: true,
                             width: 780,
                             title: "编辑版权配置",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
 

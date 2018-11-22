@@ -7,7 +7,9 @@ import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.inf.IUser;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
+import cn.peyton.spring.usergroup.param.CustomerParam;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
+import cn.peyton.spring.usergroup.param.SupplierParam;
 import cn.peyton.spring.usergroup.service.CustomerService;
 import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
@@ -68,6 +70,13 @@ public final class LoginController {
         return new ModelAndView("sign-in");
     }
 
+    /**
+     * <h4>员工登录</h4>
+     * @param request
+     * @param response
+     * @throws IOException
+     * @throws ServletException
+     */
     @RequestMapping("/login-emp.page")
     public void loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
@@ -121,19 +130,19 @@ public final class LoginController {
         String ret = request.getParameter("ret");
         boolean checkPass = false;
         if (Numerical.STRING_SECOND.equals(type)) {
-//            SupplierParam param = supplierInfoService.login(username);
-//            checkPass = checked(param, errorMsg, username, password);
-//            if (checkPass) {
-//                session.setAttribute(Constants.CURRENT_USER.name(),param);
-//                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.SUPPLIER_TYPE_NUM);
-//            }
+            SupplierParam param = supplierInfoService.login(username);
+            checkPass = checked(param, errorMsg, username, password);
+            if (checkPass) {
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.SUPPLIER_TYPE_NUM);
+            }
         } else if (Numerical.STRING_FIRST.equals(type)) {
-//            CustomerParam param = customerInfoService.login(username);
-//            checkPass = checked(param, errorMsg, username, password);
-//            if (checkPass) {
-//                session.setAttribute(Constants.CURRENT_USER.name(),param);
-//                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
-//            }
+            CustomerParam param = customerInfoService.login(username);
+            checkPass = checked(param, errorMsg, username, password);
+            if (checkPass) {
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
+            }
         }
 
         if (checkPass) {
@@ -150,6 +159,7 @@ public final class LoginController {
             }
             return;
         }
+
         request.setAttribute("error", errorMsg);
         request.setAttribute("username", username);
         request.setAttribute("type",type);
@@ -221,17 +231,26 @@ public final class LoginController {
             existUsernameAndPassword(originalPwd, password, employee.getEncrypt(),
                     errorMsg, employee.getStatus());
         }
-//        if (obj instanceof CustomerParam) {
-//            CustomerParam param = (CustomerParam) obj;
-//            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
-//        }
-//        if (obj instanceof SupplierParam) {
-//            SupplierParam param = (SupplierParam) obj;
-//            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
-//        }
+        if (obj instanceof CustomerParam) {
+            CustomerParam param = (CustomerParam) obj;
+            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+        }
+        if (obj instanceof SupplierParam) {
+            SupplierParam param = (SupplierParam) obj;
+            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+        }
         return true;
     }
 
+    /**
+     * <h4>判断登录名与密码</h4>
+     * @param ePwd 原始密码[数据查找]
+     * @param pwd 页面接收密码
+     * @param encrypt 加密字符
+     * @param errorMsg 返回错误信息
+     * @param status 判断状态 状态不为1 为错误
+     * @return
+     */
     private boolean existUsernameAndPassword(String ePwd,String pwd, String encrypt,StringBuffer errorMsg, Integer status) {
         if (!ePwd.equals(Md5Util.encrypt(pwd, encrypt))) {
             errorMsg.append("用户名或密码错误");

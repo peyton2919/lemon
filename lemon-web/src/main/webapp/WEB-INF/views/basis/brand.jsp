@@ -99,7 +99,7 @@
 
 <div id="dialog-brand-form" style="display: none;">
     <form id="brandForm" name="brandForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="min-width: 80px;"><label for="brand-name">名称</label></td>
                 <input type="hidden" name="id" id="hidden-brand-id"/>
@@ -316,8 +316,14 @@
                             $("#dialog-brand-form").dialog({
                                 model: true,
                                 width: 580,
-                                height: 530,
                                 title: "编辑品牌",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#brandForm")[0].reset();
@@ -420,8 +426,14 @@
                         $("#dialog-brand-form").dialog({
                             model: true,
                             width: 580,
-                            height: 530,
                             title: "添加品牌",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function (event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 $("#brandForm")[0].reset();

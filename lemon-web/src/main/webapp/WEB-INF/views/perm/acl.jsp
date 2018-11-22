@@ -95,26 +95,26 @@
 <%-- 模态窗口 --%>
 <div id="dialog-aclModule-form" style="display: none;">
     <form id="aclModuleForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered  dataTable no-footer" role="grid">
             <tr>
-                <td style="width: 80px;"><label for="parentId">上级模块</label></td>
+                <td style="width: 100px;"><label for="parentId">上级模块</label></td>
                 <td>
-                    <select id="parentId" name="parentId" data-placeholder="选择模块" style="width: 200px;"></select>
+                    <select id="parentId" name="parentId" data-placeholder="选择模块" class="form-control"></select>
                     <input type="hidden" name="id" id="aclModuleId"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="aclModuleName">名称</label></td>
-                <td><input type="text" name="name" id="aclModuleName" value="" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="name" id="aclModuleName" value="" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="aclModuleSeq">顺序</label></td>
-                <td><input type="text" name="seq" id="aclModuleSeq" value="1" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="seq" id="aclModuleSeq" value="1" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="aclModuleStatus">状态</label></td>
                 <td>
-                    <select id="aclModuleStatus" name="status" data-placeholder="选择状态" style="width: 150px;">
+                    <select id="aclModuleStatus" name="status" data-placeholder="选择状态" class="form-control">
                         <option value="1">有效</option>
                         <option value="0">无效</option>
                         <option value="2">删除</option>
@@ -123,7 +123,7 @@
             </tr>
             <tr>
                 <td><label for="aclModuleRemark">备注</label></td>
-                <td><textarea name="remark" id="aclModuleRemark" class="text ui-widget-content ui-corner-all" rows="3" cols="25"></textarea></td>
+                <td><textarea name="remark" id="aclModuleRemark" class="text form-control" rows="3" cols="25"></textarea></td>
             </tr>
         </table>
     </form>
@@ -134,20 +134,20 @@
     <form id="aclForm">
         <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
             <tr>
-                <td style="width: 80px;"><label for="parentId">所属权限模块</label></td>
+                <td style="width: 110px;"><label for="parentId">所属权限模块</label></td>
                 <td>
-                    <select id="aclModuleSelectId" name="aclModuleId" data-placeholder="选择权限模块" style="width: 200px;"></select>
+                    <select id="aclModuleSelectId" name="aclModuleId" data-placeholder="选择权限模块" class="form-control"></select>
                 </td>
             </tr>
             <tr>
                 <td><label for="aclName">名称</label></td>
                 <input type="hidden" name="id" id="aclId"/>
-                <td><input type="text" name="name" id="aclName" value="" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="name" id="aclName" value="" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="aclType">类型</label></td>
                 <td>
-                    <select id="aclType" name="type" data-placeholder="类型" style="width: 150px;">
+                    <select id="aclType" name="type" data-placeholder="类型" class="form-control">
                         <option value="1">菜单</option>
                         <option value="2">按钮</option>
                         <option value="3">其他</option>
@@ -156,12 +156,12 @@
             </tr>
             <tr>
                 <td><label for="aclUrl">URL</label></td>
-                <td><input type="text" name="url" id="aclUrl" value="1" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="url" id="aclUrl" value="1" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="aclStatus">状态</label></td>
                 <td>
-                    <select id="aclStatus" name="status" data-placeholder="选择状态" style="width: 150px;">
+                    <select id="aclStatus" name="status" data-placeholder="选择状态" class="form-control">
                         <option value="1">有效</option>
                         <option value="0">无效</option>
                     </select>
@@ -169,11 +169,11 @@
             </tr>
             <tr>
                 <td><label for="aclSeq">顺序</label></td>
-                <td><input type="text" name="seq" id="aclSeq" value="" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="seq" id="aclSeq" value="" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="aclRemark">备注</label></td>
-                <td><textarea name="remark" id="aclRemark" class="text ui-widget-content ui-corner-all" rows="3" cols="25"></textarea></td>
+                <td><textarea name="remark" id="aclRemark" class="text form-control" rows="3" cols="25"></textarea></td>
             </tr>
         </table>
     </form>
@@ -369,7 +369,15 @@
                 var aclModuleId = $(this).attr("data-id");
                 $("#dialog-aclModule-form").dialog({
                     model: true,
+                    width : 380,
                     title: "编辑权限模块",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function(event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                         optionStr = "<option value=\"0\">-</option>";
@@ -465,7 +473,15 @@
         $(".aclModule-add").click(function () {
             $("#dialog-aclModule-form").dialog({
                 model: true,
+                width : 380,
                 title: "新增权限模块",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function(event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     optionStr = "<option value=\"0\">-</option>";
@@ -574,13 +590,22 @@
                     }
                 })
             });
+
             $(".acl-edit").click(function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var aclId = $(this).attr("data-id");
                 $("#dialog-acl-form").dialog({
                     model: true,
+                    width : 400,
                     title: "编辑权限",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function(event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                         optionStr = "";
@@ -622,7 +647,15 @@
         $(".acl-add").click(function() {
             $("#dialog-acl-form").dialog({
                 model: true,
+                width: 400,
                 title: "新增权限",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function(event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     optionStr = "";

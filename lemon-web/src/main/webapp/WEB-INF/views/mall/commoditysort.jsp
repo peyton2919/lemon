@@ -83,7 +83,7 @@
 
 <div id="dialog-commodity-sort-form" style="display: none;">
     <form id="commoditySortForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered  dataTable no-footer" role="grid">
             <tr>
                 <td style="min-width: 80px;"><label for="coso-name">名称</label></td>
                 <input type="hidden" name="id" id="hidden-coso-id"/>
@@ -208,6 +208,13 @@
                                 model: true,
                                 width: 480,
                                 title: "编辑商品分类",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#commoditySortForm")[0].reset();
@@ -249,6 +256,13 @@
                 model: true,
                 width: 480,
                 title: "添加商品分类",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function (event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     $("#commoditySortForm")[0].reset();

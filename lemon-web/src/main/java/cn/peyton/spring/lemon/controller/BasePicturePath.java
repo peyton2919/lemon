@@ -21,6 +21,10 @@ public final class BasePicturePath {
     public static final String IMG_AD = "/img/ad/";
     /** 存放LOGO图片 [品牌Logo,友情Logo]  */
     public static final String IMG_LOGO = "/img/logo/";
+    /** 存放默认错误图片  */
+    public static final String IMG_DEFAULT = "/img/default/";
+    /** 存放图标  */
+    public static final String IMG_ICON = "/img/icon/";
 
 
 }

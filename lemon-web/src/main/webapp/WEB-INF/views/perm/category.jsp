@@ -323,6 +323,13 @@
                                 model: true,
                                 width: 480,
                                 title: "编辑栏目",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     selectMap = result.data.select;
@@ -399,6 +406,13 @@
                             model: true,
                             width: 480,
                             title: "添加栏目",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function (event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 $("#categoryForm")[0].reset();

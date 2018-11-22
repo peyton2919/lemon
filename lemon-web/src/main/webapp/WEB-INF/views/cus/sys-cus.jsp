@@ -458,6 +458,13 @@
                                 model: true,
                                 title: "编辑",
                                 width: 880,
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#customer-birth").datetime();
@@ -647,6 +654,13 @@
                             model: true,
                             title: "新增客户",
                             width: 880,
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 $("#customerForm")[0].reset();

@@ -39,7 +39,8 @@ import java.io.PrintWriter;
 public class LoginFilter implements Filter {
 
     /** 错误时返回路径 */
-    private static final String FAIL_URL = "/signin.jsp";
+    private static final String EMP_FAIL_URL = "/signin-emp.jsp";
+    private static final String FAIL_URL = "/sing-in.jsp";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -81,21 +82,25 @@ public class LoginFilter implements Filter {
         if (UserType.EMPLOYEE.getValue().equals(type)) {
             EmployeeParam employee = (EmployeeParam) req.getSession().getAttribute(Constants.CURRENT_USER.name());
             if (null == employee) {
-                resp.sendRedirect(FAIL_URL);
+                resp.sendRedirect(EMP_FAIL_URL);
                 return;
             }
             RequestHolder.add(employee);
         }else if (UserType.ADMIN.getValue().equals(type)) {
             AdminParam admin = (AdminParam) req.getSession().getAttribute(Constants.CURRENT_USER.name());
             if (null == admin) {
-                resp.sendRedirect(FAIL_URL);
+                resp.sendRedirect(EMP_FAIL_URL);
                 return;
             }
             RequestHolder.add(admin);
         } else if (UserType.CUSTOMER.getValue().equals(type)) {
-
+            resp.sendRedirect(FAIL_URL);
+            req.setAttribute("type", 1);
+            return;
         } else if (UserType.SUPPLIER.getValue().equals(type)) {
-
+            resp.sendRedirect(FAIL_URL);
+            req.setAttribute("type", 2);
+            return;
         }
         RequestHolder.add(req);
         filterChain.doFilter(servletRequest, servletResponse);

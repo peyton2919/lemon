@@ -114,7 +114,8 @@
                     <tr>
                         <td>允许评论：</td>
                         <td class="td4">
-                            <input type="checkbox" class="ud-checked" disabled id="commodity-comment" name="comment"><label for="commodity-comment">允许</label>
+                            <input type="checkbox" class="ud-checked" disabled id="commodity-comment" name="comment">
+                            <label for="commodity-comment">允许</label>
                         </td>
                         <td colspan="4">
                         </td>

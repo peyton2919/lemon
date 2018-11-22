@@ -333,6 +333,13 @@
                                 width: 580,
                                 model:true,
                                 title:"出入库明细",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open:function (event,ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     var storageDetailList = res.data.storageDetails;

@@ -82,7 +82,7 @@
 
 <div id="dialog-customer-grade-form" style="display: none;">
     <form id="customerGradeForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="min-width: 80px;"><label for="customer-grade-name">名称</label></td>
                 <input type="hidden" name="id" id="hidden-customer-grade-id"/>
@@ -200,6 +200,13 @@
                                 model: true,
                                 width: 480,
                                 title: "编辑客户等级",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#customerGradeForm")[0].reset();
@@ -240,6 +247,13 @@
                 model: true,
                 width: 480,
                 title: "添加客户等级",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function (event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     $("#customerGradeForm")[0].reset();

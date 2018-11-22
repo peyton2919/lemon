@@ -91,21 +91,21 @@
             <tr>
                 <td><label for="roleName">名称</label></td>
                 <td>
-                    <input type="text" name="name" id="roleName" value="" class="text ui-widget-content ui-corner-all">
+                    <input type="text" name="name" id="roleName" value="" class="text form-control">
                     <input type="hidden" name="id" id="roleId"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="roleStatus">状态</label></td>
                 <td>
-                    <select id="roleStatus" name="status" data-placeholder="状态" style="width: 150px;">
+                    <select id="roleStatus" name="status" data-placeholder="状态" class="text form-control">
                         <option value="1">可用</option>
                         <option value="0">冻结</option>
                     </select>
                 </td>
             </tr>
             <td><label for="roleRemark">备注</label></td>
-            <td><textarea name="remark" id="roleRemark" class="text ui-widget-content ui-corner-all" rows="3"
+            <td><textarea name="remark" id="roleRemark" class="text form-control" rows="3"
                           cols="25"></textarea></td>
             </tr>
         </table>
@@ -136,14 +136,14 @@
 
 <script id="selectedUsersTemplate" type="x-tmpl-mustache">
 {{#userList}}
-    <option value="{{id}}" selected="selected">{{empLoginName}}</option>
+    <option value="{{id}}" selected="selected">{{loginName}}</option>
 {{/userList}}
 
 </script>
 
 <script id="unSelectedUsersTemplate" type="x-tmpl-mustache">
 {{#userList}}
-    <option value="{{id}}">{{empLoginName}}</option>
+    <option value="{{id}}">{{loginName}}</option>
 {{/userList}}
 </script>
 <script type="text/javascript" src="/ztree/jquery.ztree.all.min.js"></script>
@@ -226,7 +226,15 @@
                 var roleId = $(this).attr("data-id");
                 $("#dialog-role-form").dialog({
                     model: true,
+                    width: 380,
                     title: "修改角色",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function (event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                         clearData("roleForm");
@@ -438,7 +446,15 @@
         $(".role-add").click(function () {
             $("#dialog-role-form").dialog({
                 model: true,
+                widt:380,
                 title: "新增角色",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function (event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     clearData("roleForm");

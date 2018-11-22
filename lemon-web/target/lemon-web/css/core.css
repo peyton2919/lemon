@@ -64,6 +64,10 @@ pre, button, fieldset, form, input, legend, textarea, th, td {
     padding: 0;
 }
 
+table tr td,td {
+    min-width: 80px;
+}
+
 article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary {
     display: block;
     margin: 0;

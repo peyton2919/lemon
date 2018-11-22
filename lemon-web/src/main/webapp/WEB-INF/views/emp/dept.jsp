@@ -121,7 +121,7 @@
             <tr>
                 <td style="width: 80px;"><label for="parentId">上级部门</label></td>
                 <td>
-                    <select id="parentId" name="parentId" data-placeholder="选择部门" style="width: 200px;"></select>
+                    <select id="parentId" name="parentId" data-placeholder="选择部门" class="form-control"></select>
                     <input type="hidden" name="id" id="deptId"/>
                 </td>
             </tr>
@@ -455,7 +455,15 @@
                 var deptId = $(this).attr("data-id");
                 $("#dialog-dept-form").dialog({
                     model: true,
+                    width : 380,
                     title: "编辑部门",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function(event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                         optionStr = "<option value=\"0\">-</option>";
@@ -495,7 +503,15 @@
         $(".btn-dept-add").click(function() {
             $("#dialog-dept-form").dialog({
                 model: true,
+                width :380,
                 title: "新增部门",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function(event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     optionStr = "<option value=\"0\">-</option>";
@@ -590,6 +606,13 @@
                 width:"700",
                 model: true,
                 title: "新增员工",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function(event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     $(".ui-dialog").css("z-index", 1001);
@@ -639,10 +662,16 @@
                     success:function (result) {
                         if (result.status == 200){
                             $("#dialog-employee-detail").dialog({
-                                height:"520",
                                 width:"700",
                                 model: true,
                                 title: "员工详细信息",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     var employee = result.data;
@@ -682,10 +711,16 @@
                     success:function (result) {
                         if (result.status == 200) {
                             $("#dialog-employee-form").dialog({
-                                height:"520",
                                 width:"700",
                                 model: true,
                                 title: "编辑员工",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     optionStr = "";
@@ -827,7 +862,15 @@
         $(".btn-post-add").click(function() {
             $("#dialog-post-form").dialog({
                 model: true,
+                width : 380,
                 title: "新增职务",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function(event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     $("#postForm")[0].reset();
@@ -918,7 +961,15 @@
                 var postId = $(this).attr("data-id");
                 $("#dialog-post-form").dialog({
                     model: true,
+                    width : 380,
                     title: "编辑职务",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function(event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
 

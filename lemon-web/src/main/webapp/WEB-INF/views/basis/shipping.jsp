@@ -92,7 +92,7 @@
 
 <div id="dialog-warehouse-form" style="display: none;">
     <form id="warehouseForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="min-width: 80px;"><label for="wh-name">名称</label></td>
                 <input type="hidden" name="id" id="wh-id"/>
@@ -131,7 +131,7 @@
 </div>
 
 <div id="dialog-warehouse-detail" style="display: none;">
-    <table id="detail-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+    <table id="detail-table" class="table table-bordered dataTable no-footer" role="grid"
            aria-describedby="dynamic-table_info" style="font-size:14px">
         <tbody id="warehouseDetail"></tbody>
     </table>
@@ -286,6 +286,13 @@
                                 model: true,
                                 width: 580,
                                 title: "编辑货运类型",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#warehouseForm")[0].reset();
@@ -337,6 +344,13 @@
                                 width:"580",
                                 model: true,
                                 title: "仓库详细信息",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     var warehouse = result.data;
@@ -368,6 +382,13 @@
                 model: true,
                 width: 580,
                 title: "添加仓库",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function (event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                 },

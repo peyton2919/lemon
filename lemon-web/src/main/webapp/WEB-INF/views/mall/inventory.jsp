@@ -261,6 +261,13 @@
                     width: 450,
                     model: true,
                     title: "商品图片",
+                    resizable:false,
+                    position: { using:function(pos){
+                        var topOffset = $(this).css(pos).offset().top;
+                        if (topOffset == 0||topOffset>0) {
+                            $(this).css('top', 20);
+                        }
+                    }},
                     open: function (event, ui) {
                         $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                         var first = detail.split(",");
@@ -296,6 +303,13 @@
                                 width: 450,
                                 model:true,
                                 title:"商品图片",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open:function (event,ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#dialog-main-img").attr("src",res.data.mainImg);

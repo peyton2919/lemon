@@ -1,9 +1,13 @@
 package cn.peyton.spring.lemon.controller;
 
+import cn.peyton.spring.util.CookieUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,7 +29,21 @@ public final class PortalController {
      * @return
      */
     @RequestMapping(value = {"/", "/index.page"})
-    public ModelAndView index() {
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("======================== cookies begin ==============================");
+        Cookie cookie = new Cookie("loginName","123456");
+        cookie.setMaxAge(60*60);
+        cookie.setPath("/");
+        cookie.setDomain("localhost");
+        response.addCookie(cookie);
+
+        Cookie[] cookies = request.getCookies();
+        for (Cookie c : cookies) {
+            if ("loginName".equals(c.getName())){
+                System.out.println(c.toString());
+            }
+        }
+        System.out.println("======================== cookies end ==============================");
         return new ModelAndView("index-portal");
     }
 

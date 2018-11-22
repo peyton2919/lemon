@@ -85,25 +85,25 @@
 
 <div id="dialog-commodity-category-form" style="display: none;">
     <form id="commodityCategoryForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="width: 80px;"><label for="coca-parent-id">上级类目</label></td>
                 <td>
-                    <select id="coca-parent-id" name="parentId" data-placeholder="选择类目" style="width: 200px;"></select>
+                    <select id="coca-parent-id" name="parentId" data-placeholder="选择类目" class="text form-control"></select>
                     <input type="hidden" name="id" id="hidden-coca-id"/>
                 </td>
             </tr>
             <tr>
                 <td><label for="coca-name">名称</label></td>
-                <td><input type="text" name="name" id="coca-name" value="" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="name" id="coca-name" value="" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="coca-seq">顺序</label></td>
-                <td><input type="text" name="seq" id="coca-seq" value="1" class="text ui-widget-content ui-corner-all"></td>
+                <td><input type="text" name="seq" id="coca-seq" value="1" class="text form-control"></td>
             </tr>
             <tr>
                 <td><label for="coca-explain">说明</label></td>
-                <td><textarea name="explain" id="coca-explain" class="text ui-widget-content ui-corner-all" rows="3" cols="25"></textarea></td>
+                <td><textarea name="explain" id="coca-explain" class="text form-control" rows="3" cols="25"></textarea></td>
             </tr>
         </table>
     </form>
@@ -383,6 +383,13 @@
                                         $("#dialog-commodity-category-form").dialog({
                                             model: true,
                                             title: "编辑类目",
+                                            resizable:false,
+                                            position: { using:function(pos){
+                                                var topOffset = $(this).css(pos).offset().top;
+                                                if (topOffset == 0||topOffset>0) {
+                                                    $(this).css('top', 20);
+                                                }
+                                            }},
                                             open: function (event, ui) {
                                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                                 optionStr = "<option value=\"0\">-</option>";
@@ -432,6 +439,13 @@
                         $("#dialog-commodity-category-form").dialog({
                             model: true,
                             title: "新增栏目",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function (event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 optionStr = "<option value=\"0\">-</option>";

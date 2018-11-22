@@ -98,7 +98,7 @@
 
 <div id="dialog-freightType-form" style="display: none;">
     <form id="freightTypeForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="min-width: 80px;"><label for="ft-name">名称</label></td>
                 <input type="hidden" name="id" id="ft-id"/>
@@ -136,7 +136,7 @@
 </div>
 
 <div id="dialog-freightType-detail" style="display: none;">
-    <table id="detail-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid"
+    <table id="detail-table" class="table table-bordered dataTable no-footer" role="grid"
            aria-describedby="dynamic-table_info" style="font-size:14px">
         <tbody id="freightTypeDetail"></tbody>
     </table>
@@ -292,6 +292,13 @@
                                 model: true,
                                 width: 680,
                                 title: "编辑货运类型",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function (event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     $("#freightTypeForm")[0].reset();
@@ -344,6 +351,13 @@
                                 width:"700",
                                 model: true,
                                 title: "货运类型详细信息",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     var freightType = result.data;
@@ -373,6 +387,13 @@
                 model: true,
                 width: 680,
                 title: "添加货运类型",
+                resizable:false,
+                position: { using:function(pos){
+                    var topOffset = $(this).css(pos).offset().top;
+                    if (topOffset == 0||topOffset>0) {
+                        $(this).css('top', 20);
+                    }
+                }},
                 open: function (event, ui) {
                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                     $("#freightTypeForm")[0].reset();

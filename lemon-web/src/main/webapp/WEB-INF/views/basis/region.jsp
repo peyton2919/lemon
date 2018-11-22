@@ -89,7 +89,7 @@
 
 <div id="dialog-region-form" style="display: none;">
     <form id="regionForm">
-        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid">
+        <table class="table table-bordered dataTable no-footer" role="grid">
             <tr>
                 <td style="width: 80px;"><label for="region-parent-id">上级地区</label></td>
                 <td>
@@ -218,6 +218,13 @@
                         $("#dialog-region-form").dialog({
                             model: true,
                             title: "新增地区",
+                            resizable:false,
+                            position: { using:function(pos){
+                                var topOffset = $(this).css(pos).offset().top;
+                                if (topOffset == 0||topOffset>0) {
+                                    $(this).css('top', 20);
+                                }
+                            }},
                             open: function(event, ui) {
                                 $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                 var regionList = response.data.regionList;
@@ -267,6 +274,13 @@
                             $("#dialog-region-form").dialog({
                                 model: true,
                                 title: "更新地区",
+                                resizable:false,
+                                position: { using:function(pos){
+                                    var topOffset = $(this).css(pos).offset().top;
+                                    if (topOffset == 0||topOffset>0) {
+                                        $(this).css('top', 20);
+                                    }
+                                }},
                                 open: function(event, ui) {
                                     $(".ui-dialog-titlebar-close", $(this).parent()).hide();
                                     var regionList = response.data.regionList;
