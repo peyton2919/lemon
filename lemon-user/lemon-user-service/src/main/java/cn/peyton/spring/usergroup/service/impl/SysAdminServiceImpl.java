@@ -24,4 +24,9 @@ public class SysAdminServiceImpl implements SysAdminService {
     public AdminParam findByKeyword(String keyword) {
         return new AdminParam().compat(sysAdminMapper.selectByKeyword(keyword));
     }
+
+    @Override
+    public boolean directLogin(String loginName, String encryptPwd) {
+        return sysAdminMapper.directLogin(loginName,encryptPwd) > 0;
+    }
 }

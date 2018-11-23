@@ -33,7 +33,6 @@ import java.util.Date;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 
-
 	@Resource
 	private CustomerMapper customerMapper;
 
@@ -134,4 +133,8 @@ public class CustomerServiceImpl implements CustomerService {
         return ResultAdapter.adapt(customerMapper,keyword,page,new CustomerBo());
     }
 
+    @Override
+    public boolean directLogin(String loginName, String encryptPwd) {
+        return customerMapper.directLogin(loginName, encryptPwd) > 0;
+    }
 }

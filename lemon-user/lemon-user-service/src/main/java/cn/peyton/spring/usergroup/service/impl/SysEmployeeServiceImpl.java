@@ -128,4 +128,8 @@ public class SysEmployeeServiceImpl implements SysEmployeeService {
         return new PageResult<EmployeeParam>();
     }
 
+    @Override
+    public boolean directLogin(String loginName, String encryptPwd) {
+        return sysEmployeeMapper.directLogin(loginName,encryptPwd) > 0;
+    }
 }

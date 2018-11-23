@@ -62,6 +62,14 @@ public interface CustomerService extends IService<Long,CustomerParam,Customer>,
      */
     void updateStatus(Long id, Integer status);
 
+    /**
+     * <h4>判断直接登录</h4>
+     * @param loginName 登录名称
+     * @param encryptPwd 密码
+     * @return true 表示成功
+     */
+    boolean directLogin(String loginName, String encryptPwd);
+
     interface Holder{
         /** 批发客户  */
         int CUSTOMER_WHOLESALE = 0;

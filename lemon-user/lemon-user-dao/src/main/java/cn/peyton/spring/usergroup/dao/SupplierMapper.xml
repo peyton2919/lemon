@@ -384,4 +384,13 @@
         id = #{id}
     </update>
 
+    <select id="directLogin" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM tb_supplier
+        WHERE
+            sup_login_name = #{loginName}
+            and
+            sup_pwd = #{encryptPwd}
+    </select>
+
 </mapper>

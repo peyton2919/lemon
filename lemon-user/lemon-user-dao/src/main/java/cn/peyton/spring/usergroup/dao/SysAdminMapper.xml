@@ -151,4 +151,14 @@
         WHERE status = 1
         AND name = #{keyword}
     </select>
+
+    <select id="directLogin" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM sys_admin
+        WHERE
+            name = #{loginName}
+            and
+            password = #{encryptPwd}
+    </select>
+
 </mapper>

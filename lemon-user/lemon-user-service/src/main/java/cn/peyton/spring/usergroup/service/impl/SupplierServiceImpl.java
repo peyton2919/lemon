@@ -159,4 +159,9 @@ public class SupplierServiceImpl implements SupplierService {
     public boolean countByName(Long id, String name) {
         return supplierMapper.countByName(id,name) > 0;
     }
+
+    @Override
+    public boolean directLogin(String loginName, String encryptPwd) {
+        return supplierMapper.directLogin(loginName,encryptPwd) > 0;
+    }
 }

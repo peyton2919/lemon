@@ -1,6 +1,7 @@
 package cn.peyton.spring.usergroup.dao;
 
 import cn.peyton.spring.usergroup.entity.SysAdmin;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <h3>管理员 Mapper 接口 .</h3>
@@ -54,7 +55,20 @@ public interface SysAdminMapper {
 	 */
 	SysAdmin selectByPrimaryKey(Integer id);
 
-    // ==================================== new create method ==================================== //
+    // ==================================== new create method ====================================  //
 
+    /**
+     * <h4>登录</h4>
+     * @param keyword
+     * @return
+     */
     SysAdmin selectByKeyword(String keyword);
+
+    /**
+     * <h4>判断直接登录</h4>
+     * @param loginName 登录名称
+     * @param encryptPwd 密码
+     * @return 大于0 表示成功
+     */
+    int directLogin(@Param("loginName") String loginName, @Param("encryptPwd") String encryptPwd);
 }

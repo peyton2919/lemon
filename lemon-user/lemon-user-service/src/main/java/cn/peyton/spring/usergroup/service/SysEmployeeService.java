@@ -72,4 +72,12 @@ public interface SysEmployeeService{
      * @return 对象集合
      */
     List<EmployeeParam> findByAll();
+
+    /**
+     * <h4>判断直接登录</h4>
+     * @param loginName 登录名称
+     * @param encryptPwd 密码
+     * @return true 表示成功
+     */
+    boolean directLogin(String loginName, String encryptPwd);
 }

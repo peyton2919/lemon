@@ -159,4 +159,12 @@ public interface SysEmployeeMapper extends IMapperByRename<Long> {
      * @return 员工集合
      */
     List<SysEmployee> selectByAll();
+
+    /**
+     * <h4>判断直接登录</h4>
+     * @param loginName 登录名称
+     * @param encryptPwd 密码
+     * @return 大于0 表示成功
+     */
+    int directLogin(@Param("loginName") String loginName, @Param("encryptPwd") String encryptPwd);
 }

@@ -404,4 +404,13 @@
         WHERE emp_status = 1
     </select>
 
+    <select id="directLogin" resultType="java.lang.Integer" parameterType="map">
+        SELECT COUNT(1)
+        FROM sys_employee
+        WHERE
+            emp_login_name = #{loginName}
+            and
+            emp_pwd = #{encryptPwd}
+    </select>
+
 </mapper>
