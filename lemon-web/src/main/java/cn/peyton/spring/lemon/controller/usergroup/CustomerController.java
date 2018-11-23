@@ -9,6 +9,7 @@ import cn.peyton.spring.usergroup.param.CustomerGradeParam;
 import cn.peyton.spring.usergroup.param.CustomerParam;
 import cn.peyton.spring.usergroup.service.CustomerGradeService;
 import cn.peyton.spring.usergroup.service.CustomerService;
+import cn.peyton.spring.util.CookieUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,9 +47,15 @@ public class CustomerController {
     private CustomerGradeService customerGradeService;
 
     @RequestMapping("/reg-cus.page")
-    public ModelAndView register() {
+    public ModelAndView register(HttpServletRequest request, HttpServletResponse response) {
         return new ModelAndView("cus/reg");
     }
+
+    @RequestMapping("/manage/cus/cus.page")
+    public ModelAndView index() {
+        return new ModelAndView("cus/cus");
+    }
+
 
     @RequestMapping("/sys/cus/sys-cus.page")
     public ModelAndView sysCustomer() {

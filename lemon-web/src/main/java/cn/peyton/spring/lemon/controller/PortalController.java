@@ -25,25 +25,10 @@ public final class PortalController {
 
     /**
      * <h4>主页面进入方法 index [首页]</h4>
-     *
      * @return
      */
     @RequestMapping(value = {"/", "/index.page"})
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("======================== cookies begin ==============================");
-        Cookie cookie = new Cookie("loginName","123456");
-        cookie.setMaxAge(60*60);
-        cookie.setPath("/");
-        cookie.setDomain("localhost");
-        response.addCookie(cookie);
-
-        Cookie[] cookies = request.getCookies();
-        for (Cookie c : cookies) {
-            if ("loginName".equals(c.getName())){
-                System.out.println(c.toString());
-            }
-        }
-        System.out.println("======================== cookies end ==============================");
+    public ModelAndView index() {
         return new ModelAndView("index-portal");
     }
 
@@ -51,7 +36,6 @@ public final class PortalController {
     public ModelAndView cusRegister(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("titleMessage", "会员注册成功");
         request.setAttribute("requestPath", "/sign-in-cus.page?type=1");
-
         return new ModelAndView("success");
     }
 

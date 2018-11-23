@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <h3>颜色 Controller 类 .</h3>
@@ -34,6 +35,7 @@ public class ColorController implements IController<Integer,ColorParam,Color>,
     @Override
     @RequestMapping("/sys/color/color.page")
     public ModelAndView index() {
+
         return new ModelAndView("basis/color");
     }
 

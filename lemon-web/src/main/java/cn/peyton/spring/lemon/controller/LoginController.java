@@ -14,6 +14,7 @@ import cn.peyton.spring.usergroup.service.CustomerService;
 import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
+import cn.peyton.spring.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,6 +108,7 @@ public final class LoginController {
                 response.sendRedirect(ret);
             } else {
                 //TODO
+
                 response.sendRedirect("/admin/index.page");
             }
             return;
@@ -151,10 +153,10 @@ public final class LoginController {
             } else {
                 if (Numerical.STRING_FIRST.equals(type)){
                     //TODO
-                    response.sendRedirect("/cus/cus.page");
+                    response.sendRedirect("/manage/cus/cus.page");
                 }else if (Numerical.STRING_SECOND.equals(type)){
                     //TODO
-                    response.sendRedirect("/sup/sup.page");
+                    response.sendRedirect("/manage/sup/sup.page");
                 }
             }
             return;
@@ -228,16 +230,16 @@ public final class LoginController {
                 errorMsg.append("用户不存在");
                 return false;
             }
-            existUsernameAndPassword(originalPwd, password, employee.getEncrypt(),
+            return existUsernameAndPassword(originalPwd, password, employee.getEncrypt(),
                     errorMsg, employee.getStatus());
         }
         if (obj instanceof CustomerParam) {
             CustomerParam param = (CustomerParam) obj;
-            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
         }
         if (obj instanceof SupplierParam) {
             SupplierParam param = (SupplierParam) obj;
-            existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
         }
         return true;
     }
@@ -252,6 +254,10 @@ public final class LoginController {
      * @return
      */
     private boolean existUsernameAndPassword(String ePwd,String pwd, String encrypt,StringBuffer errorMsg, Integer status) {
+        if (null == ePwd){
+            errorMsg.append("用户名或密码错误");
+            return false;
+        }
         if (!ePwd.equals(Md5Util.encrypt(pwd, encrypt))) {
             errorMsg.append("用户名或密码错误");
             return false;

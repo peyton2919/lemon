@@ -5,12 +5,17 @@ import cn.peyton.spring.common.JsonData;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.usergroup.param.SupplierParam;
 import cn.peyton.spring.usergroup.service.SupplierService;
+import cn.peyton.spring.util.CookieUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * <h3>供应商 Controller 类 .</h3>
@@ -28,8 +33,8 @@ public class SupplierController {
 	private SupplierService supplierService;
 
 	@RequestMapping("/reg-sup.page")
-    public ModelAndView register() {
-        return new ModelAndView("sup/reg");
+    public ModelAndView register(HttpServletRequest request,HttpServletResponse response) {
+	    return new ModelAndView("sup/reg");
     }
 
     @RequestMapping("/sys/sup/sys-sup.page")

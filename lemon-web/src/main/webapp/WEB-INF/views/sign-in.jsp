@@ -27,7 +27,7 @@
                         <div class="input-group-addon">
                             <i class="fa fa-user"></i>
                         </div>
-                        <input type="text" name="username" data-type="text" placeholder="请输入账号">
+                        <input type="text" name="username" data-type="text" value="${username}" placeholder="请输入账号">
                     </div>
                     <div class="input-group">
                         <div class="input-group-addon">
