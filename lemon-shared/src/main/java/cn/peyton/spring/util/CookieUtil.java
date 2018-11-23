@@ -2,8 +2,10 @@ package cn.peyton.spring.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +55,37 @@ public final class CookieUtil {
 				System.out.println(cookie.getName() + "," + cookie.getValue());
 			}
 		}
+        List<Cookie> cookieList = Arrays.asList(cookies);
 	}
+
+    /**
+     * <h4>获取 Cookies</h4>
+     * @param request 请求
+     * @return
+     */
+    public static List<Cookie> getCookies(HttpServletRequest request) {
+        return Arrays.asList(request.getCookies());
+    }
+
+    /**
+     * <h4>设置cookie</h4>
+     * @param response 响应
+     * @param name cookie名称
+     * @param value cookie值
+     */
+	public static void addCookie(HttpServletResponse response,String name,String value){
+        addCookie(response,name,value,null,null,null);
+    }
+/**
+     * <h4>设置cookie</h4>
+     * @param response 响应
+     * @param name cookie名称
+     * @param value cookie值
+     * @param maxAge 过期时间 (单位: 秒)
+     */
+	public static void addCookie(HttpServletResponse response,String name,String value,Integer maxAge){
+        addCookie(response,name,value,maxAge,null,null);
+    }
 
 	/**
 	 * <h4>设置cookie</h4>
@@ -65,18 +97,29 @@ public final class CookieUtil {
 	 * @param domain cookie域 'localhost'
 	 */
 	public static void addCookie(HttpServletResponse response, String name,String value,
-			int maxAge,String path , String domain) {
+			Integer maxAge,String path , String domain) {
 		Cookie cookie = new Cookie(name, value);
+
         //30min
-		cookie.setMaxAge(maxAge);
-		cookie.setPath(path);
+        if (null != maxAge){
+		    cookie.setMaxAge(maxAge);
+        }else {
+            cookie.setMaxAge(-1);
+        }
+        if(null != path && !"".equals(path)) {
+            cookie.setPath(path);
+        }else {
+            cookie.setPath("/");
+        }
         // 如果cookie的值中含有中文时，需要对cookie进行编码，不然会产生乱码
         try {
             URLEncoder.encode(value, "utf-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-		cookie.setDomain(domain);
+        if (null != domain && !"".equals(domain)) {
+            cookie.setDomain(domain);
+        }
 		response.addCookie(cookie);
 	}
 	
@@ -199,7 +242,7 @@ public final class CookieUtil {
 	 * @return cookie Map 集合
 	 */
 	private static Map<String, Cookie> readCookieMap(HttpServletRequest request){
-		Map<String, Cookie> cookieMap = new HashMap<>();
+		Map<String, Cookie> cookieMap = new ConcurrentHashMap<String, Cookie>(8);
 		Cookie[] cookies = request.getCookies();
 		if (null != cookies) {
 			for(Cookie cookie : cookies) {
@@ -210,3 +253,39 @@ public final class CookieUtil {
 	}
 	
 }
+/**
+ * 使用说明
+ *  域名wwww1.pclady.com.cn 顶级域名.com.cn 一级域名pclady.com.cn;二级域名 www1.pclady.com.cn
+ *
+ *  1. domain规则
+ *      1). 设置cookie——设置cookie的时候，domain要符合域名的规则，比如可以设置成www1.pclady.com.cn和pclady.com.cn 但是不能设置成pclady。
+ *          要有.com.cn或者其他域名做结尾。 通过js手动设置cookie的domain都是以.开头的。比如设置domain=pclady.com.cn,
+ *          实际的domain名为.pclady.com.cn；删除cookie时加不加.都可以。
+ *      2). 获取cookie——js只能获取domian大于等于当前页面域名的cookie。
+ *          比如http://www1.pclady.com.cn/zt/20160623/testCookie.html页面中的js能获取domain为“www1.pclady.com.cn”
+ *          和“.www1.pclady.com.cn”和“.pclady.com.cn”但是获取不到“g.pclady.com.cn”中的cookie；
+ *      3). 删除cookie——要删除一个cookie，domain值必须跟要删除cookie的domain相同，默认的domain为html文件的domain。
+ *      4). 跨域domain——js不可以把cookie设置成不同与html域名的domian。cookie设置不会成功，但不会影响后面程序对cookie的操作。
+ *      5). 错误——如果domain设置错误，该cookie将不会被创建，并且后续对cookie的操作不论正确与否都会被浏览器禁止。
+ *
+ *  2. path规则
+ *      1). 设置cookie——js设置path要以"/"开头，比如html路径为"/zt/20160623/",路径可以设置成"/"或"/zt"。
+ *      2). 获取cookie——使用js只能获取path大于等于当前页面path的cookie，比如html路径为/zt/20160623/,
+ *          使用js只能获取“/zt/20160623/”和“/zt”和“/”路径下的cookie。不能获取其他路径下的cookie
+ *      3). 删除cookie——删除cookie的时候路径也必须相同，默认的路径是html的path路径。
+ *      4). 错误——如果path不是以"/"开头的则创建cookie的path使用默认的path；如果是以"/"开头但是设置错了，
+ *          路径名不存在或者直接设置成子路径。比如设置成"/20160623"或者"/zt1",该cookie将不会被创建，
+ *          并且后续对cookie的操作不论正确与否都会被浏览器禁止。
+ *
+ *  3. maxAge 规则 (单位:秒)
+ *      1). -1 会话级 Cookie ,关闭浏览器失效
+ *      2). 0 不记录 Cookie
+ *      3). 大于0 记录过期时间
+ *
+ *   注意一、修改、删除Cookie时，新建的Cookie除value、maxAge之外的所有属性，例如name、path、domain等，都要与原Cookie完全一样。
+ *      否则，浏览器将视为两个不同的Cookie不予覆盖，导致修改、删除失败。
+ *
+ *   注意二、从客户端读取Cookie时，包括maxAge在内的其他属性都是不可读的，也不会被提交。
+ *      浏览器提交Cookie时只会提交name与value属性。maxAge属性只被浏览器用来判断Cookie是否过期。
+ *
+ */
