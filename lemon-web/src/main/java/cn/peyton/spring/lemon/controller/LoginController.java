@@ -30,6 +30,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * <h3>登录 Controller 类 .</h3>
@@ -59,7 +61,11 @@ public final class LoginController {
     private CustomerService customerInfoService;
 
     @RequestMapping("/sign-in-emp.page")
-    public ModelAndView signinEmp() {
+    public ModelAndView signinEmp(HttpServletRequest request,HttpServletResponse response) {
+        Map<String, String> map = new LinkedHashMap<String, String>(2);
+        map.put("0", "员工");
+        map.put("1", "管理员");
+        request.setAttribute("userTypeMap",map);
         return new ModelAndView("signin-emp");
     }
 
@@ -88,9 +94,10 @@ public final class LoginController {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         checkedUsernameAndPassword(username,password);
+        String[] remember = request.getParameterValues("remember");
         String type = request.getParameter("type");
         HttpSession session = request.getSession();
-        String ret = request.getParameter("ret");
+        System.out.println(remember);
         boolean checkPass = false;
         if (Numerical.STRING_ZERO.equals(type)) {
             EmployeeParam employee = sysEmployeeService.findByKeyword(username);

@@ -1,15 +1,7 @@
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.LinkedHashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="p" uri="/WEB-INF/peyton.tld" %>
 <!DOCTYPE html>
 <html>
-<%
-    Map<String, String> map = new LinkedHashMap<>();
-    map.put("0", "员工");
-    map.put("1", "管理员");
-%>
-
 <head>
     <title>员工/管理员登陆</title>
     <jsp:include page="/common/common.jsp"/>
@@ -41,13 +33,13 @@
                 </div>
 
                 <div class="clearfix">
-                    <p:select name="type" value="${type}" map="<%=map%>" label="类  型" labelClass="fl-label"
+                    <p:select name="type" value="${type}" map="${userTypeMap}" label="类  型" labelClass="fl-label"
                               identify="select_type_3" cssClass="text fr-input"/>
                 </div>
 
-                <div class="clearfix">
-                    <div style="color: red;">${error}</div>
-                </div>
+                <%--<div class="clearfix">--%>
+                    <%--<div style="color: red;">${error}</div>--%>
+                <%--</div>--%>
 
                 <div class="clearfix">
                     <i>为了您的账号安全，请勿在公共电脑登录</i>
@@ -59,8 +51,10 @@
 
                 <div class="clearfix">
                     <div class="fl">
-                        <input type="checkbox" class="ud-checked" name="remember" >
+                        <input type="checkbox" class="ud-checked" name="remember" value="1" >
                         <label>十天内免登录</label>
+
+                        <input type="checkbox" name="remember" value="2">
                     </div>
                 </div>
 
