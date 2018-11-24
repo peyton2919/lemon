@@ -1,9 +1,12 @@
 package cn.peyton.spring.lemon.controller;
 
 import cn.peyton.spring.cipher.Md5Util;
+import cn.peyton.spring.common.JsonData;
 import cn.peyton.spring.constant.Constants;
 import cn.peyton.spring.constant.Numerical;
+import cn.peyton.spring.constant.ResponseCode;
 import cn.peyton.spring.def.BaseUser;
+import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.inf.IUser;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
@@ -18,6 +21,7 @@ import cn.peyton.spring.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -78,69 +82,56 @@ public final class LoginController {
      * @throws IOException
      * @throws ServletException
      */
-    @RequestMapping("/login-emp.page")
-    public void loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @RequestMapping("/login-emp.json")
+    @ResponseBody
+    public JsonData loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        checkedUsernameAndPassword(username,password);
         String type = request.getParameter("type");
-        StringBuffer errorMsg = new StringBuffer();
         HttpSession session = request.getSession();
         String ret = request.getParameter("ret");
         boolean checkPass = false;
         if (Numerical.STRING_ZERO.equals(type)) {
             EmployeeParam employee = sysEmployeeService.findByKeyword(username);
-            checkPass = checked(employee, errorMsg, username, password);
+            checkPass = checked(employee,password);
             if (checkPass) {
                session.setAttribute(Constants.CURRENT_USER.name(),employee);
                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.EMPLOYEE_TYPE_NUM);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
             AdminParam admin = sysAdminService.findByKeyword(username);
-            checkPass = checked(admin, errorMsg, username, password);
+            checkPass = checked(admin, password);
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),admin);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.ADMIN_TYPE_NUM);
             }
         }
-
         if (checkPass) {
-            if (StringUtils.isNotBlank(ret)) {
-                response.sendRedirect(ret);
-            } else {
-                //TODO
-
-                response.sendRedirect("/admin/index.page");
-            }
-            return;
+            return JsonData.success();
         }
-        request.setAttribute("error", errorMsg);
-        request.setAttribute("username", username);
-        request.setAttribute("type",type);
-        if (StringUtils.isNotBlank(ret)) {
-            request.setAttribute("ret", ret);
-        }
-        request.getRequestDispatcher(PATH_EMP).forward(request,response);
+        return JsonData.fail(ResponseCode.ERROR.getCode(),"登录出错了...");
     }
 
     @RequestMapping("/login.page")
     public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        checkedUsernameAndPassword(username,password);
         String type = request.getParameter("type");
-        StringBuffer errorMsg = new StringBuffer();
         HttpSession session = request.getSession();
         String ret = request.getParameter("ret");
         boolean checkPass = false;
         if (Numerical.STRING_SECOND.equals(type)) {
             SupplierParam param = supplierInfoService.login(username);
-            checkPass = checked(param, errorMsg, username, password);
+            checkPass = checked(param,password);
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.SUPPLIER_TYPE_NUM);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
             CustomerParam param = customerInfoService.login(username);
-            checkPass = checked(param, errorMsg, username, password);
+            checkPass = checked(param,password);
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
@@ -161,9 +152,6 @@ public final class LoginController {
             }
             return;
         }
-
-        request.setAttribute("error", errorMsg);
-        request.setAttribute("username", username);
         request.setAttribute("type",type);
         if (StringUtils.isNotBlank(ret)) {
             request.setAttribute("ret", ret);
@@ -173,7 +161,6 @@ public final class LoginController {
         }else if (Numerical.STRING_SECOND.equals(type)){
             request.getRequestDispatcher(PATH_SUP).forward(request,response);
         }
-
     }
 
     @RequestMapping("/logout.page")
@@ -194,52 +181,53 @@ public final class LoginController {
     }
 
     /**
+     * <h4>判空用户名称和密码</h4>
+     * @param username 用户名称
+     * @param password 密码
+     */
+    public void checkedUsernameAndPassword(String username, String password) {
+        if (StringUtils.isBlank(username)) {
+            throw new ValidationException("用户名不可以为空");
+        } else if (StringUtils.isBlank(password)) {
+            throw new ValidationException("密码不可以为空");
+        }
+    }
+
+    /**
      * <h4>查检</h4>
-     * @param obj
-     * @param errorMsg
-     * @param username
-     * @param password
+     * @param obj 要判断的对象
+     * @param password 密码
      * @return
      */
-    public boolean checked(Object obj,StringBuffer errorMsg,String username,String password) {
-        if (StringUtils.isBlank(username)) {
-            errorMsg.append("用户名不可以为空");
-            return false;
-        } else if (StringUtils.isBlank(password)) {
-            errorMsg.append("密码不可以为空");
-            return false;
-        }
+    public boolean checked(Object obj,String password) {
+
         if (null == obj) {
-            errorMsg.append("查询不到指定用户");
-            return false;
+            throw new ValidationException("查询不到指定用户");
         }
         if (obj instanceof SysAdmin) {
             SysAdmin admin = (SysAdmin) obj;
             if (!admin.getPassword().equals(Md5Util.encrypt(password))) {
-                errorMsg.append("管理员名或密码错误");
-                return false;
+                throw new ValidationException("管理员名或密码错误");
             } else if (!Numerical.FIRST.equals(admin.getStatus())) {
-                errorMsg.append("管理员已被冻结");
-                return false;
+                throw new ValidationException("管理员已被冻结");
             }
         }
         if (obj instanceof EmployeeParam) {
             EmployeeParam employee = (EmployeeParam) obj;
             String originalPwd = employee.getPwd();
             if (null == originalPwd || "".equals(originalPwd)) {
-                errorMsg.append("用户不存在");
-                return false;
+                throw new ValidationException("用户不存在");
             }
             return existUsernameAndPassword(originalPwd, password, employee.getEncrypt(),
-                    errorMsg, employee.getStatus());
+                    employee.getStatus());
         }
         if (obj instanceof CustomerParam) {
             CustomerParam param = (CustomerParam) obj;
-            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(),  param.getStatus());
         }
         if (obj instanceof SupplierParam) {
             SupplierParam param = (SupplierParam) obj;
-            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), errorMsg, param.getStatus());
+            return existUsernameAndPassword(param.getPwd(), password, param.getEncrypt(), param.getStatus());
         }
         return true;
     }
@@ -249,21 +237,17 @@ public final class LoginController {
      * @param ePwd 原始密码[数据查找]
      * @param pwd 页面接收密码
      * @param encrypt 加密字符
-     * @param errorMsg 返回错误信息
      * @param status 判断状态 状态不为1 为错误
      * @return
      */
-    private boolean existUsernameAndPassword(String ePwd,String pwd, String encrypt,StringBuffer errorMsg, Integer status) {
+    private boolean existUsernameAndPassword(String ePwd,String pwd, String encrypt,Integer status) {
         if (null == ePwd){
-            errorMsg.append("用户名或密码错误");
-            return false;
+            throw new ValidationException("用户名或密码错误");
         }
         if (!ePwd.equals(Md5Util.encrypt(pwd, encrypt))) {
-            errorMsg.append("用户名或密码错误");
-            return false;
+            throw new ValidationException("用户名或密码错误");
         }else if (!Numerical.FIRST.equals(status)) {
-            errorMsg.append("用户已被冻结，请联系管理员)");
-            return false;
+            throw new ValidationException("用户已被冻结，请联系管理员");
         }
         return true;
     }

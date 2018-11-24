@@ -1,9 +1,9 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="java.util.LinkedHashMap" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="p" uri="/WEB-INF/peyton.tld" %>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html>
 <%
     Map<String, String> map = new LinkedHashMap<>();
     map.put("0", "员工");
@@ -17,7 +17,7 @@
 </head>
 
 <body class="no-skin" youdao="bind" style="background: white">
-
+<input id="gritter-light" checked="" type="checkbox" class="ace ace-switch ace-switch-5"/>
 <div class="sign-in-content">
 
     <jsp:include page="/pub/index-stick.jsp"/>
@@ -26,7 +26,7 @@
 
         <h2>登录</h2>
         <div class="sign-in-login-content">
-            <form action="/login-emp.page" method="post" class="form-inline">
+            <form action="" id="employee-login-form" method="post" class="form-inline">
 
                 <div class="clearfix">
                     <label for="username_1" class="fl-label">邮箱/登陆名</label>
@@ -54,22 +54,22 @@
                 </div>
 
                 <div class="clearfix">
-                    <button type="submit" class="sign-in-btn">登&nbsp;&nbsp;录</button>
+                    <button type="button" class="sign-in-btn">登&nbsp;&nbsp;录</button>
                 </div>
 
                 <div class="clearfix">
                     <div class="fl">
-                        <input type="checkbox" class="ud-checked" >
+                        <input type="checkbox" class="ud-checked" name="remember" >
                         <label>十天内免登录</label>
                     </div>
                 </div>
 
                 <div class="clearfix">
-                    <a href="go-reg.html" target="_blank">立即注册</a>
+                    <a href="javascript:;" target="_blank">立即注册</a>
                     <span>|</span>
-                    <a href="#" target="_blank">忘记密码</a>
+                    <a href="javascript:;" target="_blank">忘记密码</a>
                     <span>|</span>
-                    <a href="customer.html" target="_blank">常见问题</a>
+                    <a href="javascript:;" target="_blank">常见问题</a>
 
                 </div>
             </form>
@@ -81,5 +81,26 @@
         <jsp:include page="/pub/index-footer.jsp"/>
     </div>
 </div>
+<script src="/js/defined/login.js"></script>
+<script type="application/javascript">
+
+    $(".sign-in-btn").click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var url = "/login-emp.json";
+        login(
+            url,
+            "employee-login-form",
+            function (data) {
+                window.location.href = "/admin/index.page";
+            },
+            function (data) {
+                showMessage("员工登录", data.msg , false);
+            }
+        );
+    });
+
+
+</script>
 </body>
 </html>
