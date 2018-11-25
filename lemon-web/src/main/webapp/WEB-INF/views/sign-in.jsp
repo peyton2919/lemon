@@ -9,6 +9,8 @@
 
 <body class="no-skin" youdao="bind" style="background: white">
 
+<input id="gritter-light" checked="" type="checkbox" class="ace ace-switch ace-switch-5"/>
+
 <div class="sign-in-content">
     <div class="sign-in-bg">
         <jsp:include page="/pub/index-stick.jsp"/>
@@ -21,7 +23,7 @@
         <div class="sign-in-login">
             <h2>登录</h2>
             <div class="sign-in-login-content">
-                <form action="/login.page" method="post"  class="form-inline">
+                <form  id="customer-login-form" method="post" class="form-inline">
                     <input type="hidden" name="type" id="hidden-type" value="${type}">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -36,16 +38,12 @@
                         <input type="password" name="password" data-type="password" placeholder="请输入密码">
                     </div>
 
-                    <div class="clearfix">
-                        <div style="color: red;">${error}</div>
-                    </div>
-
                     <div class="input-group">
                         <i>为了您的账号安全，请勿在公共电脑登录</i>
                     </div>
 
                     <div class="clearfix">
-                        <button type="submit" class="sign-in-btn">登&nbsp;&nbsp;录</button>
+                        <button type="button" class="sign-in-btn">登&nbsp;&nbsp;录</button>
                     </div>
 
                     <div class="clearfix">
@@ -74,13 +72,36 @@
     </div>
 
 </div>
+<script src="/js/defined/login.js"></script>
+
 <script type="text/javascript">
 
     $(function () {
+        //设置标题
+        $("#message-title").html((type == 1 ? '客户' : '供应商') + '登录');
+        var type = $("#hidden-type").val();
+        var hintNameMessage = (type == 1 ? '客户登录' : '供应商登录');
+        var url = "/login.json";
+        var skipUrl = (type == 1 ? '/manage/cus/cus.page': '/manage/sup/sup.page');
 
-        
+        $(".sign-in-btn").click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(".sign-in-btn").attr("disabled", "disabled");
+            login(
+                url,
+                "customer-login-form",
+                function (data) {
+                    window.location.href = skipUrl;
+                },
+                function (data) {
+                    $(".sign-in-btn").removeAttr("disabled");
+                    showMessage(hintNameMessage, data.msg , false);
+                }
+            );
+        });
+
     });
-    
 </script>
 
 </body>

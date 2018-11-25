@@ -25,6 +25,13 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="lemon-basis-service" />
+    <orderEntry type="module" module-name="lemon-basis-dao" />
+    <orderEntry type="module" module-name="lemon-basis-pojo" />
+    <orderEntry type="module" module-name="lemon-log-service" />
+    <orderEntry type="module" module-name="lemon-log-dao" />
+    <orderEntry type="module" module-name="lemon-log-common" />
+    <orderEntry type="module" module-name="lemon-log-pojo" />
     <orderEntry type="module" module-name="lemon-mall-service" />
     <orderEntry type="module" module-name="lemon-mall-dao" />
     <orderEntry type="module" module-name="lemon-mall-common" />

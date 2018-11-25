@@ -38,13 +38,13 @@
         window.location.replace("/reg-sup.page");
     });
     $("#sup-login-aclick").click(function (e) {
-        window.location.replace("/sign-in-sup.page?type=2");
+        window.location.replace("/sign-in.page?type=2");
     });
     $("#cus-reg-aclick").click(function (e) {
         window.location.replace("/reg-cus.page");
     });
     $("#cus-login-aclick").click(function (e) {
-        window.location.replace("/sign-in-cus.page?type=1");
+        window.location.replace("/sign-in.page?type=1");
     });
 
     $("#emp-login-aclick").click(function (e) {

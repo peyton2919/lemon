@@ -87,17 +87,44 @@
 <script src="/js/mustache/mustache.min.js"></script>
 
 <script type="text/javascript">
+
+    function selectImagePath() {
+        var num = parseInt(Math.random()*8);
+        switch (num){
+            case 0:
+                return '/img/sys/tips_error_00.png';
+            case 1:
+                return '/img/sys/tips_error_01.png';
+            case 2:
+                return '/img/sys/tips_error_02.png';
+            case 3:
+                return '/img/sys/tips_error_03.png';
+            case 4:
+                return '/img/sys/tips_error_04.png';
+            case 5:
+                return '/img/sys/tips_error_05.png';
+            case 6:
+                return '/img/sys/tips_error_06.png';
+            default:
+                return '/img/sys/tips_error_07.png';
+        }
+    }
+
     // 展示提示信息
     function showMessage(title, msg, isSuccess) {
+        var imgPath = '';
         if (!isSuccess) {
             msg = msg || '';
+            imgPath = selectImagePath();
         } else {
-            msg = msg || '操作成功'
+            msg = msg || '操作成功';
+            imgPath = "/img/sys/tips_success_01.png";
         }
         $.gritter.add({
             title: title,
             text: msg != '' ? msg : "服务器处理异常, 建议刷新页面来保证数据是最新的",
             time: '',
+            image : imgPath,
             class_name: (isSuccess ? 'gritter-success' : 'gritter-warning') + (!$('#gritter-light').get(0).checked ? ' gritter-light' : '')
         });
     }

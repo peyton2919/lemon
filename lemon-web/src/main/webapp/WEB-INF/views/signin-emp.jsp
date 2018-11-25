@@ -37,10 +37,6 @@
                               identify="select_type_3" cssClass="text fr-input"/>
                 </div>
 
-                <%--<div class="clearfix">--%>
-                    <%--<div style="color: red;">${error}</div>--%>
-                <%--</div>--%>
-
                 <div class="clearfix">
                     <i>为了您的账号安全，请勿在公共电脑登录</i>
                 </div>

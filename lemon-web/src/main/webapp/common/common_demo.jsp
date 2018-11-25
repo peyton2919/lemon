@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<title>管理员控制台</title>
+<title id="message-title"></title>
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="pragma" content="no-cache"/>
@@ -86,7 +86,7 @@
 
 <script src="/js/mustache/mustache.min.js"></script>
 
-<script type="text/javascript">
+<script type="application/javascript">
 
     function selectImagePath() {
         var num = parseInt(Math.random()*8);
@@ -110,22 +110,56 @@
         }
     }
 
-    // 展示提示信息
+    //设置提示框默认值
+    // $.extend($.gritter.options, {
+    //     //位置默认: top-right; 但也可以是'bottom-left', 'bottom-right', 'top-left', 'top-right' (added in 1.7.1)
+    //     position: 'bottom-right',
+    //     // //通知消失的速度(字符串|数值)
+    //     // fade_in_speed: 'medium',
+    //     // //通知消失得有多快
+    //     // fade_out_speed: 2000,
+    //     // //挂在屏幕上时间
+    //     // time: 6000
+    // });
+
+    /**
+     * <h4>展示 提示信息框</h4>
+     * @param title 提示框标题
+     * @param msg 在提示框显示 信息
+     * @param isSuccess 是否成功 [true 成功; false 失败]
+     */
     function showMessage(title, msg, isSuccess) {
         var imgPath = '';
         if (!isSuccess) {
             msg = msg || '';
             imgPath = selectImagePath();
         } else {
-            msg = msg || '操作成功';
+            msg = msg || '操作成功'
             imgPath = "/img/sys/tips_success_01.png";
         }
+
         $.gritter.add({
+            //(必需|字符串)通知的标题
             title: title,
+            //(必需|字符串)通知中的文本
             text: msg != '' ? msg : "服务器处理异常, 建议刷新页面来保证数据是最新的",
-            time: '',
+            //(可选|字符串)左边显示的图像
             image : imgPath,
+            //(可选的|布尔)如果你想让它自己淡出，或者只是坐在那里
+            // sticky: false,
+            //(可选|数值)您希望它在消失之前存活的时间(毫秒)
+            time: 3000,
+            speed: 500,
+            //(可选|字符串)要直接应用于自定义样式通知的类名
             class_name: (isSuccess ? 'gritter-success' : 'gritter-warning') + (!$('#gritter-light').get(0).checked ? ' gritter-light' : '')
+            // //(可选|函数)函数在打开之前调用
+            // before_open: function(){},
+            // //(可选|函数)函数打开后调用
+            // after_open:function (e) {},
+            // //(可选|函数)函数在关闭之前调用。
+            // before_close: function(e, manual_close){},
+            // //(可选|函数)函数关闭后调用。
+            // after_close: function(){},
         });
     }
 

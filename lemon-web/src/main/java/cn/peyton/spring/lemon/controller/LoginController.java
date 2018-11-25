@@ -4,7 +4,6 @@ import cn.peyton.spring.cipher.Md5Util;
 import cn.peyton.spring.common.JsonData;
 import cn.peyton.spring.constant.Constants;
 import cn.peyton.spring.constant.Numerical;
-import cn.peyton.spring.constant.ResponseCode;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.inf.IUser;
@@ -17,7 +16,6 @@ import cn.peyton.spring.usergroup.service.CustomerService;
 import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
-import cn.peyton.spring.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -60,8 +57,14 @@ public final class LoginController {
     @Resource
     private CustomerService customerInfoService;
 
+    /**
+     * <h4>管理员、员工登录</h4>
+     * @param request 请求对象
+     * @param response 响应对象
+     * @return
+     */
     @RequestMapping("/sign-in-emp.page")
-    public ModelAndView signinEmp(HttpServletRequest request,HttpServletResponse response) {
+    public ModelAndView signInEmp(HttpServletRequest request,HttpServletResponse response) {
         Map<String, String> map = new LinkedHashMap<String, String>(2);
         map.put("0", "员工");
         map.put("1", "管理员");
@@ -69,42 +72,41 @@ public final class LoginController {
         return new ModelAndView("signin-emp");
     }
 
-    @RequestMapping("/sign-in-sup.page")
-    public ModelAndView signinSup(String type, HttpServletRequest request) {
-        request.setAttribute("type",type);
-        return new ModelAndView("sign-in");
-    }
-
-    @RequestMapping("/sign-in-cus.page")
-    public ModelAndView signinCus(String type, HttpServletRequest request) {
+    /**
+     * <h4>客户、供应商登录</h4>
+     * @param type 类型 [1 客户 ; 2 供应商]
+     * @param request 请求对象
+     * @return
+     */
+    @RequestMapping("/sign-in.page")
+    public ModelAndView signIn(String type, HttpServletRequest request) {
         request.setAttribute("type",type);
         return new ModelAndView("sign-in");
     }
 
     /**
      * <h4>员工登录</h4>
-     * @param request
-     * @param response
-     * @throws IOException
-     * @throws ServletException
+     * @param username 名称
+     * @param password 密码
+     * @param remember 是否记住用户名称与密码
+     * @param type 用户类型 [0 员工 ; 1 管理员]
+     * @param request 请求对象
+     * @param response 响应对象
+     * @return
      */
     @RequestMapping("/login-emp.json")
     @ResponseBody
-    public JsonData loginEmployee(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    public JsonData loginEmployee(String username,String password,String remember,String type,
+                                  HttpServletRequest request, HttpServletResponse response) {
         checkedUsernameAndPassword(username,password);
-        String[] remember = request.getParameterValues("remember");
-        String type = request.getParameter("type");
         HttpSession session = request.getSession();
-        System.out.println(remember);
         boolean checkPass = false;
         if (Numerical.STRING_ZERO.equals(type)) {
             EmployeeParam employee = sysEmployeeService.findByKeyword(username);
             checkPass = checked(employee,password);
             if (checkPass) {
-               session.setAttribute(Constants.CURRENT_USER.name(),employee);
-               session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.EMPLOYEE_TYPE_NUM);
+                session.setAttribute(Constants.CURRENT_USER.name(),employee);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.EMPLOYEE_TYPE_NUM);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
             AdminParam admin = sysAdminService.findByKeyword(username);
@@ -114,20 +116,25 @@ public final class LoginController {
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.ADMIN_TYPE_NUM);
             }
         }
-        if (checkPass) {
-            return JsonData.success();
-        }
-        return JsonData.fail(ResponseCode.ERROR.getCode(),"登录出错了...");
+        return JsonData.success();
     }
 
-    @RequestMapping("/login.page")
-    public void login(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    /**
+     * <h4>客户、供应商登录 </h4>
+     *  @param username 名称
+     * @param password 密码
+     * @param remember 是否记住用户名称与密码
+     * @param type 用户类型 [0 员工 ; 1 管理员]
+     * @param request 请求对象
+     * @param response 响应对象
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/login.json")
+    public JsonData login(String username,String password,String remember,String type,
+                          HttpServletRequest request, HttpServletResponse response) {
         checkedUsernameAndPassword(username,password);
-        String type = request.getParameter("type");
         HttpSession session = request.getSession();
-        String ret = request.getParameter("ret");
         boolean checkPass = false;
         if (Numerical.STRING_SECOND.equals(type)) {
             SupplierParam param = supplierInfoService.login(username);
@@ -144,30 +151,7 @@ public final class LoginController {
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
             }
         }
-
-        if (checkPass) {
-            if (StringUtils.isNotBlank(ret)) {
-                response.sendRedirect(ret);
-            } else {
-                if (Numerical.STRING_FIRST.equals(type)){
-                    //TODO
-                    response.sendRedirect("/manage/cus/cus.page");
-                }else if (Numerical.STRING_SECOND.equals(type)){
-                    //TODO
-                    response.sendRedirect("/manage/sup/sup.page");
-                }
-            }
-            return;
-        }
-        request.setAttribute("type",type);
-        if (StringUtils.isNotBlank(ret)) {
-            request.setAttribute("ret", ret);
-        }
-        if (Numerical.STRING_FIRST.equals(type)){
-            request.getRequestDispatcher(PATH_CUS).forward(request,response);
-        }else if (Numerical.STRING_SECOND.equals(type)){
-            request.getRequestDispatcher(PATH_SUP).forward(request,response);
-        }
+        return JsonData.success();
     }
 
     @RequestMapping("/logout.page")
@@ -187,12 +171,14 @@ public final class LoginController {
         }
     }
 
+    //================================================ private method ================================================//
+
     /**
      * <h4>判空用户名称和密码</h4>
      * @param username 用户名称
      * @param password 密码
      */
-    public void checkedUsernameAndPassword(String username, String password) {
+    private void checkedUsernameAndPassword(String username, String password) {
         if (StringUtils.isBlank(username)) {
             throw new ValidationException("用户名不可以为空");
         } else if (StringUtils.isBlank(password)) {
@@ -206,8 +192,7 @@ public final class LoginController {
      * @param password 密码
      * @return
      */
-    public boolean checked(Object obj,String password) {
-
+    private boolean checked(Object obj,String password) {
         if (null == obj) {
             throw new ValidationException("查询不到指定用户");
         }
