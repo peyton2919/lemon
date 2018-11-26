@@ -152,8 +152,9 @@
         AND name = #{keyword}
     </select>
 
-    <select id="directLogin" resultType="java.lang.Integer" parameterType="map">
-        SELECT COUNT(1)
+    <select id="directLogin" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List" />
         FROM sys_admin
         WHERE
             name = #{loginName}

@@ -26,7 +26,7 @@ public class SysAdminServiceImpl implements SysAdminService {
     }
 
     @Override
-    public boolean directLogin(String loginName, String encryptPwd) {
-        return sysAdminMapper.directLogin(loginName,encryptPwd) > 0;
+    public AdminParam directLogin(String loginName, String encryptPwd) {
+        return new AdminParam().compat(sysAdminMapper.directLogin(loginName,encryptPwd));
     }
 }

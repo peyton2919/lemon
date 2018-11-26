@@ -18,13 +18,14 @@ public interface SysAdminService {
      * @return 对象
      */
     AdminParam findByKeyword(String keyword);
+
     /**
      * <h4>判断直接登录</h4>
      * @param loginName 登录名称
      * @param encryptPwd 密码
-     * @return true 表示成功
+     * @return 管理员对象
      */
-    boolean directLogin(String loginName, String encryptPwd);
+    AdminParam directLogin(String loginName, String encryptPwd);
 
 
 }

@@ -161,7 +161,7 @@ public class SupplierServiceImpl implements SupplierService {
     }
 
     @Override
-    public boolean directLogin(String loginName, String encryptPwd) {
-        return supplierMapper.directLogin(loginName,encryptPwd) > 0;
+    public SupplierParam directLogin(String loginName, String encryptPwd) {
+        return new SupplierParam().compat(supplierMapper.directLogin(loginName,encryptPwd));
     }
 }
