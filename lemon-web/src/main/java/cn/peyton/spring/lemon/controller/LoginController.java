@@ -92,11 +92,17 @@ public final class LoginController {
         if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
             HttpSession session = request.getSession();
             if (Numerical.STRING_FIRST.equals(type)) {
-                CustomerParam customer = customerInfoService.directLogin(loginName, pwd);
-                session.setAttribute(Constants.CURRENT_USER.name(),customer);
+                CustomerParam param = customerInfoService.directLogin(loginName, pwd);
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
                 response.sendRedirect("/manage/cus/cus.page");
                 return null;
+            }
+            if (Numerical.STRING_SECOND.equals(type)) {
+                SupplierParam param = supplierInfoService.directLogin(loginName, pwd);
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.SUPPLIER_TYPE_NUM);
+                response.sendRedirect("/manage/sup/sup.page");
             }
 
         }
