@@ -404,8 +404,9 @@
         WHERE emp_status = 1
     </select>
 
-    <select id="directLogin" resultType="java.lang.Integer" parameterType="map">
-        SELECT COUNT(1)
+    <select id="directLogin" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM sys_employee
         WHERE
             emp_login_name = #{loginName}

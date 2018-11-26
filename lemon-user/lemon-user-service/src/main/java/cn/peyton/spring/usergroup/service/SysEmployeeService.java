@@ -77,7 +77,7 @@ public interface SysEmployeeService{
      * <h4>判断直接登录</h4>
      * @param loginName 登录名称
      * @param encryptPwd 密码
-     * @return true 表示成功
+     * @return 员工对象
      */
-    boolean directLogin(String loginName, String encryptPwd);
+    EmployeeParam directLogin(String loginName, String encryptPwd);
 }

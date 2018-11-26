@@ -134,7 +134,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean directLogin(String loginName, String encryptPwd) {
-        return customerMapper.directLogin(loginName, encryptPwd) > 0;
+    public CustomerParam directLogin(String loginName, String encryptPwd) {
+        return new CustomerParam().compat(customerMapper.directLogin(loginName, encryptPwd));
     }
 }

@@ -16,6 +16,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="lemon-basis-service" />
+    <orderEntry type="module" module-name="lemon-basis-dao" />
+    <orderEntry type="module" module-name="lemon-basis-pojo" />
+    <orderEntry type="module" module-name="lemon-log-service" />
+    <orderEntry type="module" module-name="lemon-log-dao" />
+    <orderEntry type="module" module-name="lemon-log-common" />
+    <orderEntry type="module" module-name="lemon-log-pojo" />
     <orderEntry type="module" module-name="lemon-user-dao" />
     <orderEntry type="module" module-name="lemon-user-common" />
     <orderEntry type="module" module-name="lemon-user-pojo" />

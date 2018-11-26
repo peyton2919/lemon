@@ -129,7 +129,7 @@ public class SysEmployeeServiceImpl implements SysEmployeeService {
     }
 
     @Override
-    public boolean directLogin(String loginName, String encryptPwd) {
-        return sysEmployeeMapper.directLogin(loginName,encryptPwd) > 0;
+    public EmployeeParam directLogin(String loginName, String encryptPwd) {
+        return new EmployeeParam().compat(sysEmployeeMapper.directLogin(loginName,encryptPwd));
     }
 }

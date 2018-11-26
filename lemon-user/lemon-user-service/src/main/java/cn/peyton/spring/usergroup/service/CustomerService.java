@@ -66,10 +66,19 @@ public interface CustomerService extends IService<Long,CustomerParam,Customer>,
      * <h4>判断直接登录</h4>
      * @param loginName 登录名称
      * @param encryptPwd 密码
-     * @return true 表示成功
+     * @return 客户对象
      */
-    boolean directLogin(String loginName, String encryptPwd);
+    CustomerParam directLogin(String loginName, String encryptPwd);
 
+    /**
+     * <h3>内部支持类</h3>
+     * <pre>
+     * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+     * @create date: 2018/11/26 15:53
+     * @author: <a href="http://www.peyton.cn">peyton</a>
+     * @version: 1.0.0
+     * </pre>
+     */
     interface Holder{
         /** 批发客户  */
         int CUSTOMER_WHOLESALE = 0;
