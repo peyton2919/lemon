@@ -6,7 +6,7 @@
  * @param successCallback
  * @param failCallback
  */
-function login(url,formId,successCallback, failCallback) {
+function login(url,formId,successCallback, failCallback,completeCallback) {
     $.ajax({
         url: url,
         data: $("#" + formId).serializeArray(),
@@ -21,6 +21,11 @@ function login(url,formId,successCallback, failCallback) {
                 if (failCallback) {
                     failCallback(result);
                 }
+            }
+        },
+        complete :function (data) {
+            if (completeCallback) {
+                completeCallback(data);
             }
         }
     });

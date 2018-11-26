@@ -48,7 +48,7 @@
 
                     <div class="clearfix">
                         <div class="fl">
-                            <input type="checkbox" class="ud-checked" >
+                            <input type="checkbox" class="ud-checked" name="remember" value="1">
                             <label>十天内免登录</label>
                         </div>
                     </div>
@@ -95,8 +95,11 @@
                     window.location.href = skipUrl;
                 },
                 function (data) {
-                    $(".sign-in-btn").removeAttr("disabled");
+
                     showMessage(hintNameMessage, data.msg , false);
+                },
+                function (data) {
+                    $(".sign-in-btn").removeAttr("disabled");
                 }
             );
         });

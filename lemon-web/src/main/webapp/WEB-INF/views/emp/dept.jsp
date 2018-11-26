@@ -522,10 +522,13 @@
                 buttons : {
                     "添加": function(e) {
                         e.preventDefault();
+                        $(".ui-dialog-buttonset").attr("disabled","disabled");
                         updateDept(true, function (data) {
                             $("#dialog-dept-form").dialog("close");
                         }, function (data) {
                             showMessage("新增部门", data.msg, false);
+                        },function (evt,data) {
+                            $(".ui-dialog-buttonset").removeAttr("disabled");
                         })
                     },
                     "取消": function () {
@@ -838,7 +841,7 @@
         }
 
         //更新部门信息
-        function updateDept(isCreate, successCallback, failCallback) {
+        function updateDept(isCreate, successCallback, failCallback,completeCallback) {
             $.ajax({
                 url: isCreate ? "/sys/dept/save.json" : "/sys/dept/update.json",
                 data: $("#deptForm").serializeArray(),
@@ -853,6 +856,11 @@
                         if (failCallback) {
                             failCallback(result);
                         }
+                    }
+                },
+                complete : function (evt,data) {
+                    if (completeCallback) {
+                        completeCallback(evt,data);
                     }
                 }
             });

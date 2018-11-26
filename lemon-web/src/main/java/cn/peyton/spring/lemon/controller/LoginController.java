@@ -7,6 +7,7 @@ import cn.peyton.spring.constant.Numerical;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.inf.IUser;
+import cn.peyton.spring.usergroup.entity.Customer;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
 import cn.peyton.spring.usergroup.param.CustomerParam;
@@ -16,6 +17,7 @@ import cn.peyton.spring.usergroup.service.CustomerService;
 import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
+import cn.peyton.spring.util.CookieUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,10 @@ import java.util.Map;
  */
 @Controller
 public final class LoginController {
+    public interface Holder{
+        String save_cookie_name = "264bf185-7220-45a2-be24-7f6a55b483ba";
+        String save_cookie_pwd = "502055ec-2940-4077-8ce8-21e17f24edbb";
+    }
 
     private static final String PATH_EMP = "/sign-in-emp.page";
     private static final String PATH_CUS = "/sign-in-cus.page";
@@ -79,8 +85,21 @@ public final class LoginController {
      * @return
      */
     @RequestMapping("/sign-in.page")
-    public ModelAndView signIn(String type, HttpServletRequest request) {
+    public ModelAndView signIn(String type, HttpServletRequest request,HttpServletResponse response) throws IOException {
         request.setAttribute("type",type);
+        String loginName = CookieUtil.getCookieByName(request, Holder.save_cookie_name);
+        String pwd = CookieUtil.getCookieByName(request, Holder.save_cookie_pwd);
+        if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
+            HttpSession session = request.getSession();
+            if (Numerical.STRING_FIRST.equals(type)) {
+                CustomerParam customer = customerInfoService.directLogin(loginName, pwd);
+                session.setAttribute(Constants.CURRENT_USER.name(),customer);
+                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
+                response.sendRedirect("/manage/cus/cus.page");
+                return null;
+            }
+
+        }
         return new ModelAndView("sign-in");
     }
 
@@ -149,6 +168,11 @@ public final class LoginController {
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
+                if (null != remember) {
+                    int max = 60 * 60 * 24 *10;
+                    CookieUtil.addCookie(response,Holder.save_cookie_name,param.getLoginName(),max);
+                    CookieUtil.addCookie(response,Holder.save_cookie_pwd,param.getPwd(),max);
+                }
             }
         }
         return JsonData.success();
