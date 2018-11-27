@@ -92,7 +92,7 @@ public final class LoginController {
             }
             CustomerParam param = customerInfoService.directLogin(loginName.toString(), pwd.toString());
             if (null ==param){return new ModelAndView("sign-in");}
-            if (null != param && null != param.getId()){ return new ModelAndView("sign-in"); }
+            if (null != param && null == param.getId()){ return new ModelAndView("sign-in"); }
             session.setAttribute(Constants.CURRENT_USER.name(),param);
             session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
             /* response.sendRedirect("/manage/cus/cus.page");*/
