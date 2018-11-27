@@ -50,8 +50,6 @@ public class SymmetricCipherUtil{
 		
 	}
 
-	
-	
 	/**
 	 * <h4>相称性的密码 解密方式</h4>
 	 * @param content 要解密内容
