@@ -7,7 +7,7 @@ import cn.peyton.spring.constant.Numerical;
 import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.inf.IUser;
-import cn.peyton.spring.usergroup.entity.Customer;
+import cn.peyton.spring.lemon.util.CookieEncryptUtil;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
 import cn.peyton.spring.usergroup.param.CustomerParam;
@@ -18,6 +18,7 @@ import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import cn.peyton.spring.util.CookieUtil;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,10 +46,6 @@ import java.util.Map;
  */
 @Controller
 public final class LoginController {
-    public interface Holder{
-        String save_cookie_name = "264bf185-7220-45a2-be24-7f6a55b483ba";
-        String save_cookie_pwd = "502055ec-2940-4077-8ce8-21e17f24edbb";
-    }
 
     private static final String PATH_EMP = "/sign-in-emp.page";
     private static final String PATH_CUS = "/sign-in-cus.page";
@@ -87,26 +84,59 @@ public final class LoginController {
     @RequestMapping("/sign-in.page")
     public ModelAndView signIn(String type, HttpServletRequest request,HttpServletResponse response) throws IOException {
         request.setAttribute("type",type);
-        String loginName = CookieUtil.getCookieByName(request, Holder.save_cookie_name);
-        String pwd = CookieUtil.getCookieByName(request, Holder.save_cookie_pwd);
-        if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
-            HttpSession session = request.getSession();
-            if (Numerical.STRING_FIRST.equals(type)) {
-                CustomerParam param = customerInfoService.directLogin(loginName, pwd);
-                session.setAttribute(Constants.CURRENT_USER.name(),param);
-                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
-                response.sendRedirect("/manage/cus/cus.page");
-                return null;
+        HttpSession session = request.getSession();
+        if (Numerical.STRING_FIRST.equals(type)) {
+            StringBuilder loginName = new StringBuilder() ,pwd = new StringBuilder();
+            if (existCookie(request,Holder.cus_cookie_name,loginName,Holder.cus_cookie_pwd,pwd)){
+                return new ModelAndView("sign-in");
             }
-            if (Numerical.STRING_SECOND.equals(type)) {
-                SupplierParam param = supplierInfoService.directLogin(loginName, pwd);
-                session.setAttribute(Constants.CURRENT_USER.name(),param);
-                session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.SUPPLIER_TYPE_NUM);
-                response.sendRedirect("/manage/sup/sup.page");
+            CustomerParam param = customerInfoService.directLogin(loginName.toString(), pwd.toString());
+            if (null ==param){return new ModelAndView("sign-in");}
+            if (null != param && null != param.getId()){ return new ModelAndView("sign-in"); }
+            session.setAttribute(Constants.CURRENT_USER.name(),param);
+            session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
+            /* response.sendRedirect("/manage/cus/cus.page");*/
+            return new ModelAndView("cus/cus");
+        }
+        if (Numerical.STRING_SECOND.equals(type)) {
+            StringBuilder loginName = new StringBuilder() ,pwd = new StringBuilder();
+            if (existCookie(request,Holder.sup_cookie_name,loginName,Holder.sup_cookie_pwd,pwd)){
+                return new ModelAndView("sign-in");
             }
-
+            SupplierParam param = supplierInfoService.directLogin(loginName.toString(), pwd.toString());
+            if (null ==param){return new ModelAndView("sign-in");}
+            if (null != param && null != param.getId()){ return new ModelAndView("sign-in"); }
+            session.setAttribute(Constants.CURRENT_USER.name(),param);
+            session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.SUPPLIER_TYPE_NUM);
+            return new ModelAndView("sup/sup");
         }
         return new ModelAndView("sign-in");
+    }
+
+    /**
+     * <h4>判断Cookie</h4>
+     * @param request 请求对象
+     * @param cookieName 存放名称 的Cookie名
+     * @param sbCookieNameValue 要返回的名称值
+     * @param cookiePwd  存放密码 的Cookie名
+     * @param sbCookiePwdValue 要返回的密码值
+     * @return
+     */
+    private boolean existCookie(HttpServletRequest request,String cookieName,StringBuilder sbCookieNameValue,
+                                String cookiePwd,StringBuilder sbCookiePwdValue) {
+        String loginName = CookieUtil.getCookieByName(request, cookieName);
+        String pwd = CookieUtil.getCookieByName(request, cookiePwd);
+        if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
+            loginName = CookieEncryptUtil.decoder(loginName);
+            if (null == loginName) {
+                return true;
+            }
+            sbCookieNameValue.append(loginName);
+            sbCookiePwdValue.append(pwd);
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -126,19 +156,27 @@ public final class LoginController {
         checkedUsernameAndPassword(username,password);
         HttpSession session = request.getSession();
         boolean checkPass = false;
+        int max = -1;
+        if (null != remember) {
+            max = 60 * 60 * 24 *10;
+        }
         if (Numerical.STRING_ZERO.equals(type)) {
-            EmployeeParam employee = sysEmployeeService.findByKeyword(username);
-            checkPass = checked(employee,password);
+            EmployeeParam param = sysEmployeeService.findByKeyword(username);
+            checkPass = checked(param,password);
             if (checkPass) {
-                session.setAttribute(Constants.CURRENT_USER.name(),employee);
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.EMPLOYEE_TYPE_NUM);
+                CookieUtil.addCookie(response,Holder.emp_cookie_name,CookieEncryptUtil.encoder(param.getLoginName()),max);
+                CookieUtil.addCookie(response,Holder.emp_cookie_pwd,param.getPwd(),max);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
-            AdminParam admin = sysAdminService.findByKeyword(username);
-            checkPass = checked(admin, password);
+            AdminParam param = sysAdminService.findByKeyword(username);
+            checkPass = checked(param, password);
             if (checkPass) {
-                session.setAttribute(Constants.CURRENT_USER.name(),admin);
+                session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.ADMIN_TYPE_NUM);
+                CookieUtil.addCookie(response,Holder.admin_cookie_name,CookieEncryptUtil.encoder(param.getName()),max);
+                CookieUtil.addCookie(response,Holder.admin_cookie_pwd,param.getPassword(),max);
             }
         }
         return JsonData.success();
@@ -160,13 +198,19 @@ public final class LoginController {
                           HttpServletRequest request, HttpServletResponse response) {
         checkedUsernameAndPassword(username,password);
         HttpSession session = request.getSession();
+        int max = -1;
         boolean checkPass = false;
+        if (null != remember) {
+            max = 60 * 60 * 24 *10;
+        }
         if (Numerical.STRING_SECOND.equals(type)) {
             SupplierParam param = supplierInfoService.login(username);
             checkPass = checked(param,password);
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(),IUser.SUPPLIER_TYPE_NUM);
+                CookieUtil.addCookie(response,Holder.sup_cookie_name,CookieEncryptUtil.encoder(param.getLoginName()),max);
+                CookieUtil.addCookie(response,Holder.sup_cookie_pwd,param.getPwd(),max);
             }
         } else if (Numerical.STRING_FIRST.equals(type)) {
             CustomerParam param = customerInfoService.login(username);
@@ -174,11 +218,8 @@ public final class LoginController {
             if (checkPass) {
                 session.setAttribute(Constants.CURRENT_USER.name(),param);
                 session.getServletContext().setAttribute(Constants.CURRENT_USER_TYPE.name(), IUser.CUSTOMER_TYPE_NUM);
-                if (null != remember) {
-                    int max = 60 * 60 * 24 *10;
-                    CookieUtil.addCookie(response,Holder.save_cookie_name,param.getLoginName(),max);
-                    CookieUtil.addCookie(response,Holder.save_cookie_pwd,param.getPwd(),max);
-                }
+                CookieUtil.addCookie(response,Holder.cus_cookie_name,CookieEncryptUtil.encoder(param.getLoginName()),max);
+                CookieUtil.addCookie(response,Holder.cus_cookie_pwd,param.getPwd(),max);
             }
         }
         return JsonData.success();
@@ -272,5 +313,25 @@ public final class LoginController {
             throw new ValidationException("用户已被冻结，请联系管理员");
         }
         return true;
+    }
+
+    /**
+     * <h3>支持类</h3>
+     * <pre>
+     * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
+     * @create date: 2018/11/27 15:24
+     * @author: <a href="http://www.peyton.cn">peyton</a>
+     * @version: 1.0.0
+     * </pre>
+     */
+    public interface Holder{
+        String emp_cookie_name = "264bf185-7220-45a2-be24-7f6a55b483ba";
+        String emp_cookie_pwd = "502055ec-2940-4077-8ce8-21e17f24edbb";
+        String admin_cookie_name = "90cfb552-347d-4d20-be63-f4f76467fb1e";
+        String admin_cookie_pwd = "3dbc9c99-362e-4086-9a1b-54f34f29dc6c";
+        String sup_cookie_name = "73a2c2d8-422d-46f2-8e93-f6ae955b5216";
+        String sup_cookie_pwd = "fcdebf22-590a-4e54-9be8-9d81fe0abc3d";
+        String cus_cookie_name = "9f911c6a-6540-4904-8b8a-1b534e85b4e3";
+        String cus_cookie_pwd = "355a0bb8-1522-4f33-a362-a86ffe9c096f";
     }
 }
