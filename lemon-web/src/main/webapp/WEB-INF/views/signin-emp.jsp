@@ -45,16 +45,14 @@
                     <button type="button" class="sign-in-btn">登&nbsp;&nbsp;录</button>
                 </div>
 
-                <div class="clearfix">
-                    <div class="fl">
-                        <input type="checkbox" class="ud-checked" name="remember" value="1" >
-                        <label>十天内免登录</label>
+                <%--<div class="clearfix">--%>
+                    <%--<div class="fl">--%>
+                        <%--<input type="checkbox" class="ud-checked" name="remember" value="1" >--%>
+                        <%--<label>十天内免登录</label>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
 
-                        <input type="checkbox" name="remember" value="2">
-                    </div>
-                </div>
-
-                <div class="clearfix">
+                <div class="clearfix mt20">
                     <a href="javascript:;" target="_blank">立即注册</a>
                     <span>|</span>
                     <a href="javascript:;" target="_blank">忘记密码</a>

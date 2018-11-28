@@ -18,7 +18,6 @@ import cn.peyton.spring.usergroup.service.SupplierService;
 import cn.peyton.spring.usergroup.service.SysAdminService;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import cn.peyton.spring.util.CookieUtil;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -111,32 +110,6 @@ public final class LoginController {
             return new ModelAndView("sup/sup");
         }
         return new ModelAndView("sign-in");
-    }
-
-    /**
-     * <h4>判断Cookie</h4>
-     * @param request 请求对象
-     * @param cookieName 存放名称 的Cookie名
-     * @param sbCookieNameValue 要返回的名称值
-     * @param cookiePwd  存放密码 的Cookie名
-     * @param sbCookiePwdValue 要返回的密码值
-     * @return
-     */
-    private boolean existCookie(HttpServletRequest request,String cookieName,StringBuilder sbCookieNameValue,
-                                String cookiePwd,StringBuilder sbCookiePwdValue) {
-        String loginName = CookieUtil.getCookieByName(request, cookieName);
-        String pwd = CookieUtil.getCookieByName(request, cookiePwd);
-        if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
-            loginName = CookieEncryptUtil.decoder(loginName);
-            if (null == loginName) {
-                return true;
-            }
-            sbCookieNameValue.append(loginName);
-            sbCookiePwdValue.append(pwd);
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -311,6 +284,31 @@ public final class LoginController {
             throw new ValidationException("用户名或密码错误");
         }else if (!Numerical.FIRST.equals(status)) {
             throw new ValidationException("用户已被冻结，请联系管理员");
+        }
+        return true;
+    }
+
+    /**
+     * <h4>判断Cookie</h4>
+     * @param request 请求对象
+     * @param cookieName 存放名称 的Cookie名
+     * @param sbCookieNameValue 要返回的名称值
+     * @param cookiePwd  存放密码 的Cookie名
+     * @param sbCookiePwdValue 要返回的密码值
+     * @return
+     */
+    private boolean existCookie(HttpServletRequest request,String cookieName,StringBuilder sbCookieNameValue,
+                                String cookiePwd,StringBuilder sbCookiePwdValue) {
+        String loginName = CookieUtil.getCookieByName(request, cookieName);
+        String pwd = CookieUtil.getCookieByName(request, cookiePwd);
+        if (null != loginName && null != pwd && !"".equals(loginName) && !"".equals(pwd)) {
+            loginName = CookieEncryptUtil.decoder(loginName);
+            if (null == loginName) {
+                return true;
+            }
+            sbCookieNameValue.append(loginName);
+            sbCookiePwdValue.append(pwd);
+            return false;
         }
         return true;
     }
