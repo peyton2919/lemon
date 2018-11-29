@@ -41,17 +41,29 @@ public class Demo {
 //        generation.createParam("sys_dept","DeptParam","",
 //                "f:/test/1","cn.peyton.spring.usergroup.param");
 
-        generation.create("sys_post","tb_,pub_", "f:/test/1",
-                "cn.peyton.spring.usergroup.dao","cn.peyton.spring.usergroup.entity",true);
+//        generation.create("sys_post","tb_,pub_", "f:/test/1",
+//                "cn.peyton.spring.usergroup.dao","cn.peyton.spring.usergroup.entity",true);
+//
+//        generation.createParam("sys_Post","PostParam","",
+//                "f:/test/1","cn.peyton.spring.usergroup.param");
 
-        generation.createParam("sys_Post","PostParam","",
-                "f:/test/1","cn.peyton.spring.usergroup.param");
+//        generation.create("sys_employee","tb_,pub_", "f:/test/1",
+//                "cn.peyton.spring.usergroup.dao","cn.peyton.spring.usergroup.entity",true);
+//
+//        generation.createParam("sys_employee","EmployeeParam","emp",
+//                "f:/test/1","cn.peyton.spring.usergroup.param");
 
-        generation.create("sys_employee","tb_,pub_", "f:/test/1",
-                "cn.peyton.spring.usergroup.dao","cn.peyton.spring.usergroup.entity",true);
+        generation.create("tb_attention","tb_,pub_", "f:/test/1",
+                "cn.peyton.spring.mall.dao","cn.peyton.spring.mall.entity",true);
 
-        generation.createParam("sys_employee","EmployeeParam","emp",
-                "f:/test/1","cn.peyton.spring.usergroup.param");
+        generation.createParam("tb_attention","AttentionParam","att",
+                "f:/test/1","cn.peyton.spring.mall.param");
+
+        generation.create("tb_collect","tb_,pub_", "f:/test/1",
+                "cn.peyton.spring.mall.dao","cn.peyton.spring.mall.entity",true);
+
+        generation.createParam("tb_collect","CollectParam","coll",
+                "f:/test/1","cn.peyton.spring.mall.param");
 
 
 

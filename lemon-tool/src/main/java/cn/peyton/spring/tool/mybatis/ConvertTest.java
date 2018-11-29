@@ -16,6 +16,14 @@ public class ConvertTest {
     public static void main(String[] args) {
         Generation generation = new Generation(Generation.Join.DRIVER, Generation.Join.URL, Generation.Join.USRENAME, "hc2919");
 
+        System.out.println(generation.createConvert("tb_collect", "Collect",null,"coll"));
+        System.out.println(generation.createCompat("tb_collect", "CollectParam","coll",
+                "Collect",""));
+
+//        System.out.println(generation.createConvert("tb_attention", "Attention",null,"att"));
+//        System.out.println(generation.createCompat("tb_attention", "AttentionParam","att",
+//                "Attention",""));
+
 //        System.out.println(generation.createConvert("sys_dept", "SysDept",null,""));
 //        System.out.println(generation.createCompat("sys_dept", "DeptParam","",
 //                "SysDept",null));
@@ -24,9 +32,9 @@ public class ConvertTest {
 //        System.out.println(generation.createCompat("sys_employee", "EmployeeParam","emp",
 //                "SysEmployee",""));
 
-        System.out.println(generation.createConvert("sys_admin", "SysAdmin",null,"admin"));
-        System.out.println(generation.createCompat("sys_admin", "AdminParam","admin",
-                "SysAdmin",""));
+//        System.out.println(generation.createConvert("sys_admin", "SysAdmin",null,"admin"));
+//        System.out.println(generation.createCompat("sys_admin", "AdminParam","admin",
+//                "SysAdmin",""));
 
     }
 }
