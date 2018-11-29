@@ -21,7 +21,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public class StorageParam{
+public final class StorageParam{
 	/** 编号  */
 	private Long id;
 	/** 入库时间，默认当前时间  */

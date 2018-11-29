@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.peyton.spring.mall.dao.CollectMapper">
+	<resultMap id="BaseResultMap" type="cn.peyton.spring.mall.entity.Collect">
+		<id column="id" property="id" jdbcType="BIGINT"/>
+		<result column="com_id" property="comId" jdbcType="VARCHAR"/>
+		<result column="cus_id" property="cusId" jdbcType="BIGINT"/>
+		<result column="coll_status" property="collStatus" jdbcType="INTEGER"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,com_id,cus_id,coll_status
+	</sql>
+
+	<insert id="insert" parameterType="cn.peyton.spring.mall.entity.Collect" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_collect(id,com_id,cus_id,coll_status)
+		values (#{id},#{comId},#{cusId},#{collStatus})
+	</insert>
+
+	<insert id="insertSelective" parameterType="cn.peyton.spring.mall.entity.Collect" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_collect
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="comId != null">
+				com_id,
+			</if>
+			<if test="cusId != null">
+				cus_id,
+			</if>
+			<if test="collStatus != null">
+				coll_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="comId != null">
+				#{comId},
+			</if>
+			<if test="cusId != null">
+				#{cusId},
+			</if>
+			<if test="collStatus != null">
+				#{collStatus},
+			</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from tb_collect
+		where id = #{id}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="cn.peyton.spring.mall.entity.Collect">
+		update tb_collect
+		<set>
+			<if test="comId != null">
+				com_id = #{comId},
+			</if>
+			<if test="cusId != null">
+				cus_id = #{cusId},
+			</if>
+			<if test="collStatus != null">
+				coll_status = #{collStatus},
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateByPrimaryKey" parameterType="cn.peyton.spring.mall.entity.Collect">
+		update tb_collect
+		set 
+			com_id = #{comId},
+			cus_id = #{cusId},
+			coll_status = #{collStatus}
+		where id = #{id}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List"/>
+		from tb_collect
+		where id = #{id}
+	</select>
+
+
+	<!-- new create method   -->
+
+</mapper>

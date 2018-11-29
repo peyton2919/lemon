@@ -12,7 +12,7 @@ import cn.peyton.spring.util.DateUtil;
  * @version 1.0.0
  * </pre>
 */
-public class InventoryParam{
+public final class InventoryParam{
 	/** 编号  */
 	private Long id;
 	/** 创建时间  */

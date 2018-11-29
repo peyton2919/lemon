@@ -22,7 +22,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public class CommodityParam{
+public final class CommodityParam{
 	/** 编号  */
 	private String id;
 	/** 名称  */

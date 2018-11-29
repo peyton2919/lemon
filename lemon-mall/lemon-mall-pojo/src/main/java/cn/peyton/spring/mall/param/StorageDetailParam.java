@@ -15,7 +15,7 @@ import cn.peyton.spring.validator.constraints.Pattern;
  * @version 1.0.0
  * </pre>
 */
-public class StorageDetailParam{
+public final class StorageDetailParam{
 	/** 编号  */
 	private Long id;
 	/** 数量  */
