@@ -17,17 +17,20 @@ import java.util.Map;
  * </pre>
  */
 public class AssertTrueStrategy extends AbstractValidator {
+    private final String BOOL = "boolean";
+    private final String BOOLEAN = "class java.lang.Boolean";
+    private final String TRUE = "true";
 
     @Override
     public void compare(Annotation annotation, String name, String type, Object value, Map<String, String> map) {
         AssertTrue at = (AssertTrue) annotation;
         message = at.message();
-        if (!"boolean".equals(type) && !"class java.lang.Boolean".equals(type)){
+        if (!BOOL.equals(type) && !BOOLEAN.equals(type)){
             map.put(name, message);
             return;
         }
         if (CheckedUtil.isEmpty(value)){
-            if (!"true".equals(value.toString().trim())) {
+            if (!TRUE.equals(value.toString().trim())) {
                 map.put(name, message);
             }
         }else {

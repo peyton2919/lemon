@@ -14,12 +14,12 @@ import cn.peyton.spring.beans.PageResult;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.inf.IServiceByLike.java
+ * @packageName: cn.peyton.spring.inf.IServiceLike.java
  * @createDate: 2018/9/13 11:51
  * @version: 1.0.0
  * </pre>
  */
-public interface IServiceByLike<T> {
+public interface IServiceLike<T> {
 
     /**
      * <h4>分页模糊查找</h4>

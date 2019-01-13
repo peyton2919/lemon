@@ -30,7 +30,7 @@ public final class ValidatorFactory {
      * @return
      */
     public static ValidatorFactory getInstance() {
-        return Internal.INSTANCE;
+        return Holder.INSTANCE;
     }
 
     /**
@@ -94,7 +94,7 @@ public final class ValidatorFactory {
     /**
      * <h3>内部类[单例模式]</h3>
      */
-    private static class Internal{
+    private static class Holder {
         private static final ValidatorFactory INSTANCE = new ValidatorFactory();
     }
 }

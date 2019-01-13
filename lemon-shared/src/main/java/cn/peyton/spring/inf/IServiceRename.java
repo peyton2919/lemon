@@ -11,12 +11,12 @@ package cn.peyton.spring.inf;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.inf.IServiceByRename.java
+ * @packageName: cn.peyton.spring.inf.IServiceRename.java
  * @createDate: 2018/9/13 11:55
  * @version: 1.0.0
  * </pre>
  */
-public interface IServiceByRename<K> {
+public interface IServiceRename<K> {
 
     /**
      * <h4>判断是否重名</h4>

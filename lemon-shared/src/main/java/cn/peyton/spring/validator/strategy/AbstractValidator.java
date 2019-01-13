@@ -17,11 +17,20 @@ import java.util.regex.Pattern;
  */
 public abstract class AbstractValidator implements IValidator {
 
+    private final String BIG_DECIMAL = "class java.math.BigDecimal";
+    private final String FLOAT = "class java.lang.Float";
+    private final String DOUBLE = "class java.lang.Double";
+    private final String STRING = "class java.lang.String";
+    private final String _FLOAT = "float";
+    private final String _DOUBLE = "double";
+    private final String INTEGER = "class java.lang.Integer";
+    private final String INT = "int";
+
+
     /**
      * 错误信息
      */
     protected String message;
-
 
     /**
      * <h4>正则匹配[多个用','分开]</h4>
@@ -51,12 +60,12 @@ public abstract class AbstractValidator implements IValidator {
      * @return true为不是浮点类型
      */
     protected boolean existDecimal(String type) {
-        if ("class java.math.BigDecimal".equals(type) ||
-                "class java.lang.Float".equals(type) ||
-                "class java.lang.Double".equals(type) ||
-                "float".equals(type) ||
-                "double".equals(type) ||
-                "class java.lang.String".equals(type)) {
+        if (BIG_DECIMAL.equals(type) ||
+                FLOAT.equals(type) ||
+                DOUBLE.equals(type) ||
+                _FLOAT.equals(type) ||
+                _DOUBLE.equals(type) ||
+                STRING.equals(type)) {
             return false;
         }
         return true;
@@ -70,9 +79,9 @@ public abstract class AbstractValidator implements IValidator {
      * @return true为不是整型类型
      */
     protected boolean existInt(String type) {
-        if ("class java.lang.Integer".equals(type) ||
-                "int".equals(type) ||
-                "class java.lang.String".equals(type)) {
+        if (INTEGER.equals(type) ||
+                INT.equals(type) ||
+                STRING.equals(type)) {
             return false;
         }
         return true;

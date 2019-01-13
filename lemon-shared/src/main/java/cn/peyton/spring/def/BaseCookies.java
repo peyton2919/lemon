@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version: 1.0.0
  * </pre>
  */
-public final class Cookies {
+public final class BaseCookies {
 
 	private final static String COOKIE_PATH = "/";
 	private final static String COOKIE_DOMAIN = "localhost";

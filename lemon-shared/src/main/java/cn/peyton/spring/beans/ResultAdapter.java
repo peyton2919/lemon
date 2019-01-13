@@ -1,8 +1,8 @@
 package cn.peyton.spring.beans;
 
-import cn.peyton.spring.def.BaseBo;
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.def.BaseConvertBo;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.util.CheckedUtil;
 
 import java.util.List;
@@ -26,16 +26,16 @@ public final class ResultAdapter {
      * <h4>查找 全部 对象集合的适配器</h4>
      * @param mapper 查找 全部对象Mapper接口
      * @param page 分页对象
-     * @param baseBo 实现基础BO对象
+     * @param baseConvertBo 实现基础BO对象
      * @param <T> 需要操作对象
      * @return PageResult对象
      */
-    public static <T> PageResult<T> adapt(IMapperByAll mapper,PageQuery page,BaseBo baseBo) {
+    public static <T> PageResult<T> adapt(IMapperAll mapper, PageQuery page, BaseConvertBo baseConvertBo) {
         PageResult<T> result = new PageResult<T>();
         int count = mapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(baseBo.adapter(mapper.selectByAll(page)));
+            result.setData(baseConvertBo.adapter(mapper.selectByAll(page)));
         }
         return result;
     }
@@ -45,16 +45,16 @@ public final class ResultAdapter {
      * @param mapper 模糊查找全部对象Mapper接口
      * @param keyword 关键字
      * @param page 分页对象
-     * @param baseBo  实现基础BO对象
+     * @param baseConvertBo  实现基础BO对象
      * @param <T> 需要操作对象
      * @return PageResult对象
      */
-    public static <T> PageResult<T> adapt(IMapperByLike mapper, String keyword, PageQuery page, BaseBo baseBo) {
+    public static <T> PageResult<T> adapt(IMapperLike mapper, String keyword, PageQuery page, BaseConvertBo baseConvertBo) {
         PageResult<T> result = new PageResult<T>();
         int count = mapper.countLikeByKeyword(keyword);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(baseBo.adapter(mapper.selectLikeByKeyword(keyword,page)));
+            result.setData(baseConvertBo.adapter(mapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }
@@ -84,5 +84,6 @@ public final class ResultAdapter {
     public static <T>PageResult<T> empty() {
         return new PageResult<T>();
     }
+
 
 }

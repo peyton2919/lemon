@@ -16,14 +16,14 @@ import java.util.List;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.def.BaseBo.java
+ * @packageName: cn.peyton.spring.def.BaseConvertBo.java
  * @createDate: 2018/9/13 12:24
  * @version: 1.0.0
  * </pre>
  */
-public abstract class BaseBo<P,T> {
+public abstract class BaseConvertBo<P,T> {
     /** 要返回的集合 */
-    protected List<P> params ;
+//    protected List<P> params;
     /**
     * <h4>T 对象转成 P 对象<h4>
     * @param info 对象

@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse;
 public final class CookieUtil {
 
 	/**
-	 * <h4>显示 Cookies</h4>
+	 * <h4>显示 BaseCookies</h4>
 	 * @param request 请求
 	 * @param response 响应
 	 */
@@ -59,7 +59,7 @@ public final class CookieUtil {
 	}
 
     /**
-     * <h4>获取 Cookies</h4>
+     * <h4>获取 BaseCookies</h4>
      * @param request 请求
      * @return
      */

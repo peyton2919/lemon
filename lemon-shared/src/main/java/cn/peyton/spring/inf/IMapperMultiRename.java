@@ -13,12 +13,12 @@ import org.apache.ibatis.annotations.Param;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.inf.IMapperByAll.java
+ * @packageName: cn.peyton.spring.inf.IMapperAll.java
  * @createDate: 2018/9/13 10:18
  * @version: 1.0.0
  * </pre>
  */
-public interface IMapperMultiByRename<K> {
+public interface IMapperMultiRename<K> {
 
     /**
      * <h4>判断是否重名</h4>

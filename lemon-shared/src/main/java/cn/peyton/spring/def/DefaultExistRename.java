@@ -1,6 +1,7 @@
 package cn.peyton.spring.def;
 
 import cn.peyton.spring.inf.IMapperByRename;
+import cn.peyton.spring.inf.IMapperMultiRename;
 
 /**
  * <h3>判断重名 类</h3>
@@ -28,5 +29,19 @@ public final class DefaultExistRename {
     public static <K> boolean exist(IMapperByRename<K> mapper, K id, String name) {
         return mapper.countByName(id,name) > 0;
     }
+
+    /**
+     * <h4>判断重名</h4>
+     * @param mapper 实现 Mapper重名 接口
+     * @param id 主键
+     * @param parentId 父主键
+     * @param name 名称
+     * @return 重名 为true
+     */
+    public static <K> boolean exist(IMapperMultiRename<K> mapper, K id, K parentId, String name) {
+        return mapper.countMultiByName(id,parentId,name) > 0;
+    }
+
+
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.inf.IMapperByAll.java
+ * @packageName: cn.peyton.spring.inf.IMapperAll.java
  * @createDate: 2018/9/13 10:18
  * @version: 1.0.0
  * </pre>
