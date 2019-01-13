@@ -40,6 +40,7 @@ public class SysRoleAclServiceImpl implements SysRoleAclService{
 
     @SuppressWarnings("Duplicates")
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void changeRoleAcls(Integer roleId, List<Integer> aclIdList) {
         List<Integer> originAclIdList = sysRoleAclMapper.selectAclIdListByRoleIdList(Lists.newArrayList(roleId));
         if (originAclIdList.size() == aclIdList.size()) {
@@ -62,7 +63,6 @@ public class SysRoleAclServiceImpl implements SysRoleAclService{
      * @param roleId 角色ID
      * @param aclIdList 权限ID集合
      */
-    @Transactional(rollbackFor = RuntimeException.class)
     public void updateRoleAcls(int roleId,List<Integer> aclIdList) {
         sysRoleAclMapper.deleteByRoleId(roleId);
         if (CollectionUtils.isEmpty(aclIdList)) {
@@ -89,7 +89,7 @@ public class SysRoleAclServiceImpl implements SysRoleAclService{
      * @param before 旧的数据
      * @param after 新的数据
      */
-    private void saveRoleAclLog(int roleId, List<Integer> before, List<Integer> after) {
+    public void saveRoleAclLog(int roleId, List<Integer> before, List<Integer> after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_ROLE_ACL);
         sysLog.setTargetId(String.valueOf(roleId));

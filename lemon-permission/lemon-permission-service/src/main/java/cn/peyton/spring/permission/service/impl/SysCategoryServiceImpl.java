@@ -3,7 +3,7 @@ package cn.peyton.spring.permission.service.impl;
 import cn.peyton.spring.beans.ResultAdapter;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.exception.ParamException;
-import cn.peyton.spring.permission.bo.CategoryBo;
+import cn.peyton.spring.permission.bo.CategoryConvertBo;
 import cn.peyton.spring.permission.dao.SysCategoryMapper;
 import cn.peyton.spring.permission.entity.SysCategory;
 import cn.peyton.spring.permission.param.CategoryParam;
@@ -75,7 +75,7 @@ public class SysCategoryServiceImpl implements SysCategoryService {
 
     @Override
     public PageResult<CategoryParam> findByAllAndPage(PageQuery page) {
-        return ResultAdapter.adapt(sysCategoryInfoMapper,page,new CategoryBo());
+        return ResultAdapter.adapt(sysCategoryInfoMapper,page,new CategoryConvertBo());
     }
 
     @Override
@@ -83,7 +83,7 @@ public class SysCategoryServiceImpl implements SysCategoryService {
         PageResult<CategoryParam> result = new PageResult<>();
         int count = sysCategoryInfoMapper.countByType(type);
         if (count > 0){
-            result.set(new CategoryBo().adapter(sysCategoryInfoMapper.selectByTypeAndAll(type, page)),count);
+            result.set(new CategoryConvertBo().adapter(sysCategoryInfoMapper.selectByTypeAndAll(type, page)),count);
         }
         return result;
     }
@@ -103,19 +103,19 @@ public class SysCategoryServiceImpl implements SysCategoryService {
         PageResult<CategoryParam> result = new PageResult<>();
         int count = sysCategoryInfoMapper.countByType(type);
         if (count > 0) {
-            result.set(new CategoryBo().adapter(sysCategoryInfoMapper.selectByType(type)),count);
+            result.set(new CategoryConvertBo().adapter(sysCategoryInfoMapper.selectByType(type)),count);
         }
         return result;
     }
 
     @Override
     public List<CategoryParam> findByCategory(Integer type) {
-        return new CategoryBo().adapter(sysCategoryInfoMapper.selectByType(type));
+        return new CategoryConvertBo().adapter(sysCategoryInfoMapper.selectByType(type));
     }
 
     @Override
     public List<CategoryParam> findByParentId(Integer parentId,boolean isSelect) {
-        return new CategoryBo().adapter(sysCategoryInfoMapper.selectByParentId(parentId,isSelect));
+        return new CategoryConvertBo().adapter(sysCategoryInfoMapper.selectByParentId(parentId,isSelect));
     }
 
     @Override
@@ -123,7 +123,7 @@ public class SysCategoryServiceImpl implements SysCategoryService {
         PageResult<CategoryParam> result = new PageResult<>();
         int count = sysCategoryInfoMapper.countSearchByLikeName(name,type);
         if (count > 0) {
-            result.set(new CategoryBo().adapter(sysCategoryInfoMapper.selectSearchByLikeName(name,type,page)),count);
+            result.set(new CategoryConvertBo().adapter(sysCategoryInfoMapper.selectSearchByLikeName(name,type,page)),count);
         }
         return result;
     }

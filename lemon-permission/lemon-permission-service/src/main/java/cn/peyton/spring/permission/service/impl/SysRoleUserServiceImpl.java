@@ -8,7 +8,7 @@ import cn.peyton.spring.permission.entity.SysRoleUser;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.permission.service.SysRoleUserService;
 import cn.peyton.spring.constant.LogType;
-import cn.peyton.spring.usergroup.bo.EmployeeBo;
+import cn.peyton.spring.usergroup.bo.EmployeeConvertBo;
 import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.util.IpUtil;
@@ -49,11 +49,12 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
         if (CollectionUtils.isEmpty(empIdList)) {
             return Lists.newArrayList();
         }
-        return new EmployeeBo().adapter(sysEmployeeMapper.selectByIdList(empIdList));
+        return new EmployeeConvertBo().adapter(sysEmployeeMapper.selectByIdList(empIdList));
     }
 
     @SuppressWarnings("Duplicates")
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void changeRoleUsers(int roleId, List<Integer> userIdList) {
         List<Integer> originUserIdList = sysRoleUserMapper.selectUserIdListByRoleId(roleId);
         if (originUserIdList.size() == userIdList.size()) {
@@ -68,8 +69,7 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
         saveRoleUserLog(roleId,originUserIdList,userIdList);
     }
 
-    @Transactional(rollbackFor = RuntimeException.class)
-    protected void updateRoleUsers(int roleId, List<Integer> userIdList) {
+    public void updateRoleUsers(int roleId, List<Integer> userIdList) {
         sysRoleUserMapper.deleteByRoleId(roleId);
         if (CollectionUtils.isEmpty(userIdList)) {
             return;
@@ -94,7 +94,7 @@ public class SysRoleUserServiceImpl implements SysRoleUserService {
      * @param before 旧的数据
      * @param after 新的数据
      */
-    private void saveRoleUserLog(int roleId, List<Integer> before, List<Integer> after) {
+    public void saveRoleUserLog(int roleId, List<Integer> before, List<Integer> after) {
         SysLogWithBLOBs sysLog = new SysLogWithBLOBs();
         sysLog.setType(LogType.TYPE_ROLE_USER);
         sysLog.setTargetId(String.valueOf(roleId));

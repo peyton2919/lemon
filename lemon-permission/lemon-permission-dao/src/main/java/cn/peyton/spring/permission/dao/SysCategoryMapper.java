@@ -1,6 +1,6 @@
 package cn.peyton.spring.permission.dao;
 
-import cn.peyton.spring.inf.IMapperByAll;
+import cn.peyton.spring.inf.IMapperAll;
 import cn.peyton.spring.permission.entity.SysCategory;
 import cn.peyton.spring.beans.PageQuery;
 import org.apache.ibatis.annotations.Param;
@@ -16,7 +16,7 @@ import java.util.List;
  * @version: 1.0.0
  * </pre>
  */
-public interface SysCategoryMapper extends IMapperByAll<SysCategory>{
+public interface SysCategoryMapper extends IMapperAll<SysCategory> {
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

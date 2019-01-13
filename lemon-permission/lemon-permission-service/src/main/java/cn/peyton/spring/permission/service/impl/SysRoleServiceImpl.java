@@ -1,30 +1,24 @@
 package cn.peyton.spring.permission.service.impl;
 
 import cn.peyton.spring.common.RequestHolder;
-import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.exception.ParamException;
 import cn.peyton.spring.log.service.SysLogService;
-import cn.peyton.spring.permission.bo.RoleBo;
+import cn.peyton.spring.permission.bo.RoleConvertBo;
 import cn.peyton.spring.permission.dao.SysRoleAclMapper;
 import cn.peyton.spring.permission.dao.SysRoleMapper;
 import cn.peyton.spring.permission.dao.SysRoleUserMapper;
 
-import cn.peyton.spring.permission.dto.AclDto;
-import cn.peyton.spring.permission.dto.AclModuleLevelDto;
-import cn.peyton.spring.permission.entity.SysAcl;
 import cn.peyton.spring.permission.entity.SysRole;
 import cn.peyton.spring.permission.param.RoleParam;
 import cn.peyton.spring.permission.service.SysRoleService;
 import cn.peyton.spring.permission.service.log.SysRoleLog;
-import cn.peyton.spring.usergroup.bo.EmployeeBo;
+import cn.peyton.spring.usergroup.bo.EmployeeConvertBo;
 import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.util.IpUtil;
 import cn.peyton.spring.validator.Validation;
 import com.google.common.base.Preconditions;
-import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
@@ -109,7 +103,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public List<RoleParam> findByAll() {
 
-        return new RoleBo().adapter(sysRoleMapper.selectByAll());
+        return new RoleConvertBo().adapter(sysRoleMapper.selectByAll());
     }
 
     @Override
@@ -118,7 +112,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(roleIdList)) {
             return Lists.newArrayList();
         }
-        return new RoleBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
+        return new RoleConvertBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
     }
 
     @Override
@@ -127,7 +121,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(roleIdList)) {
             return Lists.newArrayList();
         }
-        return new RoleBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
+        return new RoleConvertBo().adapter(sysRoleMapper.selectByIdList(roleIdList));
     }
 
     @Override
@@ -142,7 +136,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         if (CollectionUtils.isEmpty(userIdList)) {
             return Lists.newArrayList();
         }
-        return new EmployeeBo().adapter(sysEmployeeMapper.selectByIdList(userIdList));
+        return new EmployeeConvertBo().adapter(sysEmployeeMapper.selectByIdList(userIdList));
     }
 
 
@@ -155,6 +149,5 @@ public class SysRoleServiceImpl implements SysRoleService {
     private boolean checkExist(String name, Integer id) {
         return sysRoleMapper.countByName(name,id) > 0;
     }
-
 
 }
