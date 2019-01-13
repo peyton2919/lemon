@@ -1,11 +1,8 @@
 package cn.peyton.spring.lemon.controller.usergroup;
 
 import cn.peyton.spring.beans.PageQuery;
-import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.common.JsonData;
 import cn.peyton.spring.enums.Status;
-import cn.peyton.spring.usergroup.bo.EmployeeBo;
-import cn.peyton.spring.usergroup.entity.SysEmployee;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
 import cn.peyton.spring.usergroup.service.SysEmployeeService;
 import org.springframework.stereotype.Controller;

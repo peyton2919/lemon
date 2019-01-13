@@ -19,6 +19,17 @@
     margin-right: auto;
 }
 
+.ud-title-header {
+    background-color: #438eb9;
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 10px;
+    vertical-align: middle;
+    color: white;
+}
+
+
 /* dialog 弹出模态窗 标题栏 和按钮样式 开始 */
 
 .ui-dialog-titlebar{

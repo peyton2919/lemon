@@ -32,7 +32,7 @@
     <div class="main-content-inner">
 
     <div class="col-xs-12">
-        <div class="table-header">
+        <div class="ud-title-header">
             货运类型列表&nbsp;&nbsp;
             <a class="green" href="#">
                 <i class="ace-icon fa fa-plus-circle orange bigger-130 freight-type-add"></i>
