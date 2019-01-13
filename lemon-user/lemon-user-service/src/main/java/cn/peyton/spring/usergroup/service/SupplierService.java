@@ -1,8 +1,8 @@
 package cn.peyton.spring.usergroup.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
-import cn.peyton.spring.inf.IServiceByRename;
+import cn.peyton.spring.inf.IServiceLike;
+import cn.peyton.spring.inf.IServiceRename;
 import cn.peyton.spring.inf.IServiceBySelect;
 import cn.peyton.spring.usergroup.entity.Supplier;
 import cn.peyton.spring.usergroup.param.SupplierParam;
@@ -17,7 +17,7 @@ import cn.peyton.spring.usergroup.param.SupplierParam;
  * </pre>
 */
 public interface SupplierService extends IService<Long,SupplierParam,Supplier>,
-        IServiceByLike<SupplierParam>,IServiceByRename<Long>,IServiceBySelect<SupplierParam>{
+        IServiceLike<SupplierParam>,IServiceRename<Long>,IServiceBySelect<SupplierParam>{
 
     /**
      * <h4>供应商登录</h4>

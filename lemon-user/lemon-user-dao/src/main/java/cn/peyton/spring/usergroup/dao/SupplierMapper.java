@@ -1,7 +1,7 @@
 package cn.peyton.spring.usergroup.dao;
 
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.inf.IMapperByRename;
 import cn.peyton.spring.inf.IMapperBySelect;
 import cn.peyton.spring.usergroup.entity.Supplier;
@@ -16,8 +16,8 @@ import org.apache.ibatis.annotations.Param;
  * @version 1.0.0
  * </pre>
 */
-public interface SupplierMapper extends IMapperByAll<Supplier>,
-        IMapperByLike<Supplier>,IMapperByRename<Long>,IMapperBySelect<Supplier> {
+public interface SupplierMapper extends IMapperAll<Supplier>,
+        IMapperLike<Supplier>,IMapperByRename<Long>,IMapperBySelect<Supplier> {
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

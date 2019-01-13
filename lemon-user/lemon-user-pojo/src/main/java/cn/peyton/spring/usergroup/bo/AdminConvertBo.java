@@ -1,6 +1,6 @@
 package cn.peyton.spring.usergroup.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.usergroup.entity.SysAdmin;
 import cn.peyton.spring.usergroup.param.AdminParam;
 
@@ -9,13 +9,13 @@ import cn.peyton.spring.usergroup.param.AdminParam;
  * <pre>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @project name: lemon
- * @class name: cn.peyton.spring.usergroup.bo.AdminBo.java
+ * @class name: cn.peyton.spring.usergroup.bo.AdminConvertBo.java
  * @create date: 2018/11/20 9:23
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @version: 1.0.0
  * </pre>
  */
-public class AdminBo extends BaseBo<AdminParam,SysAdmin> {
+public class AdminConvertBo extends BaseConvertBo<AdminParam,SysAdmin> {
     @Override
     public AdminParam compat(SysAdmin info) {
         return new AdminParam().compat(info);

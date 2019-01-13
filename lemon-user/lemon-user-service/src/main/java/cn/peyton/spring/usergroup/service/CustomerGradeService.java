@@ -1,7 +1,7 @@
 package cn.peyton.spring.usergroup.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 import cn.peyton.spring.usergroup.entity.CustomerGrade;
 import cn.peyton.spring.usergroup.param.CustomerGradeParam;
@@ -16,6 +16,6 @@ import cn.peyton.spring.usergroup.param.CustomerGradeParam;
  * </pre>
 */
 public interface CustomerGradeService extends IService<Integer,CustomerGradeParam,CustomerGrade>,
-        IServiceBySelect<CustomerGradeParam>,IServiceByLike<CustomerGradeParam> {
+        IServiceBySelect<CustomerGradeParam>,IServiceLike<CustomerGradeParam> {
 
 }

@@ -4,7 +4,7 @@ import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.def.DefaultExistRename;
 import cn.peyton.spring.exception.ValidationException;
-import cn.peyton.spring.usergroup.bo.CustomerGradeBo;
+import cn.peyton.spring.usergroup.bo.CustomerGradeConvertBo;
 import cn.peyton.spring.usergroup.dao.CustomerGradeMapper;
 import cn.peyton.spring.usergroup.entity.CustomerGrade;
 import cn.peyton.spring.usergroup.param.CustomerGradeParam;
@@ -68,7 +68,7 @@ public class CustomerGradeServiceImpl implements CustomerGradeService {
         int count = customerGradeMapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CustomerGradeBo().adapter(customerGradeMapper.selectByAll(page)));
+            result.setData(new CustomerGradeConvertBo().adapter(customerGradeMapper.selectByAll(page)));
         }
         return result;
     }
@@ -79,13 +79,13 @@ public class CustomerGradeServiceImpl implements CustomerGradeService {
         int count = customerGradeMapper.countLikeByKeyword(keyword);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CustomerGradeBo().adapter(customerGradeMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new CustomerGradeConvertBo().adapter(customerGradeMapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }
 
     @Override
     public List<CustomerGradeParam> findBySelect() {
-        return new CustomerGradeBo().adapter(customerGradeMapper.selectBySelect());
+        return new CustomerGradeConvertBo().adapter(customerGradeMapper.selectBySelect());
     }
 }

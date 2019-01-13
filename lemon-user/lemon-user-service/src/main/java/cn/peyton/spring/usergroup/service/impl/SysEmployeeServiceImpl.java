@@ -7,7 +7,7 @@ import cn.peyton.spring.exception.GlobalException;
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.log.service.SysLogService;
-import cn.peyton.spring.usergroup.bo.EmployeeBo;
+import cn.peyton.spring.usergroup.bo.EmployeeConvertBo;
 import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
 import cn.peyton.spring.usergroup.entity.SysEmployee;
 import cn.peyton.spring.usergroup.param.EmployeeParam;
@@ -105,7 +105,7 @@ public class SysEmployeeServiceImpl implements SysEmployeeService {
         int count = sysEmployeeMapper.count();
         if (count > 0){
             new PageResult<EmployeeParam>(
-                    new EmployeeBo().adapter(sysEmployeeMapper.selectByAllAndPage(pageQuery)),
+                    new EmployeeConvertBo().adapter(sysEmployeeMapper.selectByAllAndPage(pageQuery)),
                     count);
         }
         return new PageResult<EmployeeParam>();
@@ -113,7 +113,7 @@ public class SysEmployeeServiceImpl implements SysEmployeeService {
 
     @Override
     public List<EmployeeParam> findByAll() {
-        return new EmployeeBo().adapter(sysEmployeeMapper.selectByAll());
+        return new EmployeeConvertBo().adapter(sysEmployeeMapper.selectByAll());
     }
 
     @Override
@@ -122,7 +122,7 @@ public class SysEmployeeServiceImpl implements SysEmployeeService {
         int count = sysEmployeeMapper.countByDeptId(deptId);
         if (count > 0) {
             return new PageResult<EmployeeParam>(
-                    new EmployeeBo().adapter(sysEmployeeMapper.selectByDeptId(deptId,pageQuery)),
+                    new EmployeeConvertBo().adapter(sysEmployeeMapper.selectByDeptId(deptId,pageQuery)),
                     count);
         }
         return new PageResult<EmployeeParam>();

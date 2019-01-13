@@ -1,6 +1,6 @@
 package cn.peyton.spring.usergroup.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.usergroup.entity.SysPost;
 import cn.peyton.spring.usergroup.param.PostParam;
 
@@ -9,13 +9,13 @@ import cn.peyton.spring.usergroup.param.PostParam;
  * <pre>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @project name: lemon
- * @class name: cn.peyton.spring.usergroup.bo.PostBo.java
+ * @class name: cn.peyton.spring.usergroup.bo.PostConvertBo.java
  * @create date: 2018/11/18 10:43
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @version: 1.0.0
  * </pre>
  */
-public class PostBo extends BaseBo<PostParam, SysPost> {
+public class PostConvertBo extends BaseConvertBo<PostParam, SysPost> {
     @Override
     public PostParam compat(SysPost info) {
         return new PostParam().compat(info);

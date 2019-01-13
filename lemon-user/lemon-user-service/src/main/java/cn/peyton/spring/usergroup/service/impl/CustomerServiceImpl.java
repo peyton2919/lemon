@@ -8,7 +8,7 @@ import cn.peyton.spring.common.RequestHolder;
 import cn.peyton.spring.def.DefaultExistRename;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.exception.ValidationException;
-import cn.peyton.spring.usergroup.bo.CustomerBo;
+import cn.peyton.spring.usergroup.bo.CustomerConvertBo;
 import cn.peyton.spring.usergroup.dao.CustomerMapper;
 import cn.peyton.spring.usergroup.entity.Customer;
 import cn.peyton.spring.usergroup.param.CustomerParam;
@@ -125,12 +125,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public PageResult<CustomerParam> findByAll(PageQuery page) {
-        return ResultAdapter.adapt(customerMapper,page,new CustomerBo());
+        return ResultAdapter.adapt(customerMapper,page,new CustomerConvertBo());
     }
 
     @Override
     public PageResult<CustomerParam> findLikeByKeyword(String keyword, PageQuery page) {
-        return ResultAdapter.adapt(customerMapper,keyword,page,new CustomerBo());
+        return ResultAdapter.adapt(customerMapper,keyword,page,new CustomerConvertBo());
     }
 
     @Override

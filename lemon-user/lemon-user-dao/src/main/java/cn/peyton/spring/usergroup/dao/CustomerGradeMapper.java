@@ -1,7 +1,7 @@
 package cn.peyton.spring.usergroup.dao;
 
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.inf.IMapperByRename;
 import cn.peyton.spring.inf.IMapperBySelect;
 import cn.peyton.spring.usergroup.entity.CustomerGrade;
@@ -15,8 +15,8 @@ import cn.peyton.spring.usergroup.entity.CustomerGrade;
  * @version 1.0.0
  * </pre>
 */
-public interface CustomerGradeMapper extends IMapperByAll<CustomerGrade>,
-        IMapperByLike<CustomerGrade>,IMapperBySelect<CustomerGrade>,IMapperByRename<Integer> {
+public interface CustomerGradeMapper extends IMapperAll<CustomerGrade>,
+        IMapperLike<CustomerGrade>,IMapperBySelect<CustomerGrade>,IMapperByRename<Integer> {
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

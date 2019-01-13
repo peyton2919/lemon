@@ -9,7 +9,7 @@ import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.beans.ResultAdapter;
-import cn.peyton.spring.usergroup.bo.SupplierBo;
+import cn.peyton.spring.usergroup.bo.SupplierConvertBo;
 import cn.peyton.spring.usergroup.dao.SupplierMapper;
 import cn.peyton.spring.usergroup.entity.Supplier;
 import cn.peyton.spring.usergroup.param.SupplierParam;
@@ -139,20 +139,20 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public PageResult<SupplierParam> findByAll(PageQuery page) {
         return ResultAdapter.adapt(
-                supplierMapper,page,new SupplierBo()
+                supplierMapper,page,new SupplierConvertBo()
         );
     }
 
     @Override
     public PageResult<SupplierParam> findLikeByKeyword(String keyword, PageQuery page) {
         return ResultAdapter.adapt(
-                supplierMapper,keyword,page,new SupplierBo()
+                supplierMapper,keyword,page,new SupplierConvertBo()
         );
     }
 
     @Override
     public List<SupplierParam> findBySelect() {
-        return new SupplierBo().adapter(supplierMapper.selectBySelect());
+        return new SupplierConvertBo().adapter(supplierMapper.selectBySelect());
     }
 
     @Override

@@ -4,7 +4,7 @@ import cn.peyton.spring.def.DefaultExistRename;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.log.service.SysLogService;
-import cn.peyton.spring.usergroup.bo.PostBo;
+import cn.peyton.spring.usergroup.bo.PostConvertBo;
 import cn.peyton.spring.usergroup.dao.SysEmployeeMapper;
 import cn.peyton.spring.usergroup.dao.SysPostMapper;
 import cn.peyton.spring.usergroup.entity.SysPost;
@@ -82,7 +82,7 @@ public class SysPostServiceImpl implements SysPostService {
 
     @Override
     public PageResult<PostParam> findByAll() {
-        List<PostParam> postList = new PostBo().adapter(sysPostMapper.selectByAll());
+        List<PostParam> postList = new PostConvertBo().adapter(sysPostMapper.selectByAll());
         if (null != postList && postList.size() >0){
             return new PageResult<PostParam>(postList,postList.size());
         }

@@ -1,7 +1,7 @@
 package cn.peyton.spring.usergroup.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.usergroup.entity.Customer;
 import cn.peyton.spring.usergroup.param.CustomerParam;
 
@@ -15,7 +15,7 @@ import cn.peyton.spring.usergroup.param.CustomerParam;
  * </pre>
 */
 public interface CustomerService extends IService<Long,CustomerParam,Customer>,
-        IServiceByLike<CustomerParam> {
+        IServiceLike<CustomerParam> {
 
     /**
      * <h4>客户登录</h4>
