@@ -1,6 +1,8 @@
 package cn.peyton.spring.mall.param;
 
 import cn.peyton.spring.mall.entity.Attention;
+import cn.peyton.spring.validator.constraints.Length;
+import cn.peyton.spring.validator.constraints.NotBlank;
 
 /**
  * <h3>关注[商品] 参数 传递类[用来展示数据]类 .</h3>
@@ -15,6 +17,8 @@ public final class AttentionParam{
 	/** 编号  */
 	private Long id;
 	/** 商品编号  */
+	@NotBlank(message = "商品编号不存在")
+    @Length(message = "商品长度超出",max = 50)
 	private String comId;
 	/** 顾客编号  */
 	private Long cusId;

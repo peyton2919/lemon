@@ -2,7 +2,7 @@ package cn.peyton.spring.mall.service.impl;
 
 import cn.peyton.spring.def.DefaultExistRename;
 import cn.peyton.spring.exception.GlobalException;
-import cn.peyton.spring.mall.bo.CommoditySortBo;
+import cn.peyton.spring.mall.bo.CommoditySortConvertBo;
 import cn.peyton.spring.mall.entity.CommoditySort;
 import cn.peyton.spring.mall.param.CommoditySortParam;
 import cn.peyton.spring.mall.service.CommoditySortService;
@@ -66,16 +66,16 @@ public class CommoditySortServiceImpl implements CommoditySortService {
 
     @Override
     public PageResult<CommoditySortParam> findByAll(PageQuery page) {
-        return ResultAdapter.adapt(commoditySortMapper, page, new CommoditySortBo());
+        return ResultAdapter.adapt(commoditySortMapper, page, new CommoditySortConvertBo());
     }
 
     @Override
     public PageResult<CommoditySortParam> findLikeByKeyword(String keyword, PageQuery page) {
-        return ResultAdapter.adapt(commoditySortMapper, keyword, page, new CommoditySortBo());
+        return ResultAdapter.adapt(commoditySortMapper, keyword, page, new CommoditySortConvertBo());
     }
 
     @Override
     public List<CommoditySortParam> findBySelect() {
-        return new CommoditySortBo().adapter(commoditySortMapper.selectBySelect());
+        return new CommoditySortConvertBo().adapter(commoditySortMapper.selectBySelect());
     }
 }

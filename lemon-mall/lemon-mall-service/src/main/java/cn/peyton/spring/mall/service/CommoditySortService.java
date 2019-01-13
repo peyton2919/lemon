@@ -1,7 +1,7 @@
 package cn.peyton.spring.mall.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 import cn.peyton.spring.mall.entity.CommoditySort;
 import cn.peyton.spring.mall.param.CommoditySortParam;
@@ -16,6 +16,6 @@ import cn.peyton.spring.mall.param.CommoditySortParam;
  * </pre>
 */
 public interface CommoditySortService extends IService<Integer,CommoditySortParam,CommoditySort>,
-        IServiceBySelect<CommoditySortParam>,IServiceByLike<CommoditySortParam> {
+        IServiceBySelect<CommoditySortParam>,IServiceLike<CommoditySortParam> {
 
 }

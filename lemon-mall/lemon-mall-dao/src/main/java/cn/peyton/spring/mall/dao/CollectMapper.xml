@@ -86,7 +86,27 @@
 		where id = #{id}
 	</select>
 
-
 	<!-- new create method   -->
+    <select id="selectByCusIdAndStatus" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_collect
+        WHERE cus_id = #{cusId}
+        AND att_status = #{status}
+    </select>
 
+    <select id="selectByCusIdAndComId" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_collect
+        WHERE cus_id = #{cusId}
+        AND com_id = #{comId}
+    </select>
+
+    <update id="updateStatus" parameterType="map">
+        update tb_collect
+        set
+        att_status = #{status}
+        where id = #{id}
+    </update>
 </mapper>

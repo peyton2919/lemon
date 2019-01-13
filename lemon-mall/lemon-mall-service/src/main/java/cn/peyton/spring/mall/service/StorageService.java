@@ -2,7 +2,7 @@ package cn.peyton.spring.mall.service;
 
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.mall.entity.StorageDetail;
 import cn.peyton.spring.mall.param.StorageParam;
 
@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public interface StorageService extends IServiceByLike<StorageParam>{
+public interface StorageService extends IServiceLike<StorageParam> {
 
     /**
      * <h4>添加</h4>

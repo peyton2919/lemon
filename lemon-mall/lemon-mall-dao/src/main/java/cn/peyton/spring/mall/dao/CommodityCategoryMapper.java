@@ -1,7 +1,7 @@
 package cn.peyton.spring.mall.dao;
 
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.inf.IMapperBySelect;
 import cn.peyton.spring.mall.entity.CommodityCategory;
 import org.apache.ibatis.annotations.Param;
@@ -17,7 +17,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public interface CommodityCategoryMapper extends IMapperByAll<CommodityCategory>,IMapperByLike<CommodityCategory>,
+public interface CommodityCategoryMapper extends IMapperAll<CommodityCategory>,IMapperLike<CommodityCategory>,
         IMapperBySelect<CommodityCategory>{
 	/**
 	 * <h4>插入 对象</h4>

@@ -1,6 +1,6 @@
 package cn.peyton.spring.mall.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.mall.entity.StorageDetail;
 import cn.peyton.spring.mall.param.StorageDetailParam;
 
@@ -10,12 +10,12 @@ import cn.peyton.spring.mall.param.StorageDetailParam;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.mall.bo.StorageDetailBo.java
+ * @packageName: cn.peyton.spring.mall.bo.StorageDetailConvertBo.java
  * @createDate: 2018/10/14 15:54
  * @version: 1.0.0
  * </pre>
  */
-public class StorageDetailBo extends BaseBo<StorageDetailParam,StorageDetail> {
+public class StorageDetailConvertBo extends BaseConvertBo<StorageDetailParam,StorageDetail> {
 
     @Override
     public StorageDetailParam compat(StorageDetail info) {

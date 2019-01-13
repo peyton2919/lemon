@@ -7,8 +7,8 @@ import cn.peyton.spring.def.BaseUser;
 import cn.peyton.spring.enums.Status;
 import cn.peyton.spring.enums.Tips;
 import cn.peyton.spring.exception.ValidationException;
-import cn.peyton.spring.mall.bo.StorageBo;
-import cn.peyton.spring.mall.bo.StorageDetailBo;
+import cn.peyton.spring.mall.bo.StorageConvertBo;
+import cn.peyton.spring.mall.bo.StorageDetailConvertBo;
 import cn.peyton.spring.mall.dao.InventoryMapper;
 import cn.peyton.spring.mall.dao.StorageDetailMapper;
 import cn.peyton.spring.mall.entity.Inventory;
@@ -279,7 +279,7 @@ public class StorageServiceImpl implements StorageService {
     public StorageParam findById(Long id) {
         StorageParam param = new StorageParam().compat(storageMapper.selectByPrimaryKey(id));
         if (null != param.getId() && !"".equals(param.getId())) {
-            param.setStorageDetailParams((new StorageDetailBo()).adapter
+            param.setStorageDetailParams((new StorageDetailConvertBo()).adapter
                     (storageDetailMapper.selectByStorId(param.getId())));
         }
         return param;
@@ -298,7 +298,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectByAll(page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectByAll(page)));
         }
         return result;
     }
@@ -309,7 +309,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countLikeByKeyword(keyword);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }
@@ -320,7 +320,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countByEmpId(empId);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectByEmpId(empId,page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectByEmpId(empId,page)));
         }
         return result;
     }
@@ -331,7 +331,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countByWarId(warId);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectByWarId(warId,page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectByWarId(warId,page)));
         }
         return result;
     }
@@ -342,7 +342,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countByTime(beginTime,endTime);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectByTime(beginTime,endTime,page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectByTime(beginTime,endTime,page)));
         }
         return result;
     }
@@ -353,7 +353,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countByDirection(direction);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectByDirection(direction,page)));
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectByDirection(direction,page)));
         }
         return result;
     }
@@ -365,7 +365,7 @@ public class StorageServiceImpl implements StorageService {
         int count = storageMapper.countMultiCondition(warId,direction,comName,beginTime,endTime);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new StorageBo().adapter(storageMapper.selectMultiCondition(page,warId,direction,
+            result.setData(new StorageConvertBo().adapter(storageMapper.selectMultiCondition(page,warId,direction,
                     comName,beginTime,endTime)));
         }
         return result;

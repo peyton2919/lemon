@@ -1,6 +1,6 @@
 package cn.peyton.spring.mall.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.mall.entity.CommodityCategory;
 import cn.peyton.spring.mall.param.CommodityCategoryParam;
 
@@ -10,12 +10,12 @@ import cn.peyton.spring.mall.param.CommodityCategoryParam;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.mall.bo.CommodityCategoryBo.java
+ * @packageName: cn.peyton.spring.mall.bo.CommodityCategoryConvertBo.java
  * @createDate: 2018-09-13 22:21
  * @version: 1.0.0
  * </pre>
  */
-public final class CommodityCategoryBo extends BaseBo<CommodityCategoryParam, CommodityCategory> {
+public final class CommodityCategoryConvertBo extends BaseConvertBo<CommodityCategoryParam, CommodityCategory> {
 
     @Override
     public CommodityCategoryParam compat(CommodityCategory info) {

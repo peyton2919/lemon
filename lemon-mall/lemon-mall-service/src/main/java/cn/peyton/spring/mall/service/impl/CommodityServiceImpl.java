@@ -7,7 +7,7 @@ import cn.peyton.spring.exception.TransactionalException;
 import cn.peyton.spring.exception.ValidationException;
 import cn.peyton.spring.file.FolderOperation;
 import cn.peyton.spring.img.ImageUtil;
-import cn.peyton.spring.mall.bo.CommodityBo;
+import cn.peyton.spring.mall.bo.CommodityConvertBo;
 import cn.peyton.spring.mall.dao.DeletePictureMapper;
 import cn.peyton.spring.mall.entity.Commodity;
 import cn.peyton.spring.mall.entity.DeletePicture;
@@ -64,7 +64,7 @@ public class CommodityServiceImpl implements CommodityService {
         PageResult<CommodityParam> result = new PageResult<>();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CommodityBo().adapter(commodityMapper.selectByPriceBetween(page,type,min,max)));
+            result.setData(new CommodityConvertBo().adapter(commodityMapper.selectByPriceBetween(page,type,min,max)));
         }
         return result;
     }
@@ -75,7 +75,7 @@ public class CommodityServiceImpl implements CommodityService {
         PageResult<CommodityParam> result = new PageResult<>();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CommodityBo().adapter(commodityMapper.selectByOriId(page,oriId)));
+            result.setData(new CommodityConvertBo().adapter(commodityMapper.selectByOriId(page,oriId)));
         }
         return result;
     }
@@ -86,7 +86,7 @@ public class CommodityServiceImpl implements CommodityService {
         PageResult<CommodityParam> result = new PageResult<>();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CommodityBo().adapter(commodityMapper.selectByCocaId(page,cocaId)));
+            result.setData(new CommodityConvertBo().adapter(commodityMapper.selectByCocaId(page,cocaId)));
         }
         return result;
     }
@@ -274,7 +274,7 @@ public class CommodityServiceImpl implements CommodityService {
         PageResult<CommodityParam> result = new PageResult<CommodityParam>();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CommodityBo().adapter(commodityMapper.selectByAll(page)));
+            result.setData(new CommodityConvertBo().adapter(commodityMapper.selectByAll(page)));
         }
         return result;
     }
@@ -285,7 +285,7 @@ public class CommodityServiceImpl implements CommodityService {
         PageResult<CommodityParam> result = new PageResult<CommodityParam>();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new CommodityBo().adapter(commodityMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new CommodityConvertBo().adapter(commodityMapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }

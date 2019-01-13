@@ -2,7 +2,7 @@ package cn.peyton.spring.mall.service.impl;
 
 import cn.peyton.spring.exception.GlobalException;
 import cn.peyton.spring.exception.ParamException;
-import cn.peyton.spring.mall.bo.CommodityCategoryBo;
+import cn.peyton.spring.mall.bo.CommodityCategoryConvertBo;
 import cn.peyton.spring.mall.entity.CommodityCategory;
 import cn.peyton.spring.mall.param.CommodityCategoryParam;
 import cn.peyton.spring.mall.service.CommodityCategoryService;
@@ -89,19 +89,19 @@ public class CommodityCategoryServiceImpl implements CommodityCategoryService {
 
     @Override
     public PageResult<CommodityCategoryParam> findByAll(PageQuery page) {
-        return ResultAdapter.adapt(commodityCategoryMapper,page,new CommodityCategoryBo());
+        return ResultAdapter.adapt(commodityCategoryMapper,page,new CommodityCategoryConvertBo());
     }
 
     @Override
     public PageResult<CommodityCategoryParam> findLikeByKeyword(String keyword, PageQuery page) {
 
-        return ResultAdapter.adapt(commodityCategoryMapper,keyword,page,new CommodityCategoryBo());
+        return ResultAdapter.adapt(commodityCategoryMapper,keyword,page,new CommodityCategoryConvertBo());
     }
 
     @Override
     public List<CommodityCategoryParam> findBySelect() {
 
-        return new CommodityCategoryBo().adapter(commodityCategoryMapper.selectBySelect());
+        return new CommodityCategoryConvertBo().adapter(commodityCategoryMapper.selectBySelect());
     }
 
     @Override

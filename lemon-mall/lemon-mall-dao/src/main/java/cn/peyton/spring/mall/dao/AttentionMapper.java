@@ -1,6 +1,9 @@
 package cn.peyton.spring.mall.dao;
 
 import cn.peyton.spring.mall.entity.Attention;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <h3>关注[商品] Mapper 接口 .</h3>
@@ -57,5 +60,28 @@ public interface AttentionMapper {
 
 	// ==================================== new create method ==================================== //
 
+    /**
+     * <h4>根据客户编号和状态 查找对象集合[商品编号]</h4>
+     * @param cusId 客户编号
+     * @param status 状态 0不关注，1关注
+     * @return 关注对象集合
+     */
+    List<Attention> selectByCusIdAndStatus(@Param("cusId") Long cusId,@Param("status") Integer status);
+
+    /**
+     * <h4>根据客户编号和商品编号 查找 对象</h4>
+     * @param cusId 客户编号
+     * @param comId 商品编号
+     * @return 关注对象
+     */
+    Attention selectByCusIdAndComId(@Param("cusId") Long cusId, @Param("comId") String comId);
+
+    /**
+     * <h4>更新状态</h4>
+     * @param id 关注编号
+     * @param status 状态 0 不关注, 1 关注
+     * @return 受影响行数
+     */
+    int updateStatus(@Param("id") Long id, @Param("status") Integer status);
 
 }

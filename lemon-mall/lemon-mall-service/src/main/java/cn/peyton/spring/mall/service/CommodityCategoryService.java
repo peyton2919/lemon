@@ -1,7 +1,7 @@
 package cn.peyton.spring.mall.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 import cn.peyton.spring.mall.entity.CommodityCategory;
 import cn.peyton.spring.mall.param.CommodityCategoryParam;
@@ -18,7 +18,7 @@ import java.util.List;
  * </pre>
 */
 public interface CommodityCategoryService extends IService<Long,CommodityCategoryParam,CommodityCategory>,
-        IServiceBySelect<CommodityCategoryParam>,IServiceByLike<CommodityCategoryParam>{
+        IServiceBySelect<CommodityCategoryParam>,IServiceLike<CommodityCategoryParam> {
 
     /**
      * <h4>树结构</h4>

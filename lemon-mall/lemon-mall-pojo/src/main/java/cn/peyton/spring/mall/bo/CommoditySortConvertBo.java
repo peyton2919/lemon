@@ -1,6 +1,6 @@
 package cn.peyton.spring.mall.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.mall.entity.CommoditySort;
 import cn.peyton.spring.mall.param.CommoditySortParam;
 
@@ -10,12 +10,12 @@ import cn.peyton.spring.mall.param.CommoditySortParam;
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @projectName: lemon
- * @packageName: cn.peyton.spring.mall.bo.CommoditySortBo.java
+ * @packageName: cn.peyton.spring.mall.bo.CommoditySortConvertBo.java
  * @createDate: 2018/9/13 16:25
  * @version: 1.0.0
  * </pre>
  */
-public final class CommoditySortBo extends BaseBo<CommoditySortParam, CommoditySort> {
+public final class CommoditySortConvertBo extends BaseConvertBo<CommoditySortParam, CommoditySort> {
 
     @Override
     public CommoditySortParam compat(CommoditySort info) {

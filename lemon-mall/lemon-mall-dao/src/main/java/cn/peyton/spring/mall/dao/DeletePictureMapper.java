@@ -1,7 +1,7 @@
 package cn.peyton.spring.mall.dao;
 
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.mall.entity.DeletePicture;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public interface DeletePictureMapper extends IMapperByAll<DeletePicture>,IMapperByLike<DeletePicture>{
+public interface DeletePictureMapper extends IMapperAll<DeletePicture>,IMapperLike<DeletePicture> {
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

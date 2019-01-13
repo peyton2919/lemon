@@ -1,7 +1,7 @@
 package cn.peyton.spring.mall.service;
 
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.mall.entity.DeletePicture;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @version 1.0.0
  * </pre>
 */
-public interface DeletePictureService extends IService<Long,DeletePicture,DeletePicture>,IServiceByLike<DeletePicture>{
+public interface DeletePictureService extends IService<Long,DeletePicture,DeletePicture>,IServiceLike<DeletePicture> {
     /**
      * <h4>批量插入删除图片</h4>
      * @param deletePictures

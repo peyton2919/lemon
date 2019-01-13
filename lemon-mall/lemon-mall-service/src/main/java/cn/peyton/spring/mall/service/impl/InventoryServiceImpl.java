@@ -2,7 +2,7 @@ package cn.peyton.spring.mall.service.impl;
 
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
-import cn.peyton.spring.mall.bo.InventoryBo;
+import cn.peyton.spring.mall.bo.InventoryConvertBo;
 import cn.peyton.spring.mall.entity.Inventory;
 import cn.peyton.spring.mall.param.InventoryParam;
 import cn.peyton.spring.mall.service.InventoryService;
@@ -51,7 +51,7 @@ public class InventoryServiceImpl implements InventoryService {
         int count = inventoryMapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new InventoryBo().adapter(inventoryMapper.selectByAll(page)));
+            result.setData(new InventoryConvertBo().adapter(inventoryMapper.selectByAll(page)));
         }
         return result;
     }
@@ -67,7 +67,7 @@ public class InventoryServiceImpl implements InventoryService {
         int count = inventoryMapper.countByComId(comId);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new InventoryBo().adapter(inventoryMapper.selectByComId(comId,page)));
+            result.setData(new InventoryConvertBo().adapter(inventoryMapper.selectByComId(comId,page)));
         }
         return result;
     }
@@ -83,7 +83,7 @@ public class InventoryServiceImpl implements InventoryService {
         int count = inventoryMapper.countByWarId(warId);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new InventoryBo().adapter(inventoryMapper.selectByWarId(warId,page)));
+            result.setData(new InventoryConvertBo().adapter(inventoryMapper.selectByWarId(warId,page)));
         }
         return result;
     }
@@ -94,7 +94,7 @@ public class InventoryServiceImpl implements InventoryService {
         int count = inventoryMapper.countLikeByKeyword(comName);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new InventoryBo().adapter(inventoryMapper.selectLikeByKeyword(comName,page)));
+            result.setData(new InventoryConvertBo().adapter(inventoryMapper.selectLikeByKeyword(comName,page)));
         }
         return result;
     }

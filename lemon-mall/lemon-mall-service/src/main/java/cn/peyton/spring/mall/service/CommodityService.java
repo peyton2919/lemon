@@ -3,7 +3,7 @@ package cn.peyton.spring.mall.service;
 import cn.peyton.spring.beans.PageQuery;
 import cn.peyton.spring.beans.PageResult;
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceUpdateStatus;
 import cn.peyton.spring.mall.entity.Commodity;
 import cn.peyton.spring.mall.param.CommodityParam;
@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  * </pre>
 */
 public interface CommodityService extends IService<String,CommodityParam,Commodity>,
-        IServiceByLike<CommodityParam>, IServiceUpdateStatus<String>{
+        IServiceLike<CommodityParam>, IServiceUpdateStatus<String>{
 
     /**
      * <h4>根据商品编号 查找 主图片地址</h4>

@@ -1,6 +1,6 @@
 package cn.peyton.spring.mall.bo;
 
-import cn.peyton.spring.def.BaseBo;
+import cn.peyton.spring.def.BaseConvertBo;
 import cn.peyton.spring.mall.entity.Attention;
 import cn.peyton.spring.mall.param.AttentionParam;
 
@@ -9,13 +9,13 @@ import cn.peyton.spring.mall.param.AttentionParam;
  * <pre>
  * @email: <a href="mailto:fz2919@tom.com">fz2919@tom.com</a>
  * @project name: lemon
- * @class name: cn.peyton.spring.mall.bo.AttentionBo.java
+ * @class name: cn.peyton.spring.mall.bo.AttentionConvertBo.java
  * @create date: 2018-11-29 16:39
  * @author: <a href="http://www.peyton.cn">peyton</a>
  * @version: 1.0.0
  * </pre>
  */
-public class AttentionBo extends BaseBo<AttentionParam,Attention> {
+public class AttentionConvertBo extends BaseConvertBo<AttentionParam,Attention> {
     @Override
     public AttentionParam compat(Attention info) {
         return new AttentionParam().compat(info);
