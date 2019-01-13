@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.ColorBo;
+import cn.peyton.spring.basis.bo.ColorConvertBo;
 import cn.peyton.spring.basis.dao.ColorMapper;
 import cn.peyton.spring.basis.entity.Color;
 import cn.peyton.spring.basis.param.ColorParam;
@@ -66,7 +66,7 @@ public class ColorServiceImpl implements ColorService {
     public PageResult<ColorParam> findByAll(PageQuery page) {
         int count = colorMapper.count();
         if (count > 0) {
-            return new PageResult<ColorParam>(new ColorBo().adapter(colorMapper.selectByAll(page)), count);
+            return new PageResult<ColorParam>(new ColorConvertBo().adapter(colorMapper.selectByAll(page)), count);
         }
         return new PageResult<ColorParam>();
     }
@@ -75,14 +75,14 @@ public class ColorServiceImpl implements ColorService {
     public PageResult<ColorParam> findLikeByKeyword(String keyword, PageQuery page) {
         int count = colorMapper.countLikeByKeyword(keyword);
         if (count > 0) {
-            return new PageResult<ColorParam>(new ColorBo().adapter(colorMapper.selectLikeByKeyword(keyword, page)), count);
+            return new PageResult<ColorParam>(new ColorConvertBo().adapter(colorMapper.selectLikeByKeyword(keyword, page)), count);
         }
         return new PageResult<ColorParam>();
     }
 
     @Override
     public List<ColorParam> findBySelect() {
-        return new ColorBo().adapter(colorMapper.selectBySelect());
+        return new ColorConvertBo().adapter(colorMapper.selectBySelect());
     }
 
 }

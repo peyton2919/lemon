@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.OriginBo;
+import cn.peyton.spring.basis.bo.OriginConvertBo;
 import cn.peyton.spring.basis.dao.OriginMapper;
 import cn.peyton.spring.basis.entity.Origin;
 import cn.peyton.spring.basis.param.OriginParam;
@@ -68,7 +68,7 @@ public class OriginServiceImpl implements OriginService {
         PageResult<OriginParam> result = new PageResult<>();
         int count = originMapper.count();
         if (count > 0) {
-            result.setData(new OriginBo().adapter(originMapper.selectByAll(page)));
+            result.setData(new OriginConvertBo().adapter(originMapper.selectByAll(page)));
             result.setTotal(count);
         }
         return result;
@@ -79,7 +79,7 @@ public class OriginServiceImpl implements OriginService {
         PageResult<OriginParam> result = new PageResult<>();
         int count = originMapper.countLikeByKeyword(keyword);
         if (count > 0) {
-            result.setData(new OriginBo().adapter(originMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new OriginConvertBo().adapter(originMapper.selectLikeByKeyword(keyword,page)));
             result.setTotal(count);
         }
         return result;
@@ -87,6 +87,6 @@ public class OriginServiceImpl implements OriginService {
 
     @Override
     public List<OriginParam> findBySelect() {
-        return new OriginBo().adapter(originMapper.selectBySelect());
+        return new OriginConvertBo().adapter(originMapper.selectBySelect());
     }
 }

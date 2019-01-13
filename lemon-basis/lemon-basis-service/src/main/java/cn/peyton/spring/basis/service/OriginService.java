@@ -3,7 +3,7 @@ package cn.peyton.spring.basis.service;
 import cn.peyton.spring.basis.entity.Origin;
 import cn.peyton.spring.basis.param.OriginParam;
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 
 /**
@@ -16,6 +16,6 @@ import cn.peyton.spring.inf.IServiceBySelect;
  * </pre>
 */
 public interface OriginService extends IService<Integer,OriginParam,Origin>,
-        IServiceByLike<OriginParam>,IServiceBySelect<OriginParam>{
+        IServiceLike<OriginParam>,IServiceBySelect<OriginParam>{
 
 }

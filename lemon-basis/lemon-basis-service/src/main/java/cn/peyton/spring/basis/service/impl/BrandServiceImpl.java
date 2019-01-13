@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.BrandBo;
+import cn.peyton.spring.basis.bo.BrandConvertBo;
 import cn.peyton.spring.basis.dao.BrandMapper;
 import cn.peyton.spring.basis.entity.Brand;
 import cn.peyton.spring.basis.param.BrandParam;
@@ -94,7 +94,7 @@ public class BrandServiceImpl implements BrandService {
         int count = brandMapper.count();
         if (count > 0) {
             params.setTotal(count);
-            params.setData(new BrandBo().adapter(brandMapper.selectByAll(page)));
+            params.setData(new BrandConvertBo().adapter(brandMapper.selectByAll(page)));
         }
         return params;
     }
@@ -105,14 +105,14 @@ public class BrandServiceImpl implements BrandService {
         int count = brandMapper.count();
         if (count > 0) {
             params.setTotal(count);
-            params.setData(new BrandBo().adapter(brandMapper.selectLikeByKeyword(keyword,page)));
+            params.setData(new BrandConvertBo().adapter(brandMapper.selectLikeByKeyword(keyword,page)));
         }
         return params;
     }
 
     @Override
     public List<BrandParam> findBySelect() {
-        return new BrandBo().adapter(brandMapper.selectBySelect());
+        return new BrandConvertBo().adapter(brandMapper.selectBySelect());
     }
 
     @Override

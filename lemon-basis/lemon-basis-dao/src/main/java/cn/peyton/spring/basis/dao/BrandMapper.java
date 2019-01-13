@@ -12,8 +12,8 @@ import cn.peyton.spring.inf.*;
  * @version 1.0.0
  * </pre>
 */
-public interface BrandMapper extends IMapperByAll<Brand>,
-        IMapperByLike<Brand>,IMapperBySelect<Brand>,IMapperByRename<Integer>,IMapperUpdateStatus<Integer>{
+public interface BrandMapper extends IMapperAll<Brand>,
+        IMapperLike<Brand>,IMapperBySelect<Brand>,IMapperByRename<Integer>,IMapperUpdateStatus<Integer>{
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

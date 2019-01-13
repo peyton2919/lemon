@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.RegionBo;
+import cn.peyton.spring.basis.bo.RegionConvertBo;
 import cn.peyton.spring.basis.dao.RegionMapper;
 import cn.peyton.spring.basis.entity.Region;
 import cn.peyton.spring.basis.param.RegionParam;
@@ -102,7 +102,7 @@ public class RegionServiceImpl implements RegionService {
         int count = regionMapper.countLikeByKeyword(keyword);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new RegionBo().adapter(regionMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new RegionConvertBo().adapter(regionMapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }
@@ -113,25 +113,25 @@ public class RegionServiceImpl implements RegionService {
         int count = regionMapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new RegionBo().adapter(regionMapper.selectByAll(page)));
+            result.setData(new RegionConvertBo().adapter(regionMapper.selectByAll(page)));
         }
         return result;
     }
 
     @Override
     public List<RegionParam> findBySelect() {
-        return new RegionBo().adapter(regionMapper.selectBySelect());
+        return new RegionConvertBo().adapter(regionMapper.selectBySelect());
     }
 
     @Override
     public List<RegionParam> tree() {
-        List<RegionParam> regionParamList = new RegionBo().adapter(regionMapper.selectByTree());
+        List<RegionParam> regionParamList = new RegionConvertBo().adapter(regionMapper.selectByTree());
         return regionListToTree(regionParamList);
     }
 
     @Override
     public List<RegionParam> findByParentId(Long parentId) {
-        return new RegionBo().adapter(regionMapper.selectByParentId(parentId));
+        return new RegionConvertBo().adapter(regionMapper.selectByParentId(parentId));
     }
 
     // ======================================= Private Method ======================================= //

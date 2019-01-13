@@ -3,7 +3,7 @@ package cn.peyton.spring.basis.service;
 import cn.peyton.spring.basis.entity.Brand;
 import cn.peyton.spring.basis.param.BrandParam;
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 import cn.peyton.spring.inf.IServiceUpdateStatus;
 
@@ -17,7 +17,7 @@ import cn.peyton.spring.inf.IServiceUpdateStatus;
  * </pre>
 */
 public interface BrandService extends IService<Integer,BrandParam,Brand>,
-        IServiceBySelect<BrandParam>,IServiceByLike<BrandParam>,IServiceUpdateStatus<Integer> {
+        IServiceBySelect<BrandParam>,IServiceLike<BrandParam>,IServiceUpdateStatus<Integer> {
 
 
     /**

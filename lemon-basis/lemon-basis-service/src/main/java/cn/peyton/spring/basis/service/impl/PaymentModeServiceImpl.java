@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.PaymentModeBo;
+import cn.peyton.spring.basis.bo.PaymentModeConvertBo;
 import cn.peyton.spring.basis.dao.PaymentModeMapper;
 import cn.peyton.spring.basis.entity.PaymentMode;
 import cn.peyton.spring.basis.param.PaymentModeParam;
@@ -67,7 +67,7 @@ public class PaymentModeServiceImpl implements PaymentModeService {
         int count = paymentModeMapper.count();
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new PaymentModeBo().adapter(paymentModeMapper.selectByAll(page)));
+            result.setData(new PaymentModeConvertBo().adapter(paymentModeMapper.selectByAll(page)));
         }
         return result;
     }
@@ -78,13 +78,13 @@ public class PaymentModeServiceImpl implements PaymentModeService {
         int count = paymentModeMapper.countLikeByKeyword(keyword);
         if (count > 0) {
             result.setTotal(count);
-            result.setData(new PaymentModeBo().adapter(paymentModeMapper.selectLikeByKeyword(keyword,page)));
+            result.setData(new PaymentModeConvertBo().adapter(paymentModeMapper.selectLikeByKeyword(keyword,page)));
         }
         return result;
     }
 
     @Override
     public List<PaymentModeParam> findBySelect() {
-        return new PaymentModeBo().adapter(paymentModeMapper.selectBySelect());
+        return new PaymentModeConvertBo().adapter(paymentModeMapper.selectBySelect());
     }
 }

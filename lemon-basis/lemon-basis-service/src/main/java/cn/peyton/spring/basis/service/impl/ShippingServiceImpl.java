@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.ShippingBo;
+import cn.peyton.spring.basis.bo.ShippingConvertBo;
 import cn.peyton.spring.basis.dao.ShippingMapper;
 import cn.peyton.spring.basis.entity.Shipping;
 import cn.peyton.spring.basis.param.ShippingParam;
@@ -31,7 +31,7 @@ public class ShippingServiceImpl implements ShippingService {
     public PageResult<ShippingParam> findLikeByKeywordAndPage(String keyword, PageQuery page) {
         int count = shippingMapper.countLikeByKeyword(keyword);
         if (count > 0) {
-            return new PageResult<ShippingParam>(new ShippingBo().adapter(shippingMapper.selectLikeByKeyword(keyword,page)),count);
+            return new PageResult<ShippingParam>(new ShippingConvertBo().adapter(shippingMapper.selectLikeByKeyword(keyword,page)),count);
         }
         return new PageResult<ShippingParam>();
     }
@@ -71,7 +71,7 @@ public class ShippingServiceImpl implements ShippingService {
     public PageResult<ShippingParam> findByAll(PageQuery page) {
         int count = shippingMapper.count();
         if (count > 0) {
-            return new PageResult<ShippingParam>(new ShippingBo().adapter(shippingMapper.selectByAll(page)), count);
+            return new PageResult<ShippingParam>(new ShippingConvertBo().adapter(shippingMapper.selectByAll(page)), count);
         }
         return new PageResult<ShippingParam>();
     }

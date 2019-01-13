@@ -3,7 +3,7 @@ package cn.peyton.spring.basis.service;
 import cn.peyton.spring.basis.entity.Region;
 import cn.peyton.spring.basis.param.RegionParam;
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
  * </pre>
 */
 public interface RegionService extends IService<Long,RegionParam,Region>,
-        IServiceByLike<RegionParam>,IServiceBySelect<RegionParam>{
+        IServiceLike<RegionParam>,IServiceBySelect<RegionParam>{
 
     /**
      * <h4>树结构</h4>

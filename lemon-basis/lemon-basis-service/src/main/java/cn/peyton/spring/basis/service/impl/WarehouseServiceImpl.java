@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.WarehouseBo;
+import cn.peyton.spring.basis.bo.WarehouseConvertBo;
 import cn.peyton.spring.basis.dao.WarehouseMapper;
 import cn.peyton.spring.basis.entity.Warehouse;
 import cn.peyton.spring.basis.param.WarehouseParam;
@@ -31,7 +31,7 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public PageResult<WarehouseParam> findLikeByKeywordAndPage(String keyword, PageQuery page) {
-        return ResultAdapter.adapt(warehouseMapper, keyword, page, new WarehouseBo());
+        return ResultAdapter.adapt(warehouseMapper, keyword, page, new WarehouseConvertBo());
     }
 
     @Override
@@ -68,12 +68,12 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public PageResult<WarehouseParam> findByAll(PageQuery page) {
-        return ResultAdapter.adapt(warehouseMapper, page, new WarehouseBo());
+        return ResultAdapter.adapt(warehouseMapper, page, new WarehouseConvertBo());
     }
 
     @Override
     public List<WarehouseParam> findBySelect() {
-        return new WarehouseBo().adapter(warehouseMapper.selectBySelect());
+        return new WarehouseConvertBo().adapter(warehouseMapper.selectBySelect());
     }
 
     /**

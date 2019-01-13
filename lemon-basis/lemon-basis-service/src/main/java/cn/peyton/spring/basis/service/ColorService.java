@@ -3,7 +3,7 @@ package cn.peyton.spring.basis.service;
 import cn.peyton.spring.basis.entity.Color;
 import cn.peyton.spring.basis.param.ColorParam;
 import cn.peyton.spring.inf.IService;
-import cn.peyton.spring.inf.IServiceByLike;
+import cn.peyton.spring.inf.IServiceLike;
 import cn.peyton.spring.inf.IServiceBySelect;
 
 /**
@@ -16,6 +16,6 @@ import cn.peyton.spring.inf.IServiceBySelect;
  * </pre>
 */
 public interface ColorService extends IService<Integer,ColorParam,Color>,
-        IServiceBySelect<ColorParam>,IServiceByLike<ColorParam>{
+        IServiceBySelect<ColorParam>,IServiceLike<ColorParam> {
 
 }

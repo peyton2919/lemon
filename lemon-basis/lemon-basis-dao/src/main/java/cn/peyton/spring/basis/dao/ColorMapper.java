@@ -1,8 +1,8 @@
 package cn.peyton.spring.basis.dao;
 
 import cn.peyton.spring.basis.entity.Color;
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.inf.IMapperByRename;
 import cn.peyton.spring.inf.IMapperBySelect;
 
@@ -15,8 +15,8 @@ import cn.peyton.spring.inf.IMapperBySelect;
  * @version 1.0.0
  * </pre>
 */
-public interface ColorMapper extends IMapperByAll<Color>,
-        IMapperByLike<Color>,IMapperBySelect<Color>,IMapperByRename<Integer> {
+public interface ColorMapper extends IMapperAll<Color>,
+        IMapperLike<Color>,IMapperBySelect<Color>,IMapperByRename<Integer> {
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象

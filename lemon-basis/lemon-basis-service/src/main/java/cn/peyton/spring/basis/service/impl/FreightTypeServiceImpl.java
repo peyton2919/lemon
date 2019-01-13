@@ -1,6 +1,6 @@
 package cn.peyton.spring.basis.service.impl;
 
-import cn.peyton.spring.basis.bo.FreightTypeBo;
+import cn.peyton.spring.basis.bo.FreightTypeConvertBo;
 import cn.peyton.spring.basis.dao.FreightTypeMapper;
 import cn.peyton.spring.basis.entity.FreightType;
 import cn.peyton.spring.basis.param.FreightTypeParam;
@@ -33,7 +33,7 @@ public class FreightTypeServiceImpl implements FreightTypeService {
     public PageResult<FreightTypeParam> findLikeByKeywordAndPage(String keyword, PageQuery page) {
         int count = freightTypeMapper.countLikeByKeyword(keyword);
         if (count >0 ){
-            return new PageResult<FreightTypeParam>(new FreightTypeBo().adapter(freightTypeMapper.selectLikeByKeyword(keyword, page)), count);
+            return new PageResult<FreightTypeParam>(new FreightTypeConvertBo().adapter(freightTypeMapper.selectLikeByKeyword(keyword, page)), count);
         }
         return new PageResult<FreightTypeParam>();
     }
@@ -77,7 +77,7 @@ public class FreightTypeServiceImpl implements FreightTypeService {
 
     @Override
     public PageResult<FreightTypeParam> findByAll(PageQuery page) {
-        return ResultAdapter.adapt(freightTypeMapper, page, new FreightTypeBo());
+        return ResultAdapter.adapt(freightTypeMapper, page, new FreightTypeConvertBo());
     }
 
     /**

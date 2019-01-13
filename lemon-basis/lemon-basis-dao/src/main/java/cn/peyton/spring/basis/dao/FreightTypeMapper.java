@@ -1,8 +1,8 @@
 package cn.peyton.spring.basis.dao;
 
 import cn.peyton.spring.basis.entity.FreightType;
-import cn.peyton.spring.inf.IMapperByAll;
-import cn.peyton.spring.inf.IMapperByLike;
+import cn.peyton.spring.inf.IMapperAll;
+import cn.peyton.spring.inf.IMapperLike;
 import cn.peyton.spring.inf.IMapperByRename;
 
 /**
@@ -14,8 +14,8 @@ import cn.peyton.spring.inf.IMapperByRename;
  * @version: 1.0.0
  * </pre>
 */
-public interface FreightTypeMapper extends IMapperByAll<FreightType>,
-        IMapperByLike<FreightType>,IMapperByRename<Integer>{
+public interface FreightTypeMapper extends IMapperAll<FreightType>,
+        IMapperLike<FreightType>,IMapperByRename<Integer>{
 	/**
 	 * <h4>插入 对象</h4>
 	 * @param record 对象
